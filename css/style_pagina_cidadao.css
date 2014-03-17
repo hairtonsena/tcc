@@ -1,0 +1,169 @@
+html {
+    height: 100%;
+}
+
+
+body {
+
+    /*    padding-top: 68px; */
+    background-color:#fcfcfc;              
+    height: 100%;
+    margin: 0px 0px 0px 0px;
+}
+
+#tela {
+
+    height: 100%;
+    /*background-color: #cccccc;*/
+}
+
+#conteiner {
+    /*    margin-top: 68px;*/
+}
+
+.semMarge { 
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+}
+
+
+
+
+.text-pequino {
+    font-size: 12px;
+}
+
+.tamanho-radio {
+    width: 35%;
+}
+
+
+#generateLink {
+    /*    background-color: #ccc;
+        border: 0px ridge #000;
+        color: #555;
+        cursor: pointer;
+        font-size: 0.75em;
+        font-weight: bold;
+        left: 5%;
+        padding: 1px 2px;
+        position: relative;
+        text-align: left;
+        text-decoration: none;
+        top: 50%;
+        width: 200px;
+        z-index: 1000;*/
+}
+
+.tamanhoColunaEsquedo {
+    width: 75%
+}
+
+.tamanhoColunaDireita {
+    width: 25%
+}
+
+
+#map_canvas {                
+    /*width: 75%;*/
+    height: 92%;
+    float: left;
+    background-color: #ffffff;
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+}
+
+
+#calunaDireita {
+    height: 92%;
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px; 
+    float: right
+}
+
+#menuDireito {      
+    width: 100%;
+    height: 77%;
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    overflow-y: scroll;
+}
+
+#legenda {
+    height: 18%;
+    border-top:2px solid #FFFFFF;
+}
+
+#filtros {
+    width: 100%;
+    height: 5%; 
+}
+
+#menuDireito p {
+    font-size: 11px;
+    text-align: justify;
+}
+
+.tituloProblema {
+    font-size: 14px;
+}
+
+footer {
+    text-align: center;
+}
+
+
+
+.window{
+    display:none;
+    width:300px;
+    height:400px;
+    position:absolute;
+    left:0;
+    top:0;
+    background:#FFF;
+    z-index:9900;
+    padding:10px;
+    border-radius:10px;
+}
+
+#mascara{
+    position:absolute;
+    left:0;
+    top:0;
+    z-index:9000;
+    background-color:#000;
+    display:none;
+}
+
+.fechar{display:block; text-align:right;}
+
+
+#textoPesquisa {
+    height: 30px;
+}
+
+
+.faixa1 {
+    background-color: #f9f9f9;
+    margin: 0px 0px 0px 0px;
+    padding: 2px 2px 2px 2px;
+
+}
+
+.faixa1:hover {
+    background-color: #e5e5e5;
+    cursor: pointer;
+
+}
+
+.faixa0 {
+    background-color: #ffffff;
+    margin:  0px 0px 0px 0px;
+    padding: 2px 2px 2px 2px;
+}
+
+.faixa0:hover {
+    background-color: #e5e5e5;
+    cursor: pointer;
+}

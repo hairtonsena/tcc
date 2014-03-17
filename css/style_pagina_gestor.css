@@ -1,0 +1,93 @@
+/* 
+    Document   : styleAdmin
+    Created on : 09/04/2013, 23:14:09
+    Author     : Teste
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+
+
+html {
+    height: 100%;
+}
+body {
+    height: 100%;
+    margin: 0px 0px 0px 0px;
+}
+
+#tela {
+    height: 100%;
+    background-color: #fcfcfc;
+}
+
+#menu {
+    height: 15%;
+} 
+
+#map_canvas {
+    background-color: #fcfcfc;
+    height: 85%;
+    width: 80%;
+    float: left;
+}
+
+#menuDireito {
+/*    background-color: #46a546;*/
+    height: 85%;
+    width: 20%;
+    float: right;
+    overflow-y: scroll;
+}
+
+
+.faixa1 {
+    background-color: #f9f9f9;
+    margin: 0px 0px 0px 0px;
+    padding: 2px 2px 2px 2px;
+    
+}
+
+.faixa1:hover {
+    background-color: #e5e5e5;
+    cursor: pointer;
+
+}
+
+.faixa0 {
+    background-color: #ffffff;
+    margin:  0px 0px 0px 0px;
+    padding: 2px 2px 2px 2px;
+}
+
+.faixa0:hover {
+    background-color: #e5e5e5;
+    cursor: pointer;
+}
+
+
+.window{
+    display:none;
+    width:300px;
+    height:300px;
+    position:absolute;
+    left:0;
+    top:0;
+    background:#FFF;
+    z-index:9900;
+    padding:10px;
+    border-radius:10px;
+}
+
+#mascara{
+    position:absolute;
+    left:0;
+    top:0;
+    z-index:9000;
+    background-color:#000;
+    display:none;
+}
+
+.fechar{display:block; text-align:right;}
+
+
