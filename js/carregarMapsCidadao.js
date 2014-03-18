@@ -277,22 +277,25 @@ var Conteudo = {
 
 
         // Clicando em um ponto no mapa para realizar uma nova manifestação 
-        google.maps.event.addListener(Conteudo.map, 'rightclick', function(event) {
-                        if ($('#addColaboracao').is(':checked', true)) {
+        google.maps.event.addListener(Conteudo.map, 'click', function(event) {
+            if ($('#addColaboracao').is(':checked', true)) {
             
-                            Conteudo.map.panTo(event.latLng);
-                            Conteudo.adicionarPontoMapa(event.latLng);
+                Conteudo.map.panTo(event.latLng);
+                Conteudo.adicionarPontoMapa(event.latLng);
             
-                        }
-//            var resultado="";
-//            for (propriedade in event) {
-//                resultado += propriedade + ": " + event[propriedade] + "\n"; 
-//            };
-           // alert(resultado);
+            }
 
-            //alert(this.hide);
         });
 
+
+        google.maps.event.addListener(Conteudo.map, 'rightclick', function(event) {
+           // if ($('#addColaboracao').is(':checked', true)) {
+            
+                Conteudo.map.panTo(event.latLng);
+                Conteudo.adicionarPontoMapa(event.latLng);
+            
+ 
+        });
         google.maps.event.trigger(Conteudo.generateLink, 'click');
 
         // Trabalhando com GeoLocalizaçao  
