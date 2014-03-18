@@ -36,6 +36,11 @@
                             <button type="button" class="btn"><i class="icon-search"></i> Pesquisa  </button>
                         </div>
                     </div>
+                    
+                    
+<!--                    <div class="btn" data-toggle="button">Single toggle</button>-->
+                   
+                    
                     <!--</form>-->
                     <div class="pull-right" style="margin: 0px 5px 0px 0px">
 
@@ -56,7 +61,7 @@
                                 <a href=<?php base_url() ?>"seguranca/logoutUser" class="btn" title=" Sair "><img src="<?php echo base_url() ?>icone/7143_32x32.png"/></a>
                             </div>
                         <?php } else { ?>
-                            <a href="javascript:void(0)" onclick="Cadastro.formeCadastroCidadao()" class="btn" ><img src="<?php echo base_url() ?>icone/7818_32x32.png"> Cadastra </a>
+                            <a href="javascript:void(0)" onclick="Cadastro.formeCadastroCidadao()" class="btn" ><img src="<?php echo base_url() ?>icone/7818_32x32.png"> Cadastrar </a>
                             <a href="javascript:void(0)" onclick="Cadastro.formeLoginCidadao()" class="btn"><img src="<?php echo base_url() ?>icone/503_32x32.png"> Entrar </a>
                         <?php }
                         ?>

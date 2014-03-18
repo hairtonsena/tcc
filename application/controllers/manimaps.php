@@ -30,4 +30,15 @@ class Manimaps extends CI_Controller {
         $this->load->view('user_cidadao/index_tela',$dados);
     }
 
+    
+        public function nova() {
+
+        $dados = array(
+            'statusProblema' => $this->status_model->obterTodosStatusProblema()->result(),
+            'tipoProblema' => $this->tipo_model->obterTodosTiposProblema()->result()
+        );
+
+
+        $this->load->view('user_cidadao/index_tela_old',$dados);
+    }
 }

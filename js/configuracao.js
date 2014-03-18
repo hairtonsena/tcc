@@ -1,5 +1,5 @@
 Config = {
-    base_url: "http://localhost/TCC_CI/"
+    base_url: "http://localhost/tcc_ci/"
 
 };
 

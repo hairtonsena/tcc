@@ -17,7 +17,7 @@ if (!defined('BASEPATH'))
   | path to your installation.
   |
  */
-$config['base_url'] = 'http://localhost/TCC_CI/';
+$config['base_url'] = 'http://localhost/tcc_ci/';
 
 /*
   |--------------------------------------------------------------------------

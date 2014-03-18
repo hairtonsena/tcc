@@ -6,12 +6,12 @@
         <meta charset="utf-8">
         <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
         <!-- Bootstrap -->
-        <link href="<?php echo base_url(); ?>bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
-        <link href="<?php echo base_url(); ?>bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
-        <link href="<?php echo base_url(); ?>bootstrap/css/bootstrap-responsive.css" rel="stylesheet" media="screen">
-        <link href="<?php echo base_url(); ?>bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
-        <link href="<?php echo base_url(); ?>css/style_pagina_cidadao.css" rel="stylesheet">
-        <link rel="shortcut icon" href="<?php echo base_url(); ?>icone/favicon.ico" type="image/x-icon" />
+        <link href="<?php echo base_url("css/bt3/css/bootstrap.css"); ?>" rel="stylesheet" media="screen">
+        <link href="<?php echo base_url("css/bt3/css/bootstrap.min.css"); ?>" rel="stylesheet" media="screen">
+        <link href="<?php echo base_url("css/bt3/css/bootstrap-responsive.css"); ?>" rel="stylesheet" media="screen">
+        <link href="<?php echo base_url("css/bt3/css/bootstrap-responsive.min.css"); ?>" rel="stylesheet" media="screen">
+        <link href="<?php echo base_url("css/style_pagina_cidadao.css"); ?>" rel="stylesheet">
+        <link rel="shortcut icon" href="<?php echo base_url("icone/favicon.ico"); ?>" type="image/x-icon" />
     </head>
     <body>
         <div id="tela" >

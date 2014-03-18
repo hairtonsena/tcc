@@ -65,10 +65,10 @@ var Conteudo = {
                     var objeto = json[n];
 
                     var randLatLng = new google.maps.LatLng(
-                            objeto.latitude
-                            ,
-                            objeto.longitude
-                            );
+                        objeto.latitude
+                        ,
+                        objeto.longitude
+                        );
 
                     var imagem = Config.base_url + 'icone/icone' + objeto.idTipo + '.png';
 
@@ -102,26 +102,26 @@ var Conteudo = {
 
 
                             conteudoBalaoMapa =
-                                    '<div style="font-size: 12; width:300px;"><strong class="tituloProblema"> Tipo: </strong>' +
-                                    objeto.tipo +
-                                    '<br/><strong class="tituloProblema"> Descrição:</strong>' +
-                                    objeto.descricao +
-                                    '<br/><strong class="tituloProblema">Data de abertura : </strong>' +
-                                    objeto.dataProblema +
-                                    '<br/><strong class="tituloProblema">Situação:</strong>' +
-                                    objeto.nomeStatus + '<br/>' +
-                                    verificarComentario +
-                                    botaoEditar + '</div>';
+                            '<div style="font-size: 12; width:300px;"><strong class="tituloProblema"> Tipo: </strong>' +
+                            objeto.tipo +
+                            '<br/><strong class="tituloProblema"> Descrição:</strong>' +
+                            objeto.descricao +
+                            '<br/><strong class="tituloProblema">Data de abertura : </strong>' +
+                            objeto.dataProblema +
+                            '<br/><strong class="tituloProblema">Situação:</strong>' +
+                            objeto.nomeStatus + '<br/>' +
+                            verificarComentario +
+                            botaoEditar + '</div>';
 
 
                             conteudoDireito =
-                                    '<div style="font-size: 12;"><strong class="tituloProblema"> Tipo: </strong><img src="' + imagem + '"/>' + objeto.tipo +
-                                    '<br/><strong class="tituloProblema"> Descrição: </strong>' + objeto.descricao +
-                                    '<br/><strong class="tituloProblema">Data de abertura: </strong>' + objeto.dataProblema +
-                                    '<br/><strong class="tituloProblema">Situação:</strong>' +
-                                    objeto.nomeStatus +
-                                    '<br/>' + botaoComentar + ' ' + verificarComentario +
-                                    '<br/>' + botaoEditar + '</div>';
+                            '<div style="font-size: 12;"><strong class="tituloProblema"> Tipo: </strong><img src="' + imagem + '"/>' + objeto.tipo +
+                            '<br/><strong class="tituloProblema"> Descrição: </strong>' + objeto.descricao +
+                            '<br/><strong class="tituloProblema">Data de abertura: </strong>' + objeto.dataProblema +
+                            '<br/><strong class="tituloProblema">Situação:</strong>' +
+                            objeto.nomeStatus +
+                            '<br/>' + botaoComentar + ' ' + verificarComentario +
+                            '<br/>' + botaoEditar + '</div>';
                             break;
 
 
@@ -135,49 +135,49 @@ var Conteudo = {
 
 
                             conteudoBalaoMapa =
-                                    '<div style="font-size: 12; width:300px;"><strong class="tituloProblema"> Tipo: </strong>' +
-                                    objeto.tipo +
-                                    '<br/><strong class="tituloProblema"> Descrição:</strong>' +
-                                    objeto.descricao +
-                                    '<br/><strong class="tituloProblema">Data de abertura : </strong>' +
-                                    objeto.dataProblema +
-                                    '<br/><strong class="tituloProblema">Situação:</strong>' +
-                                    objeto.nomeStatus + '<br/>' +
-                                    verificarComentario +
-                                    botaoConfirma + '</div>';
+                            '<div style="font-size: 12; width:300px;"><strong class="tituloProblema"> Tipo: </strong>' +
+                            objeto.tipo +
+                            '<br/><strong class="tituloProblema"> Descrição:</strong>' +
+                            objeto.descricao +
+                            '<br/><strong class="tituloProblema">Data de abertura : </strong>' +
+                            objeto.dataProblema +
+                            '<br/><strong class="tituloProblema">Situação:</strong>' +
+                            objeto.nomeStatus + '<br/>' +
+                            verificarComentario +
+                            botaoConfirma + '</div>';
 
 
                             conteudoDireito =
-                                    '<div style="font-size: 12;"><strong class="tituloProblema"> Tipo: </strong><img src="' + imagem + '"/>' + objeto.tipo +
-                                    '<br/><strong class="tituloProblema"> Descrição: </strong>' + objeto.descricao +
-                                    '<br/><strong class="tituloProblema">Data de abertura: </strong>' + objeto.dataProblema +
-                                    '<br/><strong class="tituloProblema">Situação:</strong>' +
-                                    objeto.nomeStatus +
-                                    '<br/>' + botaoComentar + ' ' + verificarComentario +
-                                    '<br/>' + botaoConfirma + '</div>';
+                            '<div style="font-size: 12;"><strong class="tituloProblema"> Tipo: </strong><img src="' + imagem + '"/>' + objeto.tipo +
+                            '<br/><strong class="tituloProblema"> Descrição: </strong>' + objeto.descricao +
+                            '<br/><strong class="tituloProblema">Data de abertura: </strong>' + objeto.dataProblema +
+                            '<br/><strong class="tituloProblema">Situação:</strong>' +
+                            objeto.nomeStatus +
+                            '<br/>' + botaoComentar + ' ' + verificarComentario +
+                            '<br/>' + botaoConfirma + '</div>';
                             break;
 
                         case '1' :
 
                             conteudoBalaoMapa =
-                                    '<div style="font-size: 12; width:300px;"><strong class="tituloProblema"> Tipo: </strong>' +
-                                    objeto.tipo +
-                                    '<br/><strong class="tituloProblema"> Descrição:</strong>' +
-                                    objeto.descricao +
-                                    '<br/><strong class="tituloProblema">Data de abertura : </strong>' +
-                                    objeto.dataProblema +
-                                    '<br/><strong class="tituloProblema">Situação:</strong>' +
-                                    objeto.nomeStatus +
-                                    '<br/>' + botaoComentar + ' </div>';
+                            '<div style="font-size: 12; width:300px;"><strong class="tituloProblema"> Tipo: </strong>' +
+                            objeto.tipo +
+                            '<br/><strong class="tituloProblema"> Descrição:</strong>' +
+                            objeto.descricao +
+                            '<br/><strong class="tituloProblema">Data de abertura : </strong>' +
+                            objeto.dataProblema +
+                            '<br/><strong class="tituloProblema">Situação:</strong>' +
+                            objeto.nomeStatus +
+                            '<br/>' + botaoComentar + ' </div>';
 
                             conteudoDireito =
-                                    '<div style="font-size: 12;"><strong class="tituloProblema"> Tipo: </strong><img src="' + imagem + '"/>' + objeto.tipo +
-                                    '<br/><strong class="tituloProblema"> Descrição: </strong>' + objeto.descricao +
-                                    '<br/><strong class="tituloProblema">Data de abertura: </strong>' + objeto.dataProblema +
-                                    '<br/><strong class="tituloProblema">Situação:</strong>' +
-                                    objeto.nomeStatus +
-                                    '<br/>' + botaoComentar +
-                                    '</div></div>';
+                            '<div style="font-size: 12;"><strong class="tituloProblema"> Tipo: </strong><img src="' + imagem + '"/>' + objeto.tipo +
+                            '<br/><strong class="tituloProblema"> Descrição: </strong>' + objeto.descricao +
+                            '<br/><strong class="tituloProblema">Data de abertura: </strong>' + objeto.dataProblema +
+                            '<br/><strong class="tituloProblema">Situação:</strong>' +
+                            objeto.nomeStatus +
+                            '<br/>' + botaoComentar +
+                            '</div></div>';
                             break;
 
 
@@ -185,30 +185,30 @@ var Conteudo = {
                         default :
 
                             conteudoBalaoMapa =
-                                    '<div style="font-size: 12; width:300px;"><strong class="tituloProblema"> Tipo: </strong>' +
-                                    objeto.tipo +
-                                    '<br/><strong class="tituloProblema"> Descrição:</strong>' +
-                                    objeto.descricao +
-                                    '<br/><strong class="tituloProblema">Data de abertura : </strong>' +
-                                    objeto.dataProblema +
-                                    '<br/><strong class="tituloProblema">Situação:</strong>' +
-                                    objeto.nomeStatus +
-                                    '<br/>' + botaoComentar + ' ' + verificarComentario + '</div>';
+                            '<div style="font-size: 12; width:300px;"><strong class="tituloProblema"> Tipo: </strong>' +
+                            objeto.tipo +
+                            '<br/><strong class="tituloProblema"> Descrição:</strong>' +
+                            objeto.descricao +
+                            '<br/><strong class="tituloProblema">Data de abertura : </strong>' +
+                            objeto.dataProblema +
+                            '<br/><strong class="tituloProblema">Situação:</strong>' +
+                            objeto.nomeStatus +
+                            '<br/>' + botaoComentar + ' ' + verificarComentario + '</div>';
 
                             conteudoDireito =
-                                    '<div style="font-size: 12;"><strong class="tituloProblema"> Tipo: </strong><img src="' + imagem + '"/>' + objeto.tipo +
-                                    '<br/><strong class="tituloProblema"> Descrição: </strong>' + objeto.descricao +
-                                    '<br/><strong class="tituloProblema">Data de abertura: </strong>' + objeto.dataProblema +
-                                    '<br/><strong class="tituloProblema">Situação:</strong>' +
-                                    objeto.nomeStatus +
-                                    '<br/>' + botaoComentar + ' ' + verificarComentario +
-                                    '</div></div>';
+                            '<div style="font-size: 12;"><strong class="tituloProblema"> Tipo: </strong><img src="' + imagem + '"/>' + objeto.tipo +
+                            '<br/><strong class="tituloProblema"> Descrição: </strong>' + objeto.descricao +
+                            '<br/><strong class="tituloProblema">Data de abertura: </strong>' + objeto.dataProblema +
+                            '<br/><strong class="tituloProblema">Situação:</strong>' +
+                            objeto.nomeStatus +
+                            '<br/>' + botaoComentar + ' ' + verificarComentario +
+                            '</div></div>';
                             break;
                     }
 
                     var infoWindow = new google.maps.InfoWindow({
                         content: [
-                            conteudoBalaoMapa
+                        conteudoBalaoMapa
                         ].join(''),
                         size: new google.maps.Size(200, 80)
                     });
@@ -216,7 +216,7 @@ var Conteudo = {
                     google.maps.event.addListener(marker, 'click', Conteudo.openInfoWindow(infoWindow, marker));
 
 
-                   // google.maps.event.addListener(marker, 'click', Conteudo.toggleBounce);
+                    // google.maps.event.addListener(marker, 'click', Conteudo.toggleBounce);
 
                     var divd = document.createElement('div');
 
@@ -243,13 +243,13 @@ var Conteudo = {
 
         });
     },// toggleBounce: function() {
-//        if (marker.getAnimation() != null) {
-//            marker.setAnimation(null);
-//        } else {
-//            marker.setAnimation(google.maps.Animation.BOUNCE);
-//        }
-//    }
-//    ,
+    //        if (marker.getAnimation() != null) {
+    //            marker.setAnimation(null);
+    //        } else {
+    //            marker.setAnimation(google.maps.Animation.BOUNCE);
+    //        }
+    //    }
+    //    ,
     init: function() {
         var firstLatLng = new google.maps.LatLng(-16.740605618138325, -43.87089729309082);
         Conteudo.map = new google.maps.Map(Conteudo.mapContainer, {
@@ -273,18 +273,24 @@ var Conteudo = {
 
         google.maps.event.addDomListener(Conteudo.generateLink, 'click', function() {
 
-        });
+            });
 
 
         // Clicando em um ponto no mapa para realizar uma nova manifestação 
-        google.maps.event.addListener(Conteudo.map, 'click', function(event) {
-            if ($('#addColaboracao').is(':checked', true)) {
+        google.maps.event.addListener(Conteudo.map, 'rightclick', function(event) {
+                        if ($('#addColaboracao').is(':checked', true)) {
+            
+                            Conteudo.map.panTo(event.latLng);
+                            Conteudo.adicionarPontoMapa(event.latLng);
+            
+                        }
+//            var resultado="";
+//            for (propriedade in event) {
+//                resultado += propriedade + ": " + event[propriedade] + "\n"; 
+//            };
+           // alert(resultado);
 
-                Conteudo.map.panTo(event.latLng);
-                Conteudo.adicionarPontoMapa(event.latLng);
-
-            }
-
+            //alert(this.hide);
         });
 
         google.maps.event.trigger(Conteudo.generateLink, 'click');
