@@ -1,0 +1,190 @@
+html {
+    height: 100%;
+}
+
+
+
+.semMarge { 
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+}
+
+
+
+
+.text-pequino {
+    font-size: 12px;
+}
+
+.tamanho-radio {
+    width: 35%;
+}
+
+
+#generateLink {
+    /*    background-color: #ccc;
+        border: 0px ridge #000;
+        color: #555;
+        cursor: pointer;
+        font-size: 0.75em;
+        font-weight: bold;
+        left: 5%;
+        padding: 1px 2px;
+        position: relative;
+        text-align: left;
+        text-decoration: none;
+        top: 50%;
+        width: 200px;
+        z-index: 1000;*/
+}
+
+
+
+
+#map_canvas {                
+    /*width: 600px;*/
+    height: 350px;
+    /*float: left;*/
+    background-color: #ffffff;
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+}
+
+
+#calunaDireita {
+    /*height: 2%;*/
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px; 
+    /*    float: right*/
+}
+
+#menuDireito {      
+    width: 100%;
+    height: 70%;
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    overflow-y: scroll;
+}
+
+#legenda {
+    height: 18%;
+    border-top:2px solid #FFFFFF;
+}
+
+
+#menuDireito p {
+    font-size: 11px;
+    text-align: justify;
+}
+
+.tituloProblema {
+    font-size: 14px;
+}
+
+footer {
+    text-align: center;
+}
+
+
+
+.window{
+    display:none;
+    width:300px;
+    height:400px;
+    position:absolute;
+    left:0;
+    top:0;
+    background:#FFF;
+    z-index:9900;
+    padding:10px;
+    border-radius:10px;
+}
+
+#mascara{
+    position:absolute;
+    left:0;
+    top:0;
+    z-index:9000;
+    background-color:#000;
+    display:none;
+}
+
+.fechar{display:block; text-align:right;}
+
+
+
+
+.faixa1 {
+    background-color: #f9f9f9;
+    margin: 0px 0px 0px 0px;
+    padding: 2px 2px 2px 2px;
+
+}
+
+.faixa1:hover {
+    background-color: #e5e5e5;
+    cursor: pointer;
+
+}
+
+.faixa0 {
+    background-color: #ffffff;
+    margin:  0px 0px 0px 0px;
+    padding: 2px 2px 2px 2px;
+}
+
+.faixa0:hover {
+    background-color: #e5e5e5;
+    cursor: pointer;
+}
+
+
+/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+    padding-top: 50px;
+}
+
+/*
+ * Sidebar
+*/
+
+/* Hide for mobile, show later */
+.sidebar {
+    display: none;
+}
+@media (min-width: 768px) {
+    .sidebar {
+        position: fixed;
+        top: 51px;
+        bottom: 0;
+        /*left: 0;*/
+        right: 0;
+        z-index: 1000;
+        display: block;
+        padding: 20px;
+        overflow-x: hidden;
+        overflow-y: auto;  /*Scrollable contents if viewport is shorter than content. */
+        background-color: #f5f5f5;
+        border-right: 1px solid #eee;
+    }
+}
+
+
+/*
+ * Main content
+*/
+
+.main {
+    padding: 0px;
+
+}
+@media (min-width: 768px) {
+    .main {
+        padding-right: 0px;
+        padding-left: 0px;
+    }
+}
+.main .page-header {
+    margin-top: 0;
+}
+
