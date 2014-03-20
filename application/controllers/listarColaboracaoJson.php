@@ -32,7 +32,7 @@ class ListarColaboracaoJson extends CI_Controller {
             $categoria = $_GET['categoria'];
             $idProblema = $_GET['idProblema'];
 
-            $colaboracoesListadas = $this->colaboracao_model->obterColaboracoes($status, $categoria, $idProblema,$userLogado)->result();
+            $colaboracoesListadas = $this->colaboracao_model->obterColaboracoes($status, $categoria, $idProblema, $userLogado)->result();
         }
 
 
@@ -47,8 +47,52 @@ class ListarColaboracaoJson extends CI_Controller {
             $user = 'nao';
 
 
-            $data = explode('-', $cl->data);
-            $dataBrasil = $data[2] . '/' . $data[1] . '/' . $data[0];
+            //$data = explode('-', $cl->data);
+
+            $dataAtual = strtotime(date("y-m-d"));
+            $dataAbertura = strtotime($cl->data);
+            $diferenca = $dataAtual - $dataAbertura; // 19522800 segundos
+            $dias = (int) floor($diferenca / (60 * 60 * 24)); // 225 dias
+
+            $tempo = '';
+
+            if ($dias == 0) {
+                $tempo = 'Aberto hoje';
+            } else if ($dias < 7) {
+                if ($dias == 1) {
+                    $tempo = 'Aberto ontem';
+                } else {
+
+                    $tempo = 'Aberto a ' . $dias . ' dias';
+                }
+            } else if ($dias < 30) {
+                $semana = (int) floor($dias / 7);
+                if ($semana == 1) {
+                    $tempo = 'Aberto a ' . $semana . ' semana';
+                } else {
+                    $tempo = 'Aberto a ' . $semana . ' semanas';
+                }
+            } else if ($dias < 365) {
+                $mes = (int) floor($dias / 30);
+                if ($mes == 1) {
+                    $tempo = 'Aberto a ' . $mes . ' mês';
+                } else {
+                    $tempo = 'Aberto a ' . $mes . ' mêses';
+                }
+            } else {
+                $ano = (int) floor($dias / 365);
+                if ($ano == 1) {
+                    $tempo = 'Aberto a ' . $ano . ' ano';
+                } else {
+                    $tempo = 'Aberto a ' . $ano . ' anos';
+                }
+            }
+
+
+
+
+
+            $dataBrasil = $tempo;    //$data[2] . '/' . $data[1] . '/' . $data[0];
 
 
             $cl->dataProblema = "$dataBrasil";

@@ -1,11 +1,14 @@
-<span class="pull-right"><a href="javascript:void(0)" onclick="Tela.fecharModal()"><i class="icon-remove"></i></a></span><br/>
-<div  class="thumbnail" style="background-color: #eee;">
-<form name="frmNovoProblema" method="post" action="salvar.php" onsubmit="return Problema.alterarColaboracaoPendente()">
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title"> Editar Problema Pendente</h4>
+</div>
+<div class="modal-body">
+    <form class="form" name="frmNovoProblema" method="post" action="salvar.php" onsubmit="return Problema.alterarColaboracaoPendente()">
     <?php foreach ($colaboracao as $cl) { ?>
-        <fieldset>
-            <legend>Editar Problema Pendente</legend>
-            <label> Tipo de Problema </label>
-            <select id="tipo" name="tipo" class="span3">
+        
+        <div class="form-group">
+            <label for="tipo"> Tipo de Problema </label>
+            <select id="tipo" name="tipo" class="form-control">
                 <?php
                 foreach ($tipo as $tp) {
                     if ($cl->idTipo == $tp->idTipo) { ?>
@@ -15,13 +18,17 @@
                    <?php }
                 }
                 ?>  
-            </select>	
-            <input type="hidden" id="idProblema" nome="idProblema" value="<?php echo $idProblema; ?>">
-            <label>Descrição do problema</label>
-            <textarea id="descricao" nome="descricao" rows="4" class="span3" required="true" placeholder="Descrição ..."><?php echo $cl->descricao ?></textarea>
-            <br/>
-            <button type="submit" class="btn btn-primary">Salvar </button> <button type="button" onclick="Tela.fecharModal()" class="btn btn-small">Cancelar</button>
-        </fieldset>
+            </select>
+        </div> 
+        <input type="hidden" id="idProblema" nome="idProblema" value="<?php echo $idProblema; ?>">
+        <div class="form-group">
+           
+            <label for="descricao">Descrição do problema</label>
+            <textarea id="descricao" nome="descricao" rows="4" class="form-control" required="true" placeholder="Descrição ..."><?php echo $cl->descricao ?></textarea>
+        </div>
+            
+            <button type="submit" class="btn btn-primary">Salvar </button> <button type="button" onclick="Tela.fecharModal()" class="btn btn-default pull-right">Cancelar</button>
+        
     <?php }; ?>
 </form>
 </div>

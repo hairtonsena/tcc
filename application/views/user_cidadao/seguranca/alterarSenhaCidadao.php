@@ -1,22 +1,29 @@
-<span class="pull-right"><a href="javascript:void(0)" onclick="Tela.fecharModal()"><i class="icon-remove"></i></a></span><br/>
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title">Alterar Senha</h4>
+</div>
+<div class="modal-body">
+    <form name="frmLogin" class="form" action="sdf" onsubmit="Cadastro.alterarSenha();return false;" method="post">
 
-<div class="thumbnail" style="background-color: #eee;" id="pnlLogin">
-    <form name="frmLogin" action="sdf" onsubmit="Cadastro.alterarSenha();return false;" method="post">
-        <fieldset>
-            <legend> Alterar Senha </legend>
             <span class="text-error"> 
                 <?php echo validation_errors() ;?>
             </span>
-            <label> Senha Atual: </label>
-            <input type="password" id="senhaAtual" name="senhaAtual" maxlength="20" class="span3" required /><br/>
-            <label> Nova Senha: </label>
-            <input type="password" id="novaSenha" name="novaSenha" maxlength="20" class="span3" required /><br/>                       
-            <label> Confirmar Nova Senha: </label>
-            <input type="password" id="confirmarNovaSenha" name="confirmarNovaSenha" maxlength="20" class="span3" required /><br/>
-
+        <div class="form-group">
+            <label for="senhaAlrual" > Senha Atual: </label>
+            <input type="password" id="senhaAtual" name="senhaAtual" maxlength="20" class="form-control" required />
+        </div>
+        <div class="form-group">
+            <label for="novaSenha"> Nova Senha: </label>
+            <input type="password" id="novaSenha" name="novaSenha" maxlength="20" class="form-control" required /> 
+        </div>
+        <div class="form-group">
+            <label for="confirmarNovaSenha"> Confirmar Nova Senha: </label>
+            <input type="password" id="confirmarNovaSenha" name="confirmarNovaSenha" maxlength="20" class="form-control" required />
+        </div>
             <input type="submit" name="acao" class="btn btn-primary pull-left" value="Salvar"/>
-            <a href="javascript:void(0)" onclick="Tela.fecharModal()" class="btn pull-right" >Cancelar </a>
+            <a href="javascript:void(0)" onclick="Tela.fecharModal()" class="btn btn-default pull-right" >Cancelar </a>
 
-        </fieldset>
+        
     </form>
 </div>
+<br/>

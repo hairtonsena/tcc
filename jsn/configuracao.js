@@ -52,8 +52,8 @@ Tela = {
         $(id).show();
     },
     fecharModal: function() {
-        $("#mascara").hide();
-        $(".window").hide();
+        $("#myModal").modal("hide");
+        
     }
 
 };

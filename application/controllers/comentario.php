@@ -14,7 +14,7 @@ class Comentario extends CI_Controller {
     }
 
     public function index() {
-        echo "ola";
+        echo "A pagina não foi encontrada";
     }
 
     function verComentarios() {

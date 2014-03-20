@@ -60,7 +60,7 @@ var Problema ={
     pesquisaLocal:function (){     
         
  
-        $('#myModal').modal('show');
+//        $('#myModal').modal('show');
         
        // var opcaoPesquisa = $("#opcaoPesquisa").val();
         var textePesquisa = $("#textoPesquisa").val();

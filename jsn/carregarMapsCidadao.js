@@ -197,9 +197,9 @@ var Conteudo = {
                             '<br/>' + botaoComentar + ' ' + verificarComentario + '</div>';
 
                             conteudoDireito =
-                            '<div style="font-size: 12;"><strong class="tituloProblema"> Tipo: </strong><img src="' + imagem + '"/>' + objeto.tipo +
-                            '<br/><strong class="tituloProblema"> Descrição: </strong>' + objeto.descricao +
-                            '<br/><strong class="tituloProblema">Data de abertura: </strong>' + objeto.dataProblema +
+                            '<div style="font-size: 12;"><strong class="tituloProblema"> <img src="' + imagem + '"/> ' + objeto.tipo +'</strong><span class="pull-right">'+ objeto.dataProblema+'</span>' +
+                            '<br/>' + objeto.descricao +
+                            
                             '<br/><strong class="tituloProblema">Situação:</strong>' +
                             objeto.nomeStatus +
                             '<br/>' + botaoComentar + ' ' + verificarComentario +
@@ -227,7 +227,7 @@ var Conteudo = {
                         alternaCores = 0;
                     }
 
-                    divd.className = 'faixa' + alternaCores;
+                    divd.className = 'faixa' + alternaCores+' list-group-item active';
                     divd.onclick = Conteudo.generateTriggerCallback(marker, 'click');
                     var contDiv = conteudoDireito;
                     divd.innerHTML = contDiv;

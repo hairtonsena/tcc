@@ -1,27 +1,32 @@
-<span class="pull-right"><a href="javascript:void(0)" onclick="Tela.fecharModal()"><i class="icon-remove"></i></a></span><br/>
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 
-<div class="thumbnail" style="background-color: #eee;" id="pnlLogin">
-    <form name="frmLogin" action="asdf" onsubmit="Cadastro.VerificarUserCidadao(); return false;" method="post">
-        <fieldset>
+    <h4 class="modal-title">Login</h4>
+</div>
+<div class="modal-body">
 
-            <legend> Login Cidadão </legend>
-            <span class="text-error"> 
+    <form class="form" name="frmLogin" action="#" onsubmit="Cadastro.VerificarUserCidadao(); return false;" method="post">
+
+        <span class="text-error"> 
             <?php echo validation_errors(); ?>
-            </span>
-            <label> Email: </label>
-            <input type="email" name="email" id="email" class="span3" value="<?php echo set_value('email') ?>" required /><br/>
-            <label> Senha: </label>
-            <input type="password" name="senha" id="senha" class="span3" required />
+        </span>
+        <div class="form-group">
+            <label for="email"> Email: </label>
+            <input type="email" name="email" id="email" class="form-control" value="<?php echo set_value('email') ?>" required />
+        </div>
+        <div class="form-group">
+            <label for="senha"> Senha: </label>
+            <input type="password" name="senha" id="senha" class="form-control" required />
             <span ><a href="javascript:void(0)" onclick="Cadastro.gerarNovaSenha()"> Esquece minha senha. </a></span>
-            <br/>
-            <br/>
-            <label>Codigo de Validação:</label>
+        </div>
+        <div class="form-group">
+            <label for="testoImagem" >Código antispam:</label>
             <?php echo $imagemCaptcha ?>
-            <input type="text" name="textoImagem" id="textoImagem" class="input-small" required />
-            <br/>
-            <br/>
-            <input type="submit" name="acao" class="btn pull-left btn-primary" value="Entrar"/> <button type="button" class="btn pull-right" onclick="Tela.fecharModal()">Cancelar</button>
+            <input type="text" name="textoImagem" id="textoImagem" class="form-control" required />
+        </div>
 
-        </fieldset>
+        <input type="submit" name="acao" class="btn pull-left btn-primary" value="Entrar"/>
+        <button type="button" class="btn btn-default pull-right" onclick="Tela.fecharModal()">Cancelar</button>
     </form>
 </div>
+<br/>
