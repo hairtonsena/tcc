@@ -28,7 +28,14 @@
                     </a>
 
                 <?php } else { ?>
-                    <a href="javascript:void(0)" onclick="alert('Desculpe, Você não esta logado!')"  ><i class="icon-thumbs-up"></i></a> <span class="text-info"> <?php echo $cm->apoiadoComentario ?></span>  |<a href="javascript:void(0)" onclick="alert('Desculpe, Você não esta logado!')" ><i class="icon-thumbs-down"></i></a> <span class="text-error"><?php echo $cm->reprovadoComentario ?></span> 
+                    <a class="btn btn-primary btn-xs" href="javascript:void(0)" onclick="alert('Desculpe, Você não esta logado!')"  >
+                        <i class="glyphicon glyphicon-thumbs-up"></i>
+                        <span class="text-info badge"> <?php echo $cm->apoiadoComentario ?></span>
+                    </a>  
+                    <a class="btn btn-default btn-xs" href="javascript:void(0)" onclick="alert('Desculpe, Você não esta logado!')" >3
+                        <i class="glyphicon glyphicon-thumbs-down"></i>
+                        <span class="text-error badge"><?php echo $cm->reprovadoComentario ?></span>
+                    </a> 
                 <?php } ?>
             </div>
             <?php

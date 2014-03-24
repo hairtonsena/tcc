@@ -63,28 +63,28 @@ class ListarColaboracaoJson extends CI_Controller {
                     $tempo = 'Aberto ontem';
                 } else {
 
-                    $tempo = 'Aberto a ' . $dias . ' dias';
+                    $tempo = 'Aberto há ' . $dias . ' dias';
                 }
             } else if ($dias < 30) {
                 $semana = (int) floor($dias / 7);
                 if ($semana == 1) {
-                    $tempo = 'Aberto a ' . $semana . ' semana';
+                    $tempo = 'Aberto há ' . $semana . ' semana';
                 } else {
-                    $tempo = 'Aberto a ' . $semana . ' semanas';
+                    $tempo = 'Aberto há ' . $semana . ' semanas';
                 }
             } else if ($dias < 365) {
                 $mes = (int) floor($dias / 30);
                 if ($mes == 1) {
-                    $tempo = 'Aberto a ' . $mes . ' mês';
+                    $tempo = 'Aberto há ' . $mes . ' mês';
                 } else {
-                    $tempo = 'Aberto a ' . $mes . ' mêses';
+                    $tempo = 'Aberto há ' . $mes . ' meses';
                 }
             } else {
                 $ano = (int) floor($dias / 365);
                 if ($ano == 1) {
-                    $tempo = 'Aberto a ' . $ano . ' ano';
+                    $tempo = 'Aberto há ' . $ano . ' ano';
                 } else {
-                    $tempo = 'Aberto a ' . $ano . ' anos';
+                    $tempo = 'Aberto há ' . $ano . ' anos';
                 }
             }
 

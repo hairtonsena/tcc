@@ -5,7 +5,7 @@
 <div class="modal-body">
     <form class="form" name="frmLogin" action="asfds" onsubmit="Cadastro.alterarNome();return false" method="post">
             
-            <span class="text-error"> 
+            <span class="text-danger"> 
                 <?php echo validation_errors() ;?>
             </span>
         <div class="form-group">

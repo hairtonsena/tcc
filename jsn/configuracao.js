@@ -7,9 +7,6 @@ Config = {
 CarregarPagina={
     carregarConteudo:function(pg,parametro){
         
-          $("#myModal").modal("show");
-          
-          $("#windowModal").html('<h2> Carregando... </h2>');
 
         $.ajax({
             type: "post",
@@ -26,31 +23,90 @@ CarregarPagina={
 
 
 Tela = {
-    abrirModal: function() {
-
-        var id = '.window';
-
-        var alturaTela = $(document).height();
-        var larguraTela = $(window).width();
-
-
-        $('#mascara').css({
-            'width': larguraTela,
-            'height': alturaTela
+    contextMenu : null
+    
+    ,
+    abriMenuDireito : function(){
+        var contextMenu = $("#jqxMenu").jqxMenu({
+            width: '120px', 
+            height: '140px', 
+            autoOpenPopup: false, 
+            mode: 'popup'
         });
-        $('#mascara').fadeIn(1000);
-        $('#mascara').fadeTo("slow", 0.8);
-
-        var left = ($(window).width() / 2) - ($(id).width() / 2);
-        var top = ($(window).height() / 2) - ($(id).height() / 2);
-
-        $(id).css({
-            'top': top,
-            'left': left,
-            'overflow-y': 'scroll'
+        
+        //alert(event.clientX);
+        // open the context menu when the user presses the mouse right button.
+      
+        var scrollTop = $(window).scrollTop();
+        var scrollLeft = $(window).scrollLeft();
+        contextMenu.jqxMenu('open', parseInt(event.clientX) + 5 + scrollLeft, parseInt(event.clientY) + 5 + scrollTop);
+        return false;
+            
+      
+        // disable the default browser's context menu.
+        $(document).click('contextmenu', function (e) {
+            return false;
         });
-        $(id).show();
+
+    }
+    ,
+    iniciarTela: function() {
+        
+        Tela.abrirModal()
+        
+        Problema.verColaboracoes(0); 
+
+        var tamanhoColuna = document.getElementById("calunaDireita").offsetHeight;
+        
+        $('#map_canvas').css({
+            height:tamanhoColuna
+        }); 
+
+        
+        
+        
+
+        var contextMenu = $("#jqxMenu").jqxMenu({
+            width: '120px', 
+            height: '140px', 
+            autoOpenPopup: false, 
+            mode: 'popup'
+        });
+        // open the context menu when the user presses the mouse right button.
+        $("#jqxWidget").on('mousedown', function (event) {
+            
+            var resultado="";
+            for (propriedade in event) {
+                resultado += propriedade + ": " + event[propriedade] + "\n"; 
+            };
+            alert(resultado);
+            
+            var rightClick = Tela.isRightClick(event) || $.jqx.mobile.isTouchDevice();
+            if (rightClick) {
+                var scrollTop = $(window).scrollTop();
+                var scrollLeft = $(window).scrollLeft();
+                contextMenu.jqxMenu('open', parseInt(event.clientX) + 5 + scrollLeft, parseInt(event.clientY) + 5 + scrollTop);
+                return false;
+            }
+        });
+        // disable the default browser's context menu.
+        $(document).on('contextmenu', function (e) {
+            return false;
+        });
+        
+        Tela.fecharModal()
     },
+    isRightClick: function (event)        {
+        var rightclick;
+        if (!event) var event = window.event;
+        if (event.which) rightclick = (event.which == 3);
+        else if (event.button) rightclick = (event.button == 2);
+        return rightclick;
+    },
+    abrirModal :function(){
+        $("#myModal").modal("show"); 
+        $("#windowModal").html('<h2> Carregando... </h2>');
+    },    
     fecharModal: function() {
         $("#myModal").modal("hide");
         

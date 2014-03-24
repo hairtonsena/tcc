@@ -7,6 +7,7 @@ var Conteudo = {
     markers: [],
     visibleInfoWindow: null,
     geocoder: null,
+    latlog:null,
     generateTriggerCallback: function(object, eventType) {
         return function() {
             google.maps.event.trigger(object, eventType);
@@ -40,9 +41,7 @@ var Conteudo = {
             Conteudo.visibleInfoWindow.close();
         }
 
-        $("#myModal").modal("show");
-
-        $("#windowModal").html('<h2> Carregando... </h2>');
+        
 
         Conteudo.clearMarkers();
 
@@ -54,7 +53,7 @@ var Conteudo = {
         }, function(json) {
 
 
-             $("#myModal").modal("hide");
+           
             
             if (json.length == 0) {
 
@@ -260,11 +259,8 @@ var Conteudo = {
             mapTypeId: google.maps.MapTypeId.HYBRID
         });
 
-        Problema.verColaboracoes(0);
+        Tela.iniciarTela();
 
-        var tm = document.getElementById("calunaDireita").offsetHeight;
-        
-        $('#map_canvas').css({height:tm}); 
 
 
         google.maps.event.addListener(Conteudo.map, 'tilesloaded', function() {
@@ -295,8 +291,11 @@ var Conteudo = {
 
         google.maps.event.addListener(Conteudo.map, 'rightclick', function(event) {
                 
-                Conteudo.map.panTo(event.latLng);
-                Conteudo.adicionarPontoMapa(event.latLng);
+            Conteudo.latlog = event.latLng;
+            Tela.abriMenuDireito();
+                
+            Conteudo.map.panTo(event.latLng);
+        
             
  
         });
@@ -306,6 +305,15 @@ var Conteudo = {
         Conteudo.geocoder = new google.maps.Geocoder();
 
     },
+    // Adicionando um novo problema no mapa atravez do botão Direito
+    adicionarPontoBotaoDireito:function(){
+        
+        $("#jqxMenu").css({
+            display:'none'
+        });
+        Problema.adicionarPontoMapa(Conteudo.latlog);
+    }
+    ,
     adicionarPontoMapa: function(verTeste) {
         Problema.adicionarPontoMapa(verTeste);
 
@@ -318,7 +326,7 @@ var Conteudo = {
         Conteudo.geocoder.geocode({
             'address': address
         }, function(results, status) {
-//            
+            //            
             if (status == google.maps.GeocoderStatus.OK) {
                 Conteudo.map.setCenter(results[0].geometry.location);
                 Conteudo.map.setZoom(18);

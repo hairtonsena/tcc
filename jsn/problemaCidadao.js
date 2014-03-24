@@ -1,6 +1,6 @@
 var Problema ={
     adicionarPontoMapa: function (location) {
-        
+        Tela.abrirModal();
         var parametro = "local="+location;      
         var url= Config.base_url+"colaboracao/formularioNovaColaboracao";
         CarregarPagina.carregarConteudo(url, parametro)
@@ -20,6 +20,8 @@ var Problema ={
     },
     
     editarColaboracao: function(idProblema){
+      
+        Tela.abrirModal();
         var parametro = "idProblema="+idProblema;
         var url= Config.base_url+"colaboracao/formeEditarColaboracao";
         CarregarPagina.carregarConteudo(url, parametro);
@@ -39,35 +41,34 @@ var Problema ={
       
     },
     verColaboracoes : function (){  
-
-      
-
+        
         var status = $("#status").val();
         var categoria = $("#categoria").val();
         
-        
+        Tela.abrirModal();
         Conteudo.generateRandomMarkers(status,categoria,0);
+        Tela.fecharModal();
     },
     verColaboracoesCidadao: function(){
         Conteudo.generateRandomMarkers(-1,-1,0);
     },
     focaProblemaAdicionado:function (idProblema){
 
-        Tela.fecharModal();
+        //        Tela.fecharModal();
         Conteudo.generateRandomMarkers(-1,-1, idProblema);
         
     },
     pesquisaLocal:function (){     
         
  
-//        $('#myModal').modal('show');
+        //        $('#myModal').modal('show');
         
-       // var opcaoPesquisa = $("#opcaoPesquisa").val();
+        // var opcaoPesquisa = $("#opcaoPesquisa").val();
         var textePesquisa = $("#textoPesquisa").val();
         textePesquisa = $.trim(textePesquisa);   
-//        if(textePesquisa.length<1){           
-//            textePesquisa = 'Raimundo penalva';
-//        }
+        //        if(textePesquisa.length<1){           
+        //            textePesquisa = 'Raimundo penalva';
+        //        }
 
         var localizacao = textePesquisa+', Montes Claros, Minas gerais'; 
         Conteudo.mostraEndereco(localizacao);   
@@ -96,12 +97,14 @@ var Problema ={
         var parametro = "idProblema="+idProblema+'&&comentario='+comentario;
         var url= Config.base_url+"comentario/salvarNovoComentarioProblema";
         
-        CarregarPagina.carregarConteudo(url, parametro);
+        CarregarPagina.carregarConteudo(url, parametro)
+
+        
      
         return false;  
     },
     verTodosComentario: function(idProblema){
-        
+        Tela.abrirModal();
         var parametro = "acao=verComentarios&&idProblema="+idProblema;      
         var url= Config.base_url+"comentario/verComentarios";
         CarregarPagina.carregarConteudo(url, parametro);

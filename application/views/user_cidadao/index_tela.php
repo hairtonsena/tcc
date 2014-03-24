@@ -43,7 +43,7 @@
 
                         <div class="form-group">
 
-                            <input type="text"  class="form-control" id="textoPesquisa" placeholder="Enforme o Local aqui!">
+                            <input type="text"  class="form-control" id="textoPesquisa" placeholder="informe o Local aqui!">
                         </div>
                         <button type="button" onclick="Problema.pesquisaLocal();"  class="btn btn-default"><span class="glyphicon glyphicon-search"></span>.</button>
                     </form>
@@ -78,16 +78,16 @@
                         <?php }
                         ?>
 
-<!--                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-align-justify"></span> <b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Action</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something else here</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Separated link</a></li>
-                            </ul>
-                        </li>-->
+                        <!--                        <li class="dropdown">
+                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-align-justify"></span> <b class="caret"></b></a>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a href="#">Action</a></li>
+                                                        <li><a href="#">Another action</a></li>
+                                                        <li><a href="#">Something else here</a></li>
+                                                        <li class="divider"></li>
+                                                        <li><a href="#">Separated link</a></li>
+                                                    </ul>
+                                                </li>-->
                     </ul>
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
@@ -172,6 +172,19 @@
         <script type="text/javascript" src="<?php echo base_url("jsn/carregarMapsCidadao.js"); ?>"></script>        
         <script type="text/javascript" src="<?php echo base_url("jsn/problemaCidadao.js"); ?>"></script>
         <script type="text/javascript" src="<?php echo base_url("jsn/configuracao.js"); ?>"></script>
+        <script type="text/javascript" src="<?php echo base_url("jsn/jqxcore.js"); ?>"></script>
+        <script type="text/javascript" src="<?php echo base_url("jsn/jqxmenu.js"); ?>"></script>
 
+        <!--        <div id='jqxWidget' style='vertical-align: middle; text-align: center; background: #eee;
+                     height: 400px; width: 400px;'>
+        
+                    <span style='font-size: 14px; position: relative; top: 180px; font-family: Verdana Arial;'>
+                        Right-Click here to Open the Menu </span>
+                </div>-->
+        <div id='jqxMenu' class="list-group">
+
+            <a class="list-group-item" href="#" onclick="Conteudo.adicionarPontoBotaoDireito()">Reportar problema</a>
+
+        </div>
     </body>
 </html>

@@ -58,7 +58,12 @@ class Comentario extends CI_Controller {
         );
 
         $this->comentario_model->salvarNovoComentario($dadosComentario);
-        echo "<script> Problema.verTodosComentario('" . $idProblema . "')</script>";
+        echo "<script> 
+            var status = $(\"#status\").val();
+            var categoria = $(\"#categoria\").val();
+       
+            Conteudo.generateRandomMarkers(status,categoria,0);
+            Problema.verTodosComentario($idProblema);  Problema.verTodosComentario('" . $idProblema . "')</script>";
     }
 
     function apoiaComentario() {
@@ -85,17 +90,17 @@ class Comentario extends CI_Controller {
         $qtde = $_POST['qtde'];
         $idProblema = $_POST['ip'];
         $qtde++;
-       
+
 
         if ($qtde < 3) {
-            
-           //  echo $qtde;
+
+            //  echo $qtde;
             $dados = array(
                 'reprovadoComentario' => $qtde,
             );
             $this->comentario_model->reporvarComentario($dados, $idComentario);
 
-           echo "<script> Problema.verTodosComentario('" . $idProblema . "') </script>";
+            echo "<script> Problema.verTodosComentario('" . $idProblema . "') </script>";
         } else {
             $this->comentario_model->excluirComentario($idComentario);
             echo "<script> Problema.verTodosComentario('" . $idProblema . "') </script>";

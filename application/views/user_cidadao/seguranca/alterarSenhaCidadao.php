@@ -5,7 +5,7 @@
 <div class="modal-body">
     <form name="frmLogin" class="form" action="sdf" onsubmit="Cadastro.alterarSenha();return false;" method="post">
 
-            <span class="text-error"> 
+            <span class="text-danger"> 
                 <?php echo validation_errors() ;?>
             </span>
         <div class="form-group">

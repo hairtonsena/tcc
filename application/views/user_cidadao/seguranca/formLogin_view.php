@@ -7,7 +7,7 @@
 
     <form class="form" name="frmLogin" action="#" onsubmit="Cadastro.VerificarUserCidadao(); return false;" method="post">
 
-        <span class="text-error"> 
+        <span class="text-danger"> 
             <?php echo validation_errors(); ?>
         </span>
         <div class="form-group">
