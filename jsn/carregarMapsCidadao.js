@@ -29,7 +29,7 @@ var Conteudo = {
             marker.setVisible(false);
         }
     },
-    generateRandomMarkers: function(status, categoria, idProblema) {
+    generateRandomMarkers: function(status, categoria,ordem, idProblema) {
 
         var alternaCores = 0;
         var div = Conteudo.sideContainer;
@@ -49,7 +49,8 @@ var Conteudo = {
         $.getJSON(Config.base_url + "listarColaboracaoJson?ttt=s", {
             'status': status,
             'categoria': categoria,
-            'idProblema': idProblema
+            'idProblema': idProblema,
+            'ordem':ordem
         }, function(json) {
 
 

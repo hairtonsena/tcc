@@ -44,13 +44,15 @@ var Problema ={
         
         var status = $("#status").val();
         var categoria = $("#categoria").val();
+        var ordem = $("#ordem").val();
         
         Tela.abrirModal();
-        Conteudo.generateRandomMarkers(status,categoria,0);
+        Conteudo.generateRandomMarkers(status,categoria,ordem,0);
         Tela.fecharModal();
     },
     verColaboracoesCidadao: function(){
-        Conteudo.generateRandomMarkers(-1,-1,0);
+        var ordem = $("#ordem").val();
+        Conteudo.generateRandomMarkers(-1,-1,ordem,0);
     },
     focaProblemaAdicionado:function (idProblema){
 
@@ -129,7 +131,7 @@ var Problema ={
 Cadastro = {
     formeLoginCidadao: function(local) {
       
-      alert(local);
+
        
         Tela.abrirModal();
         var url = Config.base_url + "seguranca";

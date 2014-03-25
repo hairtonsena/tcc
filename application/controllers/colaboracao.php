@@ -39,9 +39,9 @@ class colaboracao extends CI_Controller {
             $this->load->view('user_cidadao/colaboracao/formNovaColaboracao', $dados);
         } else {
             $dados = array(
-                'local'=>$valor
+                'local' => $valor
             );
-            $this->load->view('user_cidadao/seguranca/linkLogin_view',$dados);
+            $this->load->view('user_cidadao/seguranca/linkLogin_view', $dados);
         }
     }
 
@@ -66,8 +66,16 @@ class colaboracao extends CI_Controller {
         foreach ($query as $qr) {
             $idProblema = $qr->idProblema;
         }
-        echo "<h4> O problema foi registrado <br/> com sucesso. </h4>";
-        echo "<script> Problema.focaProblemaAdicionado('$idProblema') </script>";
+        echo '
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+    <h4 class="modal-title"> Registro de Problema</h4>
+</div>            
+<div class="modal-body"> O problema foi registrado com sucesso. <br/>
+<a href="javascript:void(0)" class="btn btn-default">ok</a>
+</div>';
+        echo "<script> Conteudo.generateRandomMarkers(-1,-1,0) </script>";
     }
 
     function formeEditarColaboracao() {

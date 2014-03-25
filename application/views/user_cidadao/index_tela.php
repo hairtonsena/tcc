@@ -79,16 +79,6 @@
                         <?php }
                         ?>
 
-                        <!--                        <li class="dropdown">
-                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-align-justify"></span> <b class="caret"></b></a>
-                                                    <ul class="dropdown-menu">
-                                                        <li><a href="#">Action</a></li>
-                                                        <li><a href="#">Another action</a></li>
-                                                        <li><a href="#">Something else here</a></li>
-                                                        <li class="divider"></li>
-                                                        <li><a href="#">Separated link</a></li>
-                                                    </ul>
-                                                </li>-->
                     </ul>
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
@@ -100,6 +90,17 @@
             <div class="row">
                 <div class="col-sm-3 col-md-3 sidebar" id="calunaDireita">
                     <div id="filtros" >
+                        <div class="form-group col-md-6 semMarge" >
+                            <label onclick="Tela.alternarButao()" class="btn semMarge">
+                                <input type="checkbox" id="addColaboracao"> Minhas Colaborações
+                            </label>
+                        </div>
+                        <div class="form-group col-md-6 semMarge">
+                            <select name="ordem" id="ordem" onchange="Problema.verColaboracoes('a');" class="text-pequino semMarge form-control" >
+                                <option value="0"> Data </option>
+
+                            </select>
+                        </div>
                         <div class="form-group col-md-6 semMarge">
                             <select name="status" id="status" onchange="Problema.verColaboracoes('a');" class="text-pequino semMarge form-control" >
                                 <option value="0"> Status - Todos </option>

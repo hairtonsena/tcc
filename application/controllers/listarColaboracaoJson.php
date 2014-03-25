@@ -27,12 +27,13 @@ class ListarColaboracaoJson extends CI_Controller {
 
 
 
-        if ((isset($_GET['status'])) && (isset($_GET['categoria'])) && (isset($_GET['idProblema']))) {
+        if ((isset($_GET['status'])) && (isset($_GET['categoria'])) && (isset($_GET['idProblema']))&& (isset($_GET['ordem']))) {
             $status = $_GET['status'];
             $categoria = $_GET['categoria'];
             $idProblema = $_GET['idProblema'];
+            $ordem = $_GET['ordem'];
 
-            $colaboracoesListadas = $this->colaboracao_model->obterColaboracoes($status, $categoria, $idProblema, $userLogado)->result();
+            $colaboracoesListadas = $this->colaboracao_model->obterColaboracoes($status, $categoria,$ordem, $idProblema, $userLogado)->result();
         }
 
 

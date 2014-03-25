@@ -12,7 +12,7 @@
  */
 class colaboracao_model extends CI_Model {
 
-    function obterColaboracoes($status, $categoria, $idProblema, $userLogado) {
+    function obterColaboracoes($status, $categoria,$ordem, $idProblema, $userLogado) {
 
         if (($status == 0) && ($categoria == 0)) {
 

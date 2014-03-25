@@ -35,7 +35,6 @@ class seguranca extends CI_Controller {
 
         if ($_POST['local']!='no') {
             
-            echo $_POST['local'].'Ola';
             $this->session->set_userdata('local', $_POST['local']);
         }
 
@@ -144,7 +143,8 @@ class seguranca extends CI_Controller {
     }
 
     function cadastro_cidadao() {
-        if (!empty($_POST['local'])) {
+        if ($_POST['local']!='no') {
+            
             $this->session->set_userdata('local', $_POST['local']);
         }
 
