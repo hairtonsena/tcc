@@ -52,9 +52,21 @@ Tela = {
     ,
     iniciarTela: function() {
         
-        Tela.abrirModal()
+        Tela.abrirModal();
+             
+        var local = $('#local').val();
         
-        Problema.verColaboracoes(0); 
+        if(local==0){
+            Tela.fecharModal();
+        }else{
+            Problema.adicionarPontoMapa(local);
+        }
+        
+        
+       
+      
+        
+        Conteudo.generateRandomMarkers(0,0,0); 
 
         var tamanhoColuna = document.getElementById("calunaDireita").offsetHeight;
         
@@ -94,7 +106,7 @@ Tela = {
             return false;
         });
         
-        Tela.fecharModal()
+    //  Tela.fecharModal()
     },
     isRightClick: function (event)        {
         var rightclick;
@@ -111,6 +123,7 @@ Tela = {
         $("#myModal").modal("hide");
         
     }
+    
 
 };
 

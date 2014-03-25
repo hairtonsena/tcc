@@ -1,6 +1,6 @@
 var Problema ={
     adicionarPontoMapa: function (location) {
-        Tela.abrirModal();
+//        alert(location);
         var parametro = "local="+location;      
         var url= Config.base_url+"colaboracao/formularioNovaColaboracao";
         CarregarPagina.carregarConteudo(url, parametro)
@@ -127,9 +127,13 @@ var Problema ={
 
 
 Cadastro = {
-    formeLoginCidadao: function() {
+    formeLoginCidadao: function(local) {
+      
+      alert(local);
+       
+        Tela.abrirModal();
         var url = Config.base_url + "seguranca";
-        var parametro = 'acao=formularioColaboracaoPendente';
+        var parametro = 'local='+local;
         CarregarPagina.carregarConteudo(url, parametro);
     },
     VerificarUserCidadao: function() {
@@ -142,9 +146,11 @@ Cadastro = {
         CarregarPagina.carregarConteudo(url, parametro);
     }
     ,
-    formeCadastroCidadao: function() {
+    
+    formeCadastroCidadao: function(local) {
+        Tela.abrirModal();
         var url = Config.base_url + "seguranca/cadastro_cidadao";
-        var parametro = 'acao=formularioColaboracaoPendente';
+        var parametro = 'acao=formularioColaboracaoPendente&&local='+local;
         CarregarPagina.carregarConteudo(url, parametro);
 
     },

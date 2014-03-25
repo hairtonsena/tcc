@@ -22,6 +22,10 @@ class Comentario extends CI_Controller {
 
         $userLogado = FALSE;
 
+        if($this->session->userdata('local')){
+            $this->session->unset_userdata('local');
+        }
+        
         if (($this->session->userdata('idCidadao')) && ($this->session->userdata('nomeCidadao')) && ($this->session->userdata('emailCidadao')) && ($this->session->userdata('senhaCidadao'))) {
             $userLogado = TRUE;
             $dado = array('idProblema' => $idProblema);

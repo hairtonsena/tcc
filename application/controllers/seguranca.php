@@ -18,7 +18,7 @@ if (!defined('BASEPATH'))
 class seguranca extends CI_Controller {
 
     public
-            function __construct() {
+    function __construct() {
         parent::__construct();
         date_default_timezone_set('UTC');
         $this->load->helper('url');
@@ -32,6 +32,12 @@ class seguranca extends CI_Controller {
     }
 
     function index() {
+
+        if ($_POST['local']!='no') {
+            
+            echo $_POST['local'].'Ola';
+            $this->session->set_userdata('local', $_POST['local']);
+        }
 
         $wordCp = rand(000000, 999999);
         $this->session->set_userdata(array('textCaptcha' => $wordCp));
@@ -138,6 +144,9 @@ class seguranca extends CI_Controller {
     }
 
     function cadastro_cidadao() {
+        if (!empty($_POST['local'])) {
+            $this->session->set_userdata('local', $_POST['local']);
+        }
 
         $this->load->view('user_cidadao/seguranca/cadastraCidadao_view');
     }
@@ -455,4 +464,5 @@ class seguranca extends CI_Controller {
 
 //put your code here
 }
+
 ?>

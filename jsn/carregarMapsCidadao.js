@@ -280,8 +280,9 @@ var Conteudo = {
         // Clicando em um ponto no mapa para realizar uma nova manifestação 
         google.maps.event.addListener(Conteudo.map, 'click', function(event) {
             if ($('#addColaboracao').is(':checked', true)) {
-            
+                $('#addColaboracao').attr('checked',false);
                 Conteudo.map.panTo(event.latLng);
+                 Tela.abrirModal();
                 Conteudo.adicionarPontoMapa(event.latLng);
             
             }
@@ -307,10 +308,15 @@ var Conteudo = {
     },
     // Adicionando um novo problema no mapa atravez do botão Direito
     adicionarPontoBotaoDireito:function(){
-        
+         
+         //alert('oi');
+         Tela.abrirModal();
+         
         $("#jqxMenu").css({
             display:'none'
         });
+        
+       
         Problema.adicionarPontoMapa(Conteudo.latlog);
     }
     ,

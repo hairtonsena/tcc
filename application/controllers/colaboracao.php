@@ -19,9 +19,12 @@ class colaboracao extends CI_Controller {
     }
 
     function formularioNovaColaboracao() {
+        $this->session->unset_userdata('local');
+        $valor = $this->input->post('local');
 
         if (($this->session->userdata('idCidadao')) && ($this->session->userdata('nomeCidadao')) && ($this->session->userdata('emailCidadao')) && ($this->session->userdata('senhaCidadao'))) {
-            $valor = $this->input->post('local');
+            //$valor = $this->session->userdata('local');
+
             $pontos = array("(", ")");
             $result = str_replace($pontos, "", $valor);
             $latlng = explode(",", $result);
@@ -35,7 +38,10 @@ class colaboracao extends CI_Controller {
 
             $this->load->view('user_cidadao/colaboracao/formNovaColaboracao', $dados);
         } else {
-            $this->load->view('user_cidadao/seguranca/linkLogin_view');
+            $dados = array(
+                'local'=>$valor
+            );
+            $this->load->view('user_cidadao/seguranca/linkLogin_view',$dados);
         }
     }
 

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt">
     <head>
@@ -34,9 +35,9 @@
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <div class="" data-toggle="buttons">
-                        <label class="btn btn-primary navbar-btn navbar-left pull-left">
-                            <input type="checkbox" id="addColaboracao"> <span class="glyphicon glyphicon-ok-circle"></span> Reportar Problema
+                    <div class="" >
+                        <label onclick="Tela.alternarButao()" class="btn btn-primary navbar-btn navbar-left pull-left">
+                            <input type="checkbox" id="addColaboracao"><!-- <span class="glyphicon glyphicon-ok-circle"></span>--> Reportar Problema
                         </label>
                     </div>
                     <form class="navbar-form navbar-left" onsubmit="Problema.pesquisaLocal(); return false;" role="search">
@@ -73,8 +74,8 @@
 
                             </li>
                         <?php } else { ?>
-                            <li><a href="javascript:void(0)" onclick="Cadastro.formeLoginCidadao()"><span class="glyphicon glyphicon-log-in"></span> Entrar</a></li>
-                            <li><a href="javascript:void(0)" onclick="Cadastro.formeCadastroCidadao()"><span class="glyphicon glyphicon-list-alt"></span> Cadastrar</a></li>
+                            <li><a href="javascript:void(0)" onclick="Cadastro.formeLoginCidadao('no')"><span class="glyphicon glyphicon-log-in"></span> Entrar</a></li>
+                            <li><a href="javascript:void(0)" onclick="Cadastro.formeCadastroCidadao('no')"><span class="glyphicon glyphicon-list-alt"></span> Cadastrar</a></li>
                         <?php }
                         ?>
 
@@ -186,5 +187,16 @@
             <a class="list-group-item" href="#" onclick="Conteudo.adicionarPontoBotaoDireito()">Reportar problema</a>
 
         </div>
+        <?php
+        if ($this->session->userdata('local')) {
+            ?>
+            <input type="hidden" id="local" name="local" value="<?php echo $this->session->userdata('local') ?>"/>
+
+
+        <?php } else { ?>
+            <input type="hidden" id="local" name="local" value="0"/>
+        <?php }
+        ?>
+
     </body>
 </html>

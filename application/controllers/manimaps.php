@@ -25,8 +25,8 @@ class Manimaps extends CI_Controller {
             'statusProblema' => $this->status_model->obterTodosStatusProblema()->result(),
             'tipoProblema' => $this->tipo_model->obterTodosTiposProblema()->result()
         );
-
-
+        
+        
         $this->load->view('user_cidadao/index_tela',$dados);
     }
 
