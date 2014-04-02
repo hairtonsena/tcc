@@ -91,14 +91,26 @@ var Conteudo = {
                     var botaoComentar = '';
 
                     verificarComentario = '<a href="javascript:void(0)" onclick="Problema.verTodosComentario(\'' + objeto.idProblema + '\')"> Comentários ' + objeto.qtde_comentario + ' </a>';
-                    botoesApoioDenucia = '<a class="btn btn-primary btn-xs" href="javascript:void(0)" onclick="Problema.apoiaProblema(\''+objeto.idProblema+'\')" >'+
+                   
+                    if(objeto.user=='sim'){
+                        botoesApoioDenucia = '<a class="btn btn-primary btn-xs" href="javascript:void(0)" onclick="Problema.apoiaProblema(\''+objeto.idProblema+'\')" >'+
                         '<i class="glyphicon glyphicon-thumbs-up"></i> '+
                         '<span class="text-info badge">'+objeto.apoio+'</span>'+ 
-                    '</a> '+
-                    '<a class="btn btn-default btn-xs" href="javascript:void(0)" onclick="Problema.reprovadoProblema(\''+ objeto.idProblema+'\')">'+
-                       '<i class="glyphicon glyphicon-thumbs-down"></i> '+
+                        '</a> '+
+                        '<a class="btn btn-default btn-xs" href="javascript:void(0)" onclick="Problema.reprovadoProblema(\''+ objeto.idProblema+'\')">'+
+                        '<i class="glyphicon glyphicon-thumbs-down"></i> '+
                         '<span class="text-error badge">'+objeto.denuncia+'</span>'+ 
-                    '</a>';
+                        '</a>';
+                    }else{
+                        botoesApoioDenucia = '<a class="btn btn-primary btn-xs" href="javascript:void(0)" onclick="alert(\'Desculpe, faça login para realizar esta operação\')" >'+
+                        '<i class="glyphicon glyphicon-thumbs-up"></i> '+
+                        '<span class="text-info badge">'+objeto.apoio+'</span>'+ 
+                        '</a> '+
+                        '<a class="btn btn-default btn-xs" href="javascript:void(0)" onclick="alert(\'Desculpe, faça login para realizar esta operação\')">'+
+                        '<i class="glyphicon glyphicon-thumbs-down"></i> '+
+                        '<span class="text-error badge">'+objeto.denuncia+'</span>'+ 
+                        '</a>';                
+                    }
                 
                     switch (objeto.idStatus) {
 
@@ -292,7 +304,7 @@ var Conteudo = {
             if ($('#addColaboracao').is(':checked', true)) {
                 $('#addColaboracao').attr('checked',false);
                 Conteudo.map.panTo(event.latLng);
-                 Tela.abrirModal();
+                Tela.abrirModal();
                 Conteudo.adicionarPontoMapa(event.latLng);
             
             }
@@ -319,8 +331,8 @@ var Conteudo = {
     // Adicionando um novo problema no mapa atravez do botão Direito
     adicionarPontoBotaoDireito:function(){
          
-         //alert('oi');
-         Tela.abrirModal();
+        //alert('oi');
+        Tela.abrirModal();
          
         $("#jqxMenu").css({
             display:'none'
