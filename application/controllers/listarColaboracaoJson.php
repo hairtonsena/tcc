@@ -41,8 +41,10 @@ class ListarColaboracaoJson extends CI_Controller {
 
         foreach ($colaboracoesListadas as $cl) {
 
-            $quantidadeComentario = 0;
-            $quantidadeComentario = $this->colaboracao_model->quatidadeComentarioPorColaboracao($cl->idProblema);
+            $apoioProblema = 0;
+            $apoioProblema = $this->colaboracao_model->quatidadeApoioProblema($cl->idProblema);
+            $denunciaProblema = 0;
+            $denunciaProblema = $this->colaboracao_model->quatidadeDenunciaProblema($cl->idProblema);
 
 
             $user = 'nao';
@@ -98,7 +100,8 @@ class ListarColaboracaoJson extends CI_Controller {
 
             $cl->dataProblema = "$dataBrasil";
             $cl->userLogado = $userLogado;
-            $cl->quantidadeComentario = "$quantidadeComentario";
+            $cl->apoio = "$apoioProblema";
+            $cl->denuncia = "$denunciaProblema";
             $cl->user = "$userLogado";
 
             $todasManifestacoes[] = $cl;

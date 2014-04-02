@@ -1,6 +1,6 @@
 var Problema ={
     adicionarPontoMapa: function (location) {
-//        alert(location);
+        //        alert(location);
         var parametro = "local="+location;      
         var url= Config.base_url+"colaboracao/formularioNovaColaboracao";
         CarregarPagina.carregarConteudo(url, parametro)
@@ -83,6 +83,17 @@ var Problema ={
         
         CarregarPagina.carregarConteudo(url, parametro);
 
+    },
+    apoiaProblema : function(idProblema){
+        
+        //alert('ola');
+        
+        Tela.abrirModal();
+        
+        var parametro = "idProblema="+idProblema;  
+        var url = Config.base_url+"colaboracao/apoiarProblema";
+        
+        CarregarPagina.carregarConteudo(url, parametro);
     },
     formeComentaProblema : function(idProblema){
        

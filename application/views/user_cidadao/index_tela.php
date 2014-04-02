@@ -86,7 +86,7 @@
 
 
 
-        <div class="container-fluid">
+        <div class="container-fluid" >
             <div class="row">
                 <div class="col-sm-3 col-md-3 sidebar" id="calunaDireita">
                     <div id="filtros" >
@@ -97,8 +97,10 @@
                         </div>
                         <div class="form-group col-md-6 semMarge">
                             <select name="ordem" id="ordem" onchange="Problema.verColaboracoes('a');" class="text-pequino semMarge form-control" >
-                                <option value="0"> Data </option>
-
+                                <option value="0"> Mais Atual </option>
+                                <option value="1"> Mais Antigo </option>
+                                <option value="2"> Mais comentádos </option>
+                                <option value="3"> Menos comentádos </option>
                             </select>
                         </div>
                         <div class="form-group col-md-6 semMarge">

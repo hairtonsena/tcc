@@ -87,10 +87,19 @@ var Conteudo = {
                     var conteudoDireito;
                     var conteudoBalaoMapa;
                     var verificarComentario;
+                    var botoesApoioDenucia;
                     var botaoComentar = '';
 
-                    verificarComentario = '<a href="javascript:void(0)" onclick="Problema.verTodosComentario(\'' + objeto.idProblema + '\')">' + objeto.quantidadeComentario + ' Comentários </a>';
-
+                    verificarComentario = '<a href="javascript:void(0)" onclick="Problema.verTodosComentario(\'' + objeto.idProblema + '\')"> Comentários ' + objeto.qtde_comentario + ' </a>';
+                    botoesApoioDenucia = '<a class="btn btn-primary btn-xs" href="javascript:void(0)" onclick="Problema.apoiaProblema(\''+objeto.idProblema+'\')" >'+
+                        '<i class="glyphicon glyphicon-thumbs-up"></i> '+
+                        '<span class="text-info badge">'+objeto.apoio+'</span>'+ 
+                    '</a> '+
+                    '<a class="btn btn-default btn-xs" href="javascript:void(0)" onclick="Problema.reprovadoProblema(\''+ objeto.idProblema+'\')">'+
+                       '<i class="glyphicon glyphicon-thumbs-down"></i> '+
+                        '<span class="text-error badge">'+objeto.denuncia+'</span>'+ 
+                    '</a>';
+                
                     switch (objeto.idStatus) {
 
                         case '3':
@@ -202,7 +211,7 @@ var Conteudo = {
                             
                             '<br/><strong class="tituloProblema">Situação:</strong>' +
                             objeto.nomeStatus +
-                            '<br/>' + botaoComentar + ' ' + verificarComentario +
+                            '<div class="" style="text-align: right">' +  verificarComentario+botoesApoioDenucia+
                             '</div></div>';
                             break;
                     }
