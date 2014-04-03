@@ -110,6 +110,11 @@ class colaboracao_model extends CI_Model {
         $this->db->insert('apoioProblema', $dados);
     }
 
+    function persistirReprovarProblema($dados){
+        $this->db->insert('denuciarProblema', $dados);
+    }
+
+
     function obterColaboracaoInserida($dados) {
         return $this->db->get_where('problema', array('longitude' => $dados['longitude'], 'latitude' => $dados['latitude']));
     }
@@ -119,6 +124,20 @@ class colaboracao_model extends CI_Model {
         $this->db->from('apoioProblema');
         $this->db->where('idProblema =', $problema);
 
+        return $this->db->count_all_results();
+    }
+
+    function verificarUserApoio($idProblema, $idUser) {
+        $this->db->from('apoioProblema');
+        $this->db->where('idProblema =', $idProblema);
+        $this->db->where('idCidadao =', $idUser);
+        return $this->db->count_all_results();
+    }
+
+    function verificarUserReprovado($idProblema, $idUser) {
+        $this->db->from('denuciarProblema');
+        $this->db->where('idProblema =', $idProblema);
+        $this->db->where('idCidadao =', $idUser);
         return $this->db->count_all_results();
     }
 

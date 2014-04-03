@@ -66,7 +66,7 @@ Tela = {
        
       
         
-        Conteudo.generateRandomMarkers(0,0,0); 
+        Conteudo.generateRandomMarkers(0,0,0,0); 
 
         var tamanhoColuna = document.getElementById("calunaDireita").offsetHeight;
         

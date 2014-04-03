@@ -128,21 +128,38 @@ class colaboracao extends CI_Controller {
     }
 
     function apoiarProblema() {
-        echo "ola";
-       // if (($this->session->userdata('idCidadao')) && ($this->session->userdata('nomeCidadao')) && ($this->session->userdata('emailCidadao')) && ($this->session->userdata('senhaCidadao'))) {
-            echo "oi";
-            $idProblema = $_POST['idProblema'];
-            $dados = array(
-                'idProblema' => $idProblema,
-                'idCidadao' => $this->session->userdata('idCidadao'),
-                'statusApoio' => '1',
-            );
 
-            $this->colaboracao_model->persistirApoiarProblema($dados);
+        // if (($this->session->userdata('idCidadao')) && ($this->session->userdata('nomeCidadao')) && ($this->session->userdata('emailCidadao')) && ($this->session->userdata('senhaCidadao'))) {
 
-            echo "<h4> O problema foi registrado <br/> com sucesso. </h4>";
-            echo "<script> Problema.focaProblemaAdicionado('$idProblema') </script>";
-      //  }
+        $idProblema = $_POST['idProblema'];
+        $dados = array(
+            'idProblema' => $idProblema,
+            'idCidadao' => $this->session->userdata('idCidadao'),
+            'statusApoio' => '1',
+        );
+
+        $this->colaboracao_model->persistirApoiarProblema($dados);
+
+        echo "<h4> O problema foi registrado <br/> com sucesso. </h4>";
+
+        //  }
+    }
+
+    function reprovaProblema() {
+        // if (($this->session->userdata('idCidadao')) && ($this->session->userdata('nomeCidadao')) && ($this->session->userdata('emailCidadao')) && ($this->session->userdata('senhaCidadao'))) {
+
+        $idProblema = $_POST['idProblema'];
+        $dados = array(
+            'idProblema' => $idProblema,
+            'idCidadao' => $this->session->userdata('idCidadao'),
+            'statusApoio' => '1',
+        );
+
+        $this->colaboracao_model->persistirReprovarProblema($dados);
+
+        echo "<h4> O problema foi registrado <br/> com sucesso. </h4>";
+
+        //  }
     }
 
 }

@@ -86,12 +86,38 @@ var Problema ={
     },
     apoiaProblema : function(idProblema){
         
-        //alert('ola');
+        var nomeid = "#numApoio"+idProblema;
+        var nomeidB = "#numApoioB"+idProblema;
+        var botaoApoio = "#botaoApoio"+idProblema;
+        var botaoApoioB = "#botaoApoioB"+idProblema;
         
-        Tela.abrirModal();
+        $(botaoApoio).attr('disabled','true'); 
+        $(botaoApoioB).attr('disabled','true'); 
         
+        var num = $(nomeid).html();
+        num++
+        
+        $(nomeid).html(num);
+        $(nomeidB).html(num);
+                
         var parametro = "idProblema="+idProblema;  
         var url = Config.base_url+"colaboracao/apoiarProblema";
+        
+        CarregarPagina.carregarConteudo(url, parametro);
+    },
+    reprovadoProblema : function(idProblema){
+        
+        var nomeid = "#numReprova"+idProblema;
+        var botaoReprova = "#botaoReprova"+idProblema;
+          
+        $(botaoReprova).attr('disabled','true'); 
+                
+        var num = $(nomeid).html();
+        num++
+        $(nomeid).html(num);
+                
+        var parametro = "idProblema="+idProblema;  
+        var url = Config.base_url+"colaboracao/reprovaProblema";
         
         CarregarPagina.carregarConteudo(url, parametro);
     },

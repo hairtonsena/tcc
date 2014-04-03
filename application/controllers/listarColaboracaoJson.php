@@ -27,13 +27,13 @@ class ListarColaboracaoJson extends CI_Controller {
 
 
 
-        if ((isset($_GET['status'])) && (isset($_GET['categoria'])) && (isset($_GET['idProblema']))&& (isset($_GET['ordem']))) {
+        if ((isset($_GET['status'])) && (isset($_GET['categoria'])) && (isset($_GET['idProblema'])) && (isset($_GET['ordem']))) {
             $status = $_GET['status'];
             $categoria = $_GET['categoria'];
             $idProblema = $_GET['idProblema'];
             $ordem = $_GET['ordem'];
 
-            $colaboracoesListadas = $this->colaboracao_model->obterColaboracoes($status, $categoria,$ordem, $idProblema, $userLogado)->result();
+            $colaboracoesListadas = $this->colaboracao_model->obterColaboracoes($status, $categoria, $ordem, $idProblema, $userLogado)->result();
         }
 
 
@@ -43,10 +43,28 @@ class ListarColaboracaoJson extends CI_Controller {
 
             $apoioProblema = 0;
             $apoioProblema = $this->colaboracao_model->quatidadeApoioProblema($cl->idProblema);
+
+            $jaApoiei = 'nao';
+            if ($userLogado == 'sim') {
+                if ($this->colaboracao_model->verificarUserApoio($cl->idProblema, $this->session->userdata('idCidadao')) > 0) {
+                    $jaApoiei = 'sim';
+                }
+            }
+
+
             $denunciaProblema = 0;
             $denunciaProblema = $this->colaboracao_model->quatidadeDenunciaProblema($cl->idProblema);
 
-
+            $jaReprovei = 'nao';
+            if ($userLogado == 'sim') {
+                if ($this->colaboracao_model->verificarUserReprovado($cl->idProblema, $this->session->userdata('idCidadao')) > 0) {
+                    $jaReprovei = 'sim';
+                }
+            }
+            
+            
+            
+            
             $user = 'nao';
 
 
@@ -101,6 +119,8 @@ class ListarColaboracaoJson extends CI_Controller {
             $cl->dataProblema = "$dataBrasil";
             $cl->userLogado = $userLogado;
             $cl->apoio = "$apoioProblema";
+            $cl->jaApoiei= "$jaApoiei";
+            $cl->jaReprovei = "$jaReprovei";
             $cl->denuncia = "$denunciaProblema";
             $cl->user = "$userLogado";
 

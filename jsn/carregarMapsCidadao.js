@@ -61,6 +61,8 @@ var Conteudo = {
                 div.innerHTML = '<h3>Nenhum marcador Encontrado!</h3>';
                 alert('Nenhum marcador Encontrado!');
             } else {
+                
+                //var idColaboracao = 0;
                 for (var n = 0; n <= json.length; n++) {
 
                     var objeto = json[n];
@@ -88,19 +90,58 @@ var Conteudo = {
                     var conteudoBalaoMapa;
                     var verificarComentario;
                     var botoesApoioDenucia;
+                    var botoesApoioDenuciaB;
                     var botaoComentar = '';
+                    
+                    
 
                     verificarComentario = '<a href="javascript:void(0)" onclick="Problema.verTodosComentario(\'' + objeto.idProblema + '\')"> Comentários ' + objeto.qtde_comentario + ' </a>';
                    
                     if(objeto.user=='sim'){
-                        botoesApoioDenucia = '<a class="btn btn-primary btn-xs" href="javascript:void(0)" onclick="Problema.apoiaProblema(\''+objeto.idProblema+'\')" >'+
-                        '<i class="glyphicon glyphicon-thumbs-up"></i> '+
-                        '<span class="text-info badge">'+objeto.apoio+'</span>'+ 
-                        '</a> '+
-                        '<a class="btn btn-default btn-xs" href="javascript:void(0)" onclick="Problema.reprovadoProblema(\''+ objeto.idProblema+'\')">'+
-                        '<i class="glyphicon glyphicon-thumbs-down"></i> '+
-                        '<span class="text-error badge">'+objeto.denuncia+'</span>'+ 
-                        '</a>';
+                        if(objeto.jaApoiei=='nao'){
+                            botoesApoioDenucia = '<button type="button" id="botaoApoio'+objeto.idProblema+'" class="btn btn-primary btn-xs" onclick="Problema.apoiaProblema(\''+objeto.idProblema+'\')" >'+
+                            '<i class="glyphicon glyphicon-thumbs-up"></i> '+
+                            '<span class="text-info badge" id="numApoio'+ objeto.idProblema +'">'+objeto.apoio+'</span>'+ 
+                            '</button>';
+                            botoesApoioDenuciaB = '<button type="button" id="botaoApoioB'+objeto.idProblema+'" class="btn btn-primary btn-xs" onclick="Problema.apoiaProblema(\''+objeto.idProblema+'\')" >'+
+                            '<i class="glyphicon glyphicon-thumbs-up"></i> '+
+                            '<span class="text-info badge" id="numApoioB'+ objeto.idProblema +'">'+objeto.apoio+'</span>'+ 
+                            '</button>';
+                        }else{
+                            botoesApoioDenucia = '<button type="button" disabled="true" class="btn btn-primary btn-xs" onclick="alert(\'Você já Apoiou\')" >'+
+                            '<i class="glyphicon glyphicon-thumbs-up"></i> '+
+                            '<span class="text-info badge">'+objeto.apoio+'</span>'+ 
+                            '</button>';
+                            botoesApoioDenuciaB = '<button type="button" disabled="true" class="btn btn-primary btn-xs" onclick="alert(\'Você já Apoiou\')" >'+
+                            '<i class="glyphicon glyphicon-thumbs-up"></i> '+
+                            '<span class="text-info badge">'+objeto.apoio+'</span>'+ 
+                            '</button>';
+                        };
+                        
+                        if(objeto.jaReprovei=='nao'){
+                            botoesApoioDenucia = botoesApoioDenucia+ 
+                            '<button type="button" id="botaoReprova'+objeto.idProblema+'" class="btn btn-default btn-xs" onclick="Problema.reprovadoProblema(\''+ objeto.idProblema+'\')">'+
+                            '<i class="glyphicon glyphicon-thumbs-down"></i> '+
+                            '<span class="text-error badge" id="numReprova'+objeto.idProblema+'">'+objeto.denuncia+'</span>'+ 
+                            '</button>';
+                            botoesApoioDenuciaB = botoesApoioDenuciaB+ 
+                            '<button type="button" id="botaoReprovaB'+objeto.idProblema+'" class="btn btn-default btn-xs" onclick="Problema.reprovadoProblema(\''+ objeto.idProblema+'\')">'+
+                            '<i class="glyphicon glyphicon-thumbs-down"></i> '+
+                            '<span class="text-error badge" id="numReprovaB'+objeto.idProblema+'">'+objeto.denuncia+'</span>'+ 
+                            '</button>';
+                        }else{
+                            botoesApoioDenucia = botoesApoioDenucia+
+                            '<button type="button"  disabled="true" class="btn btn-default btn-xs" onclick="Problema.reprovadoProblema(\''+ objeto.idProblema+'\')">'+
+                            '<i class="glyphicon glyphicon-thumbs-down"></i> '+
+                            '<span class="text-error badge" >'+objeto.denuncia+'</span>'+ 
+                            '</button>';
+                            botoesApoioDenuciaB = botoesApoioDenuciaB+
+                            '<button type="button"  disabled="true" class="btn btn-default btn-xs" onclick="Problema.reprovadoProblema(\''+ objeto.idProblema+'\')">'+
+                            '<i class="glyphicon glyphicon-thumbs-down"></i> '+
+                            '<span class="text-error badge" >'+objeto.denuncia+'</span>'+ 
+                            '</button>';
+                        }
+                    
                     }else{
                         botoesApoioDenucia = '<a class="btn btn-primary btn-xs" href="javascript:void(0)" onclick="alert(\'Desculpe, faça login para realizar esta operação\')" >'+
                         '<i class="glyphicon glyphicon-thumbs-up"></i> '+
@@ -109,7 +150,15 @@ var Conteudo = {
                         '<a class="btn btn-default btn-xs" href="javascript:void(0)" onclick="alert(\'Desculpe, faça login para realizar esta operação\')">'+
                         '<i class="glyphicon glyphicon-thumbs-down"></i> '+
                         '<span class="text-error badge">'+objeto.denuncia+'</span>'+ 
-                        '</a>';                
+                        '</a>';   
+                        botoesApoioDenuciaB = '<a class="btn btn-primary btn-xs" href="javascript:void(0)" onclick="alert(\'Desculpe, faça login para realizar esta operação\')" >'+
+                        '<i class="glyphicon glyphicon-thumbs-up"></i> '+
+                        '<span class="text-info badge">'+objeto.apoio+'</span>'+ 
+                        '</a> '+
+                        '<a class="btn btn-default btn-xs" href="javascript:void(0)" onclick="alert(\'Desculpe, faça login para realizar esta operação\')">'+
+                        '<i class="glyphicon glyphicon-thumbs-down"></i> '+
+                        '<span class="text-error badge">'+objeto.denuncia+'</span>'+ 
+                        '</a>';
                     }
                 
                     switch (objeto.idStatus) {
@@ -207,20 +256,16 @@ var Conteudo = {
                         default :
 
                             conteudoBalaoMapa =
-                            '<div style="font-size: 12; width:300px;"><strong class="tituloProblema"> Tipo: </strong>' +
-                            objeto.tipo +
-                            '<br/><strong class="tituloProblema"> Descrição:</strong>' +
-                            objeto.descricao +
-                            '<br/><strong class="tituloProblema">Data de abertura : </strong>' +
-                            objeto.dataProblema +
+                            '<div style="font-size: 12; width:300px;"><img src="' + imagem + '"/> ' + objeto.tipo +'</strong><span class="pull-right">'+ objeto.dataProblema+'</span>' +
+                            '<br/>' + objeto.descricao +
                             '<br/><strong class="tituloProblema">Situação:</strong>' +
                             objeto.nomeStatus +
-                            '<br/>' + botaoComentar + ' ' + verificarComentario + '</div>';
+                            '<div class="" style="text-align: right">' +  verificarComentario+botoesApoioDenuciaB+
+                            '</div></div>';
 
                             conteudoDireito =
                             '<div style="font-size: 12;"><strong class="tituloProblema"> <img src="' + imagem + '"/> ' + objeto.tipo +'</strong><span class="pull-right">'+ objeto.dataProblema+'</span>' +
                             '<br/>' + objeto.descricao +
-                            
                             '<br/><strong class="tituloProblema">Situação:</strong>' +
                             objeto.nomeStatus +
                             '<div class="" style="text-align: right">' +  verificarComentario+botoesApoioDenucia+
