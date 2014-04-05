@@ -12,7 +12,7 @@
  */
 class colaboracao_model extends CI_Model {
 
-    function obterColaboracoes($status, $categoria, $ordem, $idProblema, $userLogado) {
+    function obterColaboracoes($status, $categoria, $ordem, $idProblema, $minhasColaboracoes, $userLogado) {
         $opcaoOrdem = "";
         $tipoOrdem = "";
         switch ($ordem) {
@@ -40,46 +40,88 @@ class colaboracao_model extends CI_Model {
                     $tipoOrdem = "cres";
                 }
                 break;
+            case 4 : {
+                    $opcaoOrdem = "qtde_apoio";
+                    $tipoOrdem = "desc";
+                }
+                break;
+            case 5 : {
+                    $opcaoOrdem = "qtde_apoio";
+                    $tipoOrdem = "cres";
+                }
+                break;
+            case 6 : {
+                    $opcaoOrdem = "qtde_denuncia";
+                    $tipoOrdem = "desc";
+                }
+                break;
+            case 7 : {
+                    $opcaoOrdem = "qtde_denuncia";
+                    $tipoOrdem = "cres";
+                }
+                break;
         }
         if (($status == 0) && ($categoria == 0)) {
 
             $this->db->select('*');
-            $this->db->from('vw_consulta_problema');
-            // $this->db->join('tipo', 'tipo.idTipo = problema.idTipo');
-            // $this->db->join('status', 'status.idStatus = problema.idStatus');
-            $this->db->where('idStatus >', '3');
-            $this->db->where('idStatus <', '8');
+            $this->db->from('vw_consulta_principal');
+
+            if (($userLogado == 'sim') && ($minhasColaboracoes == 1)) {
+                $idCidadao = $this->session->userdata('idCidadao');
+                $this->db->where('idCidadao =', $idCidadao);
+            } else {
+                $this->db->where('idStatus >', '3');
+                $this->db->where('idStatus <', '8');
+            }
             $this->db->order_by($opcaoOrdem, $tipoOrdem);
+
             return $query = $this->db->get();
         } else if (($status == 0) && ($categoria > 0)) {
 
 
             $this->db->select('*');
-            $this->db->from('problema');
-            $this->db->join('tipo', 'tipo.idTipo = problema.idTipo');
-            $this->db->join('status', 'status.idStatus = problema.idStatus');
-            $this->db->where('problema.idStatus >', '3');
-            $this->db->where('problema.idStatus <', '8');
-            $this->db->where('problema.idTipo =', $categoria);
+            $this->db->from('vw_consulta_principal');
+
+            if (($userLogado == 'sim') && ($minhasColaboracoes == 1)) {
+                $idCidadao = $this->session->userdata('idCidadao');
+                $this->db->where('idCidadao =', $idCidadao);
+            } else {
+                $this->db->where('idStatus >', '3');
+                $this->db->where('idStatus <', '8');
+            }
+
+            $this->db->where('idTipo =', $categoria);
+
+            $this->db->order_by($opcaoOrdem, $tipoOrdem);
             return $query = $this->db->get();
         } else if ((($status > 0) && ($status < 8)) && ($categoria == 0)) {
 
 
             $this->db->select('*');
-            $this->db->from('problema');
-            $this->db->join('tipo', 'tipo.idTipo = problema.idTipo');
-            $this->db->join('status', 'status.idStatus = problema.idStatus');
-            $this->db->where('problema.idStatus =', $status);
-            $this->db->order_by("data", "desc");
+
+            $this->db->from('vw_consulta_principal');
+
+            if (($userLogado == 'sim') && ($minhasColaboracoes == 1)) {
+                $idCidadao = $this->session->userdata('idCidadao');
+                $this->db->where('idCidadao =', $idCidadao);
+            }
+
+            $this->db->where('idStatus =', $status);
+            $this->db->order_by($opcaoOrdem, $tipoOrdem);
+
             return $query = $this->db->get();
         } elseif ((($status > 0) && ($status < 8)) && ($categoria > 0)) {
 
             $this->db->select('*');
-            $this->db->from('problema');
-            $this->db->join('tipo', 'tipo.idTipo = problema.idTipo');
-            $this->db->join('status', 'status.idStatus = problema.idStatus');
-            $this->db->where('problema.idStatus =', $status);
-            $this->db->where('problema.idTipo =', $categoria);
+            $this->db->from('vw_consulta_principal');
+            if (($userLogado == 'sim') && ($minhasColaboracoes == 1)) {
+                $idCidadao = $this->session->userdata('idCidadao');
+                $this->db->where('idCidadao =', $idCidadao);
+            }
+            $this->db->where('idStatus =', $status);
+            $this->db->where('idTipo =', $categoria);
+            
+            $this->db->order_by($opcaoOrdem, $tipoOrdem);
             return $query = $this->db->get();
         } else if ($idProblema != 0) {
 
@@ -107,13 +149,12 @@ class colaboracao_model extends CI_Model {
     }
 
     function persistirApoiarProblema($dados) {
-        $this->db->insert('apoioProblema', $dados);
+        $this->db->insert('apoioproblema', $dados);
     }
 
-    function persistirReprovarProblema($dados){
-        $this->db->insert('denuciarProblema', $dados);
+    function persistirReprovarProblema($dados) {
+        $this->db->insert('denunciaproblema', $dados);
     }
-
 
     function obterColaboracaoInserida($dados) {
         return $this->db->get_where('problema', array('longitude' => $dados['longitude'], 'latitude' => $dados['latitude']));
@@ -121,28 +162,28 @@ class colaboracao_model extends CI_Model {
 
     function quatidadeApoioProblema($problema) {
 
-        $this->db->from('apoioProblema');
+        $this->db->from('apoioproblema');
         $this->db->where('idProblema =', $problema);
 
         return $this->db->count_all_results();
     }
 
     function verificarUserApoio($idProblema, $idUser) {
-        $this->db->from('apoioProblema');
+        $this->db->from('apoioproblema');
         $this->db->where('idProblema =', $idProblema);
         $this->db->where('idCidadao =', $idUser);
         return $this->db->count_all_results();
     }
 
     function verificarUserReprovado($idProblema, $idUser) {
-        $this->db->from('denuciarProblema');
+        $this->db->from('denunciaproblema');
         $this->db->where('idProblema =', $idProblema);
         $this->db->where('idCidadao =', $idUser);
         return $this->db->count_all_results();
     }
 
     function quatidadeDenunciaProblema($problema) {
-        $this->db->from('denuciarProblema');
+        $this->db->from('denunciaproblema');
         $this->db->where('idProblema =', $problema);
 
         return $this->db->count_all_results();

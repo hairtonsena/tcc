@@ -12,6 +12,7 @@ class colaboracao extends CI_Controller {
         $this->load->library('session');
         $this->load->model('manimaps/tipo_model');
         $this->load->model('manimaps/colaboracao_model');
+        date_default_timezone_set('UTC');
     }
 
     function index() {
@@ -73,9 +74,9 @@ class colaboracao extends CI_Controller {
     <h4 class="modal-title"> Registro de Problema</h4>
 </div>            
 <div class="modal-body"> O problema foi registrado com sucesso. <br/>
-<a href="javascript:void(0)" class="btn btn-default">ok</a>
+<a href="javascript:void(0)" onclick="Tela.fecharModel()" class="btn btn-default">ok</a>
 </div>';
-        echo "<script> Conteudo.generateRandomMarkers(-1,-1,0) </script>";
+        echo "<script> Conteudo.generateRandomMarkers(-1,-1,0,0) </script>";
     }
 
     function formeEditarColaboracao() {
@@ -152,7 +153,7 @@ class colaboracao extends CI_Controller {
         $dados = array(
             'idProblema' => $idProblema,
             'idCidadao' => $this->session->userdata('idCidadao'),
-            'statusApoio' => '1',
+            'statusDenuncia' => '1',
         );
 
         $this->colaboracao_model->persistirReprovarProblema($dados);

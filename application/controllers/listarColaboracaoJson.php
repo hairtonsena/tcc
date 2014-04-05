@@ -11,6 +11,7 @@ class ListarColaboracaoJson extends CI_Controller {
         $this->load->database();
         $this->load->library('session');
         $this->load->model('manimaps/colaboracao_model');
+        date_default_timezone_set('UTC');
     }
 
     public function index() {
@@ -27,13 +28,14 @@ class ListarColaboracaoJson extends CI_Controller {
 
 
 
-        if ((isset($_GET['status'])) && (isset($_GET['categoria'])) && (isset($_GET['idProblema'])) && (isset($_GET['ordem']))) {
+        if ((isset($_GET['status'])) && (isset($_GET['categoria'])) && (isset($_GET['idProblema'])) && (isset($_GET['ordem']))&&(isset($_GET['minhaColaboracoes']))) {
             $status = $_GET['status'];
             $categoria = $_GET['categoria'];
             $idProblema = $_GET['idProblema'];
+            $minhasColaboracoes = $_GET['minhaColaboracoes'];
             $ordem = $_GET['ordem'];
 
-            $colaboracoesListadas = $this->colaboracao_model->obterColaboracoes($status, $categoria, $ordem, $idProblema, $userLogado)->result();
+            $colaboracoesListadas = $this->colaboracao_model->obterColaboracoes($status, $categoria, $ordem, $idProblema,$minhasColaboracoes, $userLogado)->result();
         }
 
 
@@ -41,8 +43,8 @@ class ListarColaboracaoJson extends CI_Controller {
 
         foreach ($colaboracoesListadas as $cl) {
 
-            $apoioProblema = 0;
-            $apoioProblema = $this->colaboracao_model->quatidadeApoioProblema($cl->idProblema);
+          //  $apoioProblema = 0;
+          // $apoioProblema = $this->colaboracao_model->quatidadeApoioProblema($cl->idProblema);
 
             $jaApoiei = 'nao';
             if ($userLogado == 'sim') {
@@ -52,8 +54,8 @@ class ListarColaboracaoJson extends CI_Controller {
             }
 
 
-            $denunciaProblema = 0;
-            $denunciaProblema = $this->colaboracao_model->quatidadeDenunciaProblema($cl->idProblema);
+           // $denunciaProblema = 0;
+           // $denunciaProblema = $this->colaboracao_model->quatidadeDenunciaProblema($cl->idProblema);
 
             $jaReprovei = 'nao';
             if ($userLogado == 'sim') {
@@ -118,10 +120,10 @@ class ListarColaboracaoJson extends CI_Controller {
 
             $cl->dataProblema = "$dataBrasil";
             $cl->userLogado = $userLogado;
-            $cl->apoio = "$apoioProblema";
+           // $cl->apoio = "$apoioProblema";
             $cl->jaApoiei= "$jaApoiei";
             $cl->jaReprovei = "$jaReprovei";
-            $cl->denuncia = "$denunciaProblema";
+          //  $cl->denuncia = "$denunciaProblema";
             $cl->user = "$userLogado";
 
             $todasManifestacoes[] = $cl;

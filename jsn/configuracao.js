@@ -29,7 +29,7 @@ Tela = {
     abriMenuDireito : function(){
         var contextMenu = $("#jqxMenu").jqxMenu({
             width: '120px', 
-            height: '140px', 
+            height: '40px', 
             autoOpenPopup: false, 
             mode: 'popup'
         });
@@ -63,10 +63,7 @@ Tela = {
         }
         
         
-       
-      
-        
-        Conteudo.generateRandomMarkers(0,0,0,0); 
+        Conteudo.generateRandomMarkers(0,0,0,0,0); 
 
         var tamanhoColuna = document.getElementById("calunaDireita").offsetHeight;
         
@@ -80,7 +77,7 @@ Tela = {
 
         var contextMenu = $("#jqxMenu").jqxMenu({
             width: '120px', 
-            height: '140px', 
+            height: '40px', 
             autoOpenPopup: false, 
             mode: 'popup'
         });

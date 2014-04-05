@@ -11,6 +11,7 @@ class Comentario extends CI_Controller {
         $this->load->database();
         $this->load->library('session');
         $this->load->model('manimaps/comentario_model');
+        date_default_timezone_set('UTC');
     }
 
     public function index() {

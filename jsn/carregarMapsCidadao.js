@@ -29,7 +29,7 @@ var Conteudo = {
             marker.setVisible(false);
         }
     },
-    generateRandomMarkers: function(status, categoria,ordem, idProblema) {
+    generateRandomMarkers: function(status, categoria,ordem, minhaColaboracoes,idProblema) {
 
         var alternaCores = 0;
         var div = Conteudo.sideContainer;
@@ -50,6 +50,7 @@ var Conteudo = {
             'status': status,
             'categoria': categoria,
             'idProblema': idProblema,
+            'minhaColaboracoes': minhaColaboracoes,
             'ordem':ordem
         }, function(json) {
 
@@ -101,20 +102,20 @@ var Conteudo = {
                         if(objeto.jaApoiei=='nao'){
                             botoesApoioDenucia = '<button type="button" id="botaoApoio'+objeto.idProblema+'" class="btn btn-primary btn-xs" onclick="Problema.apoiaProblema(\''+objeto.idProblema+'\')" >'+
                             '<i class="glyphicon glyphicon-thumbs-up"></i> '+
-                            '<span class="text-info badge" id="numApoio'+ objeto.idProblema +'">'+objeto.apoio+'</span>'+ 
+                            '<span class="text-info badge" id="numApoio'+ objeto.idProblema +'">'+objeto.qtde_apoio+'</span>'+ 
                             '</button>';
                             botoesApoioDenuciaB = '<button type="button" id="botaoApoioB'+objeto.idProblema+'" class="btn btn-primary btn-xs" onclick="Problema.apoiaProblema(\''+objeto.idProblema+'\')" >'+
                             '<i class="glyphicon glyphicon-thumbs-up"></i> '+
-                            '<span class="text-info badge" id="numApoioB'+ objeto.idProblema +'">'+objeto.apoio+'</span>'+ 
+                            '<span class="text-info badge" id="numApoioB'+ objeto.idProblema +'">'+objeto.qtde_apoio+'</span>'+ 
                             '</button>';
                         }else{
                             botoesApoioDenucia = '<button type="button" disabled="true" class="btn btn-primary btn-xs" onclick="alert(\'Você já Apoiou\')" >'+
                             '<i class="glyphicon glyphicon-thumbs-up"></i> '+
-                            '<span class="text-info badge">'+objeto.apoio+'</span>'+ 
+                            '<span class="text-info badge">'+objeto.qtde_apoio+'</span>'+ 
                             '</button>';
                             botoesApoioDenuciaB = '<button type="button" disabled="true" class="btn btn-primary btn-xs" onclick="alert(\'Você já Apoiou\')" >'+
                             '<i class="glyphicon glyphicon-thumbs-up"></i> '+
-                            '<span class="text-info badge">'+objeto.apoio+'</span>'+ 
+                            '<span class="text-info badge">'+objeto.qtde_apoio+'</span>'+ 
                             '</button>';
                         };
                         
@@ -122,42 +123,42 @@ var Conteudo = {
                             botoesApoioDenucia = botoesApoioDenucia+ 
                             '<button type="button" id="botaoReprova'+objeto.idProblema+'" class="btn btn-default btn-xs" onclick="Problema.reprovadoProblema(\''+ objeto.idProblema+'\')">'+
                             '<i class="glyphicon glyphicon-thumbs-down"></i> '+
-                            '<span class="text-error badge" id="numReprova'+objeto.idProblema+'">'+objeto.denuncia+'</span>'+ 
+                            '<span class="text-error badge" id="numReprova'+objeto.idProblema+'">'+objeto.qtde_denuncia+'</span>'+ 
                             '</button>';
                             botoesApoioDenuciaB = botoesApoioDenuciaB+ 
                             '<button type="button" id="botaoReprovaB'+objeto.idProblema+'" class="btn btn-default btn-xs" onclick="Problema.reprovadoProblema(\''+ objeto.idProblema+'\')">'+
                             '<i class="glyphicon glyphicon-thumbs-down"></i> '+
-                            '<span class="text-error badge" id="numReprovaB'+objeto.idProblema+'">'+objeto.denuncia+'</span>'+ 
+                            '<span class="text-error badge" id="numReprovaB'+objeto.idProblema+'">'+objeto.qtde_denuncia+'</span>'+ 
                             '</button>';
                         }else{
                             botoesApoioDenucia = botoesApoioDenucia+
                             '<button type="button"  disabled="true" class="btn btn-default btn-xs" onclick="Problema.reprovadoProblema(\''+ objeto.idProblema+'\')">'+
                             '<i class="glyphicon glyphicon-thumbs-down"></i> '+
-                            '<span class="text-error badge" >'+objeto.denuncia+'</span>'+ 
+                            '<span class="text-error badge" >'+objeto.qtde_denuncia+'</span>'+ 
                             '</button>';
                             botoesApoioDenuciaB = botoesApoioDenuciaB+
                             '<button type="button"  disabled="true" class="btn btn-default btn-xs" onclick="Problema.reprovadoProblema(\''+ objeto.idProblema+'\')">'+
                             '<i class="glyphicon glyphicon-thumbs-down"></i> '+
-                            '<span class="text-error badge" >'+objeto.denuncia+'</span>'+ 
+                            '<span class="text-error badge" >'+objeto.qtde_denuncia+'</span>'+ 
                             '</button>';
                         }
                     
                     }else{
                         botoesApoioDenucia = '<a class="btn btn-primary btn-xs" href="javascript:void(0)" onclick="alert(\'Desculpe, faça login para realizar esta operação\')" >'+
                         '<i class="glyphicon glyphicon-thumbs-up"></i> '+
-                        '<span class="text-info badge">'+objeto.apoio+'</span>'+ 
+                        '<span class="text-info badge">'+objeto.qtde_apoio+'</span>'+ 
                         '</a> '+
                         '<a class="btn btn-default btn-xs" href="javascript:void(0)" onclick="alert(\'Desculpe, faça login para realizar esta operação\')">'+
                         '<i class="glyphicon glyphicon-thumbs-down"></i> '+
-                        '<span class="text-error badge">'+objeto.denuncia+'</span>'+ 
+                        '<span class="text-error badge">'+objeto.qtde_denuncia+'</span>'+ 
                         '</a>';   
                         botoesApoioDenuciaB = '<a class="btn btn-primary btn-xs" href="javascript:void(0)" onclick="alert(\'Desculpe, faça login para realizar esta operação\')" >'+
                         '<i class="glyphicon glyphicon-thumbs-up"></i> '+
-                        '<span class="text-info badge">'+objeto.apoio+'</span>'+ 
+                        '<span class="text-info badge">'+objeto.qtde_apoio+'</span>'+ 
                         '</a> '+
                         '<a class="btn btn-default btn-xs" href="javascript:void(0)" onclick="alert(\'Desculpe, faça login para realizar esta operação\')">'+
                         '<i class="glyphicon glyphicon-thumbs-down"></i> '+
-                        '<span class="text-error badge">'+objeto.denuncia+'</span>'+ 
+                        '<span class="text-error badge">'+objeto.qtde_denuncia+'</span>'+ 
                         '</a>';
                     }
                 
@@ -356,7 +357,7 @@ var Conteudo = {
 
         });
 
-
+        // adicionando problema do mapa com o botao direito
         google.maps.event.addListener(Conteudo.map, 'rightclick', function(event) {
                 
             Conteudo.latlog = event.latLng;
