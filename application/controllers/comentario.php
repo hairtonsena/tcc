@@ -23,10 +23,10 @@ class Comentario extends CI_Controller {
 
         $userLogado = FALSE;
 
-        if($this->session->userdata('local')){
+        if ($this->session->userdata('local')) {
             $this->session->unset_userdata('local');
         }
-        
+
         if (($this->session->userdata('idCidadao')) && ($this->session->userdata('nomeCidadao')) && ($this->session->userdata('emailCidadao')) && ($this->session->userdata('senhaCidadao'))) {
             $userLogado = TRUE;
             $dado = array('idProblema' => $idProblema);
@@ -35,9 +35,26 @@ class Comentario extends CI_Controller {
             $this->load->view('user_cidadao/seguranca/linkLogin_view');
         }
 
+        $arr = array();
+        $query = $this->comentario_model->obterComentarioPorColaboracao($idProblema)->result();
+        foreach ($query as $qr) {
+            $jaApoiei = 'nao';
+            $jaReprovei = 'nao';
+            if ($this->comentario_model->verificarUserApoioComentario($qr->idComentario, $this->session->userdata('idCidadao')) > 0) {
+                $jaApoiei = 'sim';
+            }
+
+            if ($this->comentario_model->verificarUserReprovaComentario($qr->idComentario, $this->session->userdata('idCidadao')) > 0) {
+                $jaReprovei = 'sim';
+            }
+
+            $qr->jaAproiei = $jaApoiei;
+            $qr->jaReprovei = $jaReprovei;
+            $arr[] = $qr;
+        }
 
         $dados = array(
-            'comentarios' => $this->comentario_model->obterComentarioPorColaboracao($idProblema)->result(),
+            'comentarios' => $arr,
             'userLogado' => $userLogado,
         );
 
@@ -63,52 +80,58 @@ class Comentario extends CI_Controller {
         );
 
         $this->comentario_model->salvarNovoComentario($dadosComentario);
-        echo "<script> 
-            var status = $(\"#status\").val();
-            var categoria = $(\"#categoria\").val();
-       
-            Conteudo.generateRandomMarkers(status,categoria,0);
-            Problema.verTodosComentario($idProblema);  Problema.verTodosComentario('" . $idProblema . "')</script>";
+        echo '<script>   var colabocaoCidadao = 0;
+        if ($("#minhasColaboracoes").is(\':checked\', true)) {
+            colabocaoCidadao = 1;
+        } else {
+            colabocaoCidadao = 0;
+        }
+        var status = $("#status").val();
+        var categoria = $("#categoria").val();
+        var ordem = $("#ordem").val();
+
+        Conteudo.generateRandomMarkers(status, categoria, ordem, colabocaoCidadao, 0);
+        Problema.verTodosComentarios(\''.$idProblema.'\'); </script>';
     }
 
     function apoiaComentario() {
+        if (($this->session->userdata('idCidadao')) && ($this->session->userdata('nomeCidadao')) && ($this->session->userdata('emailCidadao')) && ($this->session->userdata('senhaCidadao'))) {
 
-        $idComentario = $_POST['a'];
-        $qtde = $_POST['qtde'];
-        $idProblema = $_POST['ip'];
+            $idComentario = $_POST['idComentario'];
 
-        $qtde++;
+            if ($this->comentario_model->verificarUserApoioComentario($idComentario, $this->session->userdata('idCidadao')) == 0) {
 
-        $dados = array(
-            'apoiadoComentario' => $qtde,
-        );
-        $this->comentario_model->apoiarComentario($dados, $idComentario);
 
-        echo "<script> Problema.verTodosComentario('" . $idProblema . "') </script>";
+                $dados = array(
+                    'idComentario' => $idComentario,
+                    'idCidadao' => $this->session->userdata('idCidadao'),
+                    'statusApoio' => '1',
+                );
+                $this->comentario_model->apoiarComentario($dados);
+
+                // echo "<script> Problema.verTodosComentario('" . $idProblema . "') </script>";
+            }
+        }
     }
 
     function reprovarComentario() {
 
+        if (($this->session->userdata('idCidadao')) && ($this->session->userdata('nomeCidadao')) && ($this->session->userdata('emailCidadao')) && ($this->session->userdata('senhaCidadao'))) {
+
+            $idComentario = $_POST['idComentario'];
 
 
-        $idComentario = $_POST['a'];
-        $qtde = $_POST['qtde'];
-        $idProblema = $_POST['ip'];
-        $qtde++;
 
+            if ($this->comentario_model->verificarUserReprovadoComentario($idComentario, $this->session->userdata('idCidadao')) == 0) {
 
-        if ($qtde < 3) {
+                $dados = array(
+                    'idComentario' => $idComentario,
+                    'idCidadao' => $this->session->userdata('idCidadao'),
+                    'statusReprova' => '1',
+                );
 
-            //  echo $qtde;
-            $dados = array(
-                'reprovadoComentario' => $qtde,
-            );
-            $this->comentario_model->reporvarComentario($dados, $idComentario);
-
-            echo "<script> Problema.verTodosComentario('" . $idProblema . "') </script>";
-        } else {
-            $this->comentario_model->excluirComentario($idComentario);
-            echo "<script> Problema.verTodosComentario('" . $idProblema . "') </script>";
+                $this->comentario_model->reprovaComentario($dados);
+            }
         }
     }
 

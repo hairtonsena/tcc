@@ -68,6 +68,10 @@ class ListarColaboracaoJson extends CI_Controller {
             
             
             $user = 'nao';
+            if($this->session->userdata('idCidadao')==$cl->idCidadao){
+                $user = 'sim';
+            }
+            
 
 
             //$data = explode('-', $cl->data);
@@ -124,7 +128,7 @@ class ListarColaboracaoJson extends CI_Controller {
             $cl->jaApoiei= "$jaApoiei";
             $cl->jaReprovei = "$jaReprovei";
           //  $cl->denuncia = "$denunciaProblema";
-            $cl->user = "$userLogado";
+            $cl->user = "$user";
 
             $todasManifestacoes[] = $cl;
         }

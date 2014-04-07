@@ -67,16 +67,27 @@ class colaboracao extends CI_Controller {
         foreach ($query as $qr) {
             $idProblema = $qr->idProblema;
         }
-        echo '
-<div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 
-    <h4 class="modal-title"> Registro de Problema</h4>
-</div>            
-<div class="modal-body"> O problema foi registrado com sucesso. <br/>
-<a href="javascript:void(0)" onclick="Tela.fecharModel()" class="btn btn-default">ok</a>
-</div>';
-        echo "<script> Conteudo.generateRandomMarkers(-1,-1,0,0) </script>";
+        echo '<script>        var colabocaoCidadao = 0;
+        if ($("#minhasColaboracoes").is(\':checked\', true)) {
+            colabocaoCidadao = 1;
+        } else {
+            colabocaoCidadao = 0;
+        }
+        var status = $("#status").val();
+        var categoria = $("#categoria").val();
+        var ordem = $("#ordem").val();
+
+        Conteudo.generateRandomMarkers(status, categoria, ordem, colabocaoCidadao, 0); </script>';
+        echo '
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+            <h4 class="modal-title"> Registro de Problema</h4>
+        </div>            
+        <div class="modal-body"> O problema foi registrado com sucesso. <br/>
+            <button type="button" onclick="Tela.fecharModal()" class="btn btn-default">ok</a>
+        </div>';
     }
 
     function formeEditarColaboracao() {
@@ -110,8 +121,18 @@ class colaboracao extends CI_Controller {
 
             $this->colaboracao_model->alterarColaboracaoPendente($dados, $idProblema);
 
-            echo "<h4> O problema foi registrado <br/> com sucesso. </h4>";
-            echo "<script> Problema.focaProblemaAdicionado('$idProblema') </script>";
+       echo '<script>        var colabocaoCidadao = 0;
+        if ($("#minhasColaboracoes").is(\':checked\', true)) {
+            colabocaoCidadao = 1;
+        } else {
+            colabocaoCidadao = 0;
+        }
+        var status = $("#status").val();
+        var categoria = $("#categoria").val();
+        var ordem = $("#ordem").val();
+
+        Conteudo.generateRandomMarkers(status, categoria, ordem, colabocaoCidadao, 0); Tela.fecharModal() </script>';
+ 
         }
     }
 
@@ -141,7 +162,7 @@ class colaboracao extends CI_Controller {
 
         $this->colaboracao_model->persistirApoiarProblema($dados);
 
-        echo "<h4> O problema foi registrado <br/> com sucesso. </h4>";
+       
 
         //  }
     }
@@ -158,7 +179,7 @@ class colaboracao extends CI_Controller {
 
         $this->colaboracao_model->persistirReprovarProblema($dados);
 
-        echo "<h4> O problema foi registrado <br/> com sucesso. </h4>";
+        
 
         //  }
     }

@@ -164,18 +164,44 @@ var Problema = {
         CarregarPagina.carregarConteudo(url, parametro);
 
     },
-    apoiaComentario: function(ip, a, qtde) {
-
-        var parametro = "qtde=" + qtde + "&&a=" + a + "&&ip=" + ip;
-        var url = Config.base_url + "comentario/apoiaComentario";
+    verTodosComentarios: function(idProblema) {
+        var parametro = "acao=verComentarios&&idProblema=" + idProblema;
+        var url = Config.base_url + "comentario/verComentarios";
         CarregarPagina.carregarConteudo(url, parametro);
+
+    },            
+    apoiaComentario: function(idComentario) {
+
+        var nomeid = "#numApoioComentario" + idComentario;
+        var botaoApoioComentario = "#botaoApoiocomentario" + idComentario;
+
+        $(botaoApoioComentario).attr('disabled', 'true');
+
+        var num = $(nomeid).html();
+        num++
+        $(nomeid).html(num);
+
+        var parametro = "idComentario=" + idComentario;
+        var url = Config.base_url + "comentario/apoiaComentario";
+        CarregarPagina.enviarDadosComentairo(url, parametro);
 
 
     },
-    reprovadoComentario: function(ip, a, qtde) {
-        var parametro = "qtde=" + qtde + "&&a=" + a + "&&ip=" + ip;
+    reprovadoComentario: function(idComentario) {
+       
+       
+        var nomeid = "#numReprovaComentario" + idComentario;
+        var botaoReprovaComentario = "#botaoReprovaComentario" + idComentario;
+
+        $(botaoReprovaComentario).attr('disabled', 'true');
+
+        var num = $(nomeid).html();
+        num++
+        $(nomeid).html(num);
+       
+        var parametro = "idComentario=" + idComentario;
         var url = Config.base_url + "comentario/reprovarComentario";
-        CarregarPagina.carregarConteudo(url, parametro);
+        CarregarPagina.enviarDadosComentairo(url, parametro);
     }
 };
 
@@ -219,6 +245,7 @@ Cadastro = {
     formeAlterarNome: function() {
         var url = Config.base_url + "seguranca/alterar_nome";
         var parametro = 'acao=formularioColaboracaoPendente';
+        Tela.abrirModal();
         CarregarPagina.carregarConteudo(url, parametro);
     },
     alterarNome: function() {
@@ -232,6 +259,7 @@ Cadastro = {
     formeAlterarSenha: function() {
         var url = Config.base_url + "seguranca/alterar_senha";
         var parametro = 'acao=formularioColaboracaoPendente';
+        Tela.abrirModal();
         CarregarPagina.carregarConteudo(url, parametro);
     },
     alterarSenha: function() {
