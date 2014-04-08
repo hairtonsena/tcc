@@ -74,11 +74,11 @@ Tela = {
 
         Conteudo.generateRandomMarkers(0, 0, 0, 0, 0);
 
-        var tamanhoColuna = document.getElementById("calunaDireita").offsetHeight;
-
-        $('#map_canvas').css({
-            height: tamanhoColuna
-        });
+//        var tamanhoColuna = document.getElementById("calunaDireita").offsetHeight;
+//
+//        $('#map_canvas').css({
+//            height: tamanhoColuna
+//        });
 
 
 

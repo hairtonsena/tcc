@@ -1,4 +1,3 @@
-
 <html>
     <head>
         <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
@@ -7,109 +6,185 @@
         <meta charset="utf-8">
         <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
         <!-- Bootstrap -->
-        <link href="<?php echo base_url(); ?>bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
-        <link href="<?php echo base_url(); ?>bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
-        <link href="<?php echo base_url(); ?>bootstrap/css/bootstrap-responsive.css" rel="stylesheet" media="screen">
-        <link href="<?php echo base_url(); ?>bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
-        <link href="<?php echo base_url(); ?>css/style_pagina_cidadao.css" rel="stylesheet">
-        <link rel="shortcut icon" href="<?php echo base_url(); ?>icone/favicon.ico" type="image/x-icon" />
+        <link href="<?php echo base_url("css/bt3/css/bootstrap.min.css"); ?>" rel="stylesheet">
+        <link href="<?php echo base_url("css/style_pagina_gestor.css"); ?>" rel="stylesheet">
+
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+          <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+        <link rel="shortcut icon" href="<?php echo base_url("icone/favicon.ico"); ?>" type="image/x-icon" />
     </head>
     <body>
-        <div id="tela" >
-            <div class="semMarge thumbnail" style="height: 7%">
-                <div class="span10 tamanhoColunaEsquedo semMarge" style="margin: 3px 0px 0px 0px">
-                    <div class="span5" style="margin: 6px 0px 0px 20px" >
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#"> Módulo Gestor </a>
+                </div>
 
-                        <h2 class="semMarge"> Módulo Gestor </h2>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <!--                    <div class="" >
+                                            <label onclick="Tela.alternarButao()" class="btn btn-primary navbar-btn navbar-left pull-left">
+                                                <input type="checkbox" id="addColaboracao"> <span class="glyphicon glyphicon-ok-circle"></span> Reportar Problema
+                                            </label>
+                                        </div>
+                                        <form class="navbar-form navbar-left" onsubmit="Problema.pesquisaLocal();
+                                                    return false;" role="search">
+                    
+                                            <div class="form-group">
+                    
+                                                <input type="text"  class="form-control" id="textoPesquisa" placeholder="informe o Local aqui!">
+                                            </div>
+                                            <button type="button" onclick="Problema.pesquisaLocal();"  class="btn btn-default"><span class="glyphicon glyphicon-search"></span>.</button>
+                                        </form>-->
 
-                    </div>
 
-                    <div class="pull-right" style="margin: 0px 5px 0px 0px">
+                    <ul class="nav navbar-nav navbar-right">
 
 
 
                         <?php if (($this->session->userdata('nomeGestor')) && ($this->session->userdata('emailGestor')) && ($this->session->userdata('senhaGestor'))) { ?>
-                            <div class="">
-                                <a href="javascript:void(0)" class="btn " data-toggle="dropdown" href="#">
-                                    <img src="<?php echo base_url(); ?>icone/11983_32x32.png"/>
-                                    <?php echo $this->session->userdata('nomeGestor') ?>
-                                </a>
-                                <a href="<?php echo base_url() . "cpainel/seguranca/logoutUser"; ?>" class="btn" title=" Sair ">
-                                    <img src="<?php echo base_url(); ?>icone/7143_32x32.png"/>
-                                </a>
-                            </div>
 
+                            <li><a href="javascript:void(0)" class="btn" onclick=""  data-toggle="tooltip" data-placement="left" title="Minhas Colaborações"> 
+                                    <span class="glyphicon glyphicon-th-list"></span>
+                                </a></li>
+                            <li class="dropdown">
+
+                                <a href="javascript:void(0)" class="btn dropdown-toggle" data-toggle="dropdown" href="#"> 
+                                    <span class="glyphicon glyphicon-user"></span>
+                                    <?php echo $this->session->userdata('nomeGestor') ?> <b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu" >
+                                    <li><a href="javascript:void(0)" onclick="Cadastro.formeAlterarNome()"><span class="glyphicon glyphicon-pencil"></span> Alterar Nome </a></li>
+                                    <li><a href="javascript:void(0)" onclick="Cadastro.formeAlterarSenha()"><span class="glyphicon glyphicon-pencil"></span> Alterar Senha </a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="<?php echo base_url("cpainel/seguranca/logoutUser"); ?>" title=" Sair "><span class="glyphicon glyphicon-log-out"></span> Sair</a></li>
+                                </ul>
+
+                            </li>
+                        <?php } else { ?>
+                            <li><a href="javascript:void(0)" onclick="Cadastro.formeLoginCidadao('no')"><span class="glyphicon glyphicon-log-in"></span> Entrar</a></li>
+                            <li><a href="javascript:void(0)" onclick="Cadastro.formeCadastroCidadao('no')"><span class="glyphicon glyphicon-list-alt"></span> Cadastrar</a></li>
                         <?php }
                         ?>
-                    </div>           
 
-                </div>
-                <div class="span2 tamanhoColunaDireita semMarge"  >
-                    <div class="" style="margin: 0px 0px 0px 1px;">
-                        <a href="http://www.montesclaros.mg.gov.br/" target="_blank" title="Montes Claros" ><img src="<?php echo base_url(); ?>icone/moc.png" style="height: 100%"  /> Montes Claros </a>   
-                        <a href="#"><img src="<?php echo base_url(); ?>icone/5_32x32.png" class="pull-right" style="margin-top: 3px;margin-right: 2px;" /></a>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+
+
+        <div class="container-fluid" >
+            <div class="row">
+
+                <div class="col-sm-9 col-sm-offset-0 col-md-9 col-md-offset-0 main" id="generateLink">
+                    <div id="map_canvas">
+
                     </div>
                 </div>
-            </div>
+                <div class="col-sm-3 col-md-3 sidebar" id="calunaDireita">
+                    <div id="filtros" >
 
-            <div id="generateLink">
-            </div>
+                        <div class="form-group col-md-6 semMarge" >
+                            <?php if (($this->session->userdata('nomeCidadao')) && ($this->session->userdata('emailCidadao')) && ($this->session->userdata('senhaCidadao'))) { ?>        
+                                <label  class="text-pequino form-control btn btn-default">
+                                    <input onclick="Problema.verColaboracoesCidadao()" type="checkbox" id="minhasColaboracoes"> Minhas Colaborações
+                                </label>
+                            <?php } else { ?>
+                                <label onclick="" class="text-pequino form-control btn btn-default">
+                                    <input type="checkbox" id="minhasColaboracoes" disabled="true"> Minhas Colaborações
+                                </label>
+                            <?php } ?>
+                        </div>
+                        <div class="form-group col-md-6 semMarge">
+                            <select name="ordem" id="ordem" onchange="Problema.verColaboracoes('a');" class="text-pequino semMarge form-control" >
+                                <option value="0"> Mais Atual </option>
+                                <option value="1"> Mais Antigo </option>
+                                <option value="2"> Mais comentádos </option>
+                                <option value="3"> Menos comentádos </option>
+                                <option value="4"> Mais Apoiado </option>
+                                <option value="5"> Menos Apoiado </option>
+                                <option value="6"> Mais Reprovado </option>
+                                <option value="7"> Menos Reprovado </option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6 semMarge">
+                            <select name="status" id="status" onchange="Problema.verColaboracoes('a');" class="text-pequino semMarge form-control" >
+                                <option value="0"> Status - Todos </option>
 
-            <div class="span9 tamanhoColunaEsquedo" id="map_canvas" >
-            </div>
+                                <?php
+                                foreach ($statusProblema as $sp) {
+                                    ?>
+                                    <option value="<?php echo $sp->idStatus ?>"> <?php echo $sp->nomeStatus ?> </option> 
+                                    <?php
+                                };
+                                ?>
 
-            <div class="span3 tamanhoColunaDireita" id="calunaDireita" style="background-color: #eeeeee">
-                <div id="filtros" >
-                    <select name="status" id="status" onchange="Problema.verColaboracoes();" class="text-pequino semMarge span1 tamanho-radio pull-left" >
-                        <option value="0"> Status - Todos </option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6 semMarge">
+                            <select name="categoria" id="categoria" onchange="Problema.verColaboracoes('a');" class="text-pequino semMarge form-control" >
+                                <option value="0"> Categoria - Todos </option>
+                                <?php foreach ($tipoProblema as $tp) { ?>
+                                    <option value=" <?php echo $tp->idTipo ?>"> <?php echo $tp->tipo ?> </option> ";
+                                <?php } ?>
 
+                            </select>
+                        </div>
+                    </div>
+                    <div class="list-group" id="menuDireito" >
+
+                    </div>
+                    <div id="legenda" >
+                        <strong>Legenda:</strong> <br/>
                         <?php
-                        foreach ($statusProblema as $sp) {
+                        foreach ($tipoProblema as $tp) {
+                            $icone = base_url("icone/icone" . $tp->idTipo . ".png");
                             ?>
-                            <option value="<?php echo $sp->idStatus ?>"> <?php echo $sp->nomeStatus ?> </option> 
-                            <?php
-                        }
-                        ?>
-
-                    </select>
-                    <select name="categoria" id="categoria" onchange="Problema.verColaboracoes();" class="text-pequino semMarge span1 tamanho-radio pull-left" >
-                        <option value="0"> Categoria - Todos </option>
-                        <?php foreach ($tipoProblema as $tp) { ?>
-                            <option value=" <?php echo $tp->idTipo ?>"> <?php echo $tp->tipo ?> </option> ";
-                        <?php } ?>
-
-                    </select>
-                    <button type="submit" class="btn pull-right" onclick="Problema.verColaboracoes();" > <i class="icon-filter"></i> Filtrar </button>
+                            <span class="pull-left" style="display: table"><img src='<?php echo $icone ?>'/><font style="font-size: 10px"><?php echo $tp->tipo ?></font></span>
+                        <?php }
+                        ?>  
+                    </div> 
                 </div>
-                <div class="" id="menuDireito" >
+            </div>
+            <div>
 
-                </div>
-                <div id="legenda" >
-                    <strong>Legenda:</strong> <br/>
-                    <?php
-                    foreach ($tipoProblema as $tp) {
-                        $icone = base_url() . "icone/icone" . $tp->idTipo . ".png";
-                        ?>
-                        <span class="pull-left" style="display: table"><img src='<?php echo $icone ?>'/><font style="font-size: 10px"><?php echo $tp->tipo ?></font></span>
-                    <?php }
-                    ?>  
-                </div>      
             </div>
 
         </div>
+    
+    <div class="window" id="janela1">
+    </div>
 
-        <div class="window" id="janela1">
-        </div>
+
+    <!-- mascara para cobrir o site -->	
+    <div id="mascara" onclick="Tela.fecharModal()" ></div>
 
 
-        <!-- mascara para cobrir o site -->	
-        <div id="mascara" onclick="Tela.fecharModal()" ></div>
-        <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>       
-        <script type="text/javascript" src="<?php echo base_url(); ?>js/jquery.js"></script>
-        <script type="text/javascript" src="<?php echo base_url(); ?>bootstrap/js/bootstrap.js"></script>
-        <script type="text/javascript" src="<?php echo base_url(); ?>bootstrap/js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="<?php echo base_url(); ?>js/carregarMapsGestor.js"></script>
-        <script type="text/javascript" src="<?php echo base_url(); ?>js/problemaGestor.js"></script>
-        <script type="text/javascript" src="<?php echo base_url(); ?>js/configuracao.js"></script>
-    </body>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="<?php echo base_url("css/bt3/js/bootstrap.min.js"); ?>"></script>
+
+
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+
+    <script type="text/javascript" src="<?php echo base_url("jsn/carregarMapsGestor.js"); ?>"></script>        
+    <script type="text/javascript" src="<?php echo base_url("jsn/problemaGestor.js"); ?>"></script>
+    <script type="text/javascript" src="<?php echo base_url("jsn/configuracao.js"); ?>"></script>
+    <script type="text/javascript" src="<?php echo base_url("jsn/jqxcore.js"); ?>"></script>
+    <script type="text/javascript" src="<?php echo base_url("jsn/jqxmenu.js"); ?>"></script>
+</body>
 </html>
