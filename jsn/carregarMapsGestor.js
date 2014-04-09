@@ -29,7 +29,7 @@ var Conteudo = {
             marker.setVisible(false);
         }
     },
-    generateRandomMarkers: function(status, categoria) {
+    generateRandomMarkers: function(status, categoria, ordem) {
 
 
         var alternaCores = 0;
@@ -51,7 +51,8 @@ var Conteudo = {
 
         $.getJSON(Config.base_url + "cpainel/listaColaboracaoJson?ttt=ds", {
             'status': status,
-            'categoria': categoria
+            'categoria': categoria,
+            'ordem': ordem
         }, function(json) {
 
             Tela.fecharModal();
@@ -71,7 +72,7 @@ var Conteudo = {
                             objeto.longitude
                             );
 
-                    var imagem = Config.base_url+'icone/icone' + objeto.idTipo + '.png';
+                    var imagem = Config.base_url + 'icone/icone' + objeto.idTipo + '.png';
 
                     var marker = new google.maps.Marker({
                         map: Conteudo.map,
@@ -90,24 +91,32 @@ var Conteudo = {
                     var conteudoColunaDireita = '';
                     var conteudoBalaoMapa = '';
 
+                    var verificarComentario = '<a href="javascript:void(0)" onclick="Problema.verTodosComentario(\'' + objeto.idProblema + '\')"> Comentários ' + objeto.qtde_comentario + ' </a>';
+
+                    var botoesApoioDenucia = '<a class="btn btn-primary btn-xs" href="javascript:void(0)" >' +
+                            '<i class="glyphicon glyphicon-thumbs-up"></i> ' +
+                            '<span class="text-info badge">' + objeto.qtde_apoio + '</span>' +
+                            '</a> ' +
+                            '<a class="btn btn-default btn-xs" href="javascript:void(0)" >' +
+                            '<i class="glyphicon glyphicon-thumbs-down"></i> ' +
+                            '<span class="text-error badge">' + objeto.qtde_denuncia + '</span>' +
+                            '</a>';
+
+
                     switch (objeto.idStatus) {
                         case '1':
 
 
                             linkStatus =
-                                    '<br/><a href="javascript:void(0)" class="btn" onclick="Problema.formularioColaboracaoAceita(\'' + objeto.idProblema + '\')"> Aceitar  </a>' +
-                                    '<a href="javascript:void(0)" class="btn" onclick="Problema.formularioColaboracaoPendente(\'' + objeto.idProblema + '\')"> Tornar Pendente </a>' +
-                                    '<a href="javascript:void(0)" class="btn" onclick="Problema.formularioColaboracaoRejeitada(\'' + objeto.idProblema + '\')"> Rejeitar </a>';
+                                    '<br/><a href="javascript:void(0)" class="btn btn-primary" onclick="Problema.formularioColaboracaoAceita(\'' + objeto.idProblema + '\')"> Aceitar  </a>' +
+                                    ' <a href="javascript:void(0)" class="btn btn-default" onclick="Problema.formularioColaboracaoPendente(\'' + objeto.idProblema + '\')"> Tornar Pendente </a>' +
+                                    ' <a href="javascript:void(0)" class="btn btn-danger" onclick="Problema.formularioColaboracaoRejeitada(\'' + objeto.idProblema + '\')"> Rejeitar </a>';
 
 
 
                             conteudoBalaoMapa =
-                                    '<div style="font-size: 12; width:300px;"><strong class="tituloProblema"> Tipo: </strong>' +
-                                    objeto.tipo +
-                                    '<br/><strong class="tituloProblema"> Descrição:</strong>' +
-                                    objeto.descricao +
-                                    '<br/><strong class="tituloProblema">Data de abertura : </strong>' +
-                                    objeto.dataProblema +
+                                    '<div style="font-size: 14; width:300px;"><strong class="tituloProblema"> ' + objeto.tipo + ' </strong><span class="pull-right">' + objeto.dataProblema + '</span>' +
+                                    '<br/>' + objeto.descricao +
                                     '<br/><strong class="tituloProblema">Situação:</strong>' +
                                     objeto.nomeStatus +
                                     linkStatus +
@@ -115,28 +124,24 @@ var Conteudo = {
 
 
                             conteudoColunaDireita =
-                                    '<div style="font-size: 12;"><strong class="tituloProblema"> Tipo: </strong><img src="' + imagem + '"/>' + objeto.tipo +
-                                    '<br/><strong class="tituloProblema"> Descrição: </strong>' + objeto.descricao +
-                                    '<br/><strong class="tituloProblema">Data de abertura: </strong>' + objeto.dataProblema +
+                                    '<div style="font-size: 14;"><strong class="tituloProblema"> <img src="' + imagem + '"/> ' + objeto.tipo + ' </strong><span class="pull-right">' + objeto.dataProblema + '</span>' +
+                                    '<br/>' + objeto.descricao +
                                     '<br/><strong class="tituloProblema">Situação:</strong>' +
                                     objeto.nomeStatus +
-                                    '</div>';
+                                    '<div class="" style="text-align: right">' + verificarComentario + botoesApoioDenucia +
+                                    '</div></div>';
 
 
                             break;
                         case '4':
 
                             funcao = 'Problema.iniciarObrasColaboracao(\'' + objeto.idProblema + '\')';
-                            linkStatus = '<br/><a href="javascript:void(0)" class="btn" onclick="' + funcao + '"> Iniciar Obras </a>';
+                            linkStatus = '<br/><a href="javascript:void(0)" class="btn btn-primary" onclick="' + funcao + '"> Iniciar Obras </a>';
 
 
                             conteudoBalaoMapa =
-                                    '<div style="font-size: 12; width:300px;"><strong class="tituloProblema"> Tipo: </strong>' +
-                                    objeto.tipo +
-                                    '<br/><strong class="tituloProblema"> Descrição:</strong>' +
-                                    objeto.descricao +
-                                    '<br/><strong class="tituloProblema">Data de abertura : </strong>' +
-                                    objeto.dataProblema +
+                                    '<div style="font-size: 14; width:300px;"><strong class="tituloProblema"> ' + objeto.tipo + ' </strong><span class="pull-right">' + objeto.dataProblema + '</span>' +
+                                    '<br/>' + objeto.descricao +
                                     '<br/><strong class="tituloProblema">Situação:</strong>' +
                                     objeto.nomeStatus +
                                     linkStatus +
@@ -144,28 +149,24 @@ var Conteudo = {
 
 
                             conteudoColunaDireita =
-                                    '<div style="font-size: 12;"><strong class="tituloProblema"> Tipo: </strong><img src="' + imagem + '"/>' + objeto.tipo +
-                                    '<br/><strong class="tituloProblema"> Descrição: </strong>' + objeto.descricao +
-                                    '<br/><strong class="tituloProblema">Data de abertura: </strong>' + objeto.dataProblema +
+                                    '<div style="font-size: 14;"><strong class="tituloProblema"> <img src="' + imagem + '"/> ' + objeto.tipo + ' </strong><span class="pull-right">' + objeto.dataProblema + '</span>' +
+                                    '<br/>' + objeto.descricao +
                                     '<br/><strong class="tituloProblema">Situação:</strong>' +
                                     objeto.nomeStatus +
-                                    '</div>';
+                                    '<div class="" style="text-align: right">' + verificarComentario + botoesApoioDenucia +
+                                    '</div></div>';
 
 
                             break;
                         case '5':
 
                             funcao = 'Problema.alterarStatusProblemaParaConcluido(\'' + objeto.idProblema + '\')';
-                            linkStatus = '<br/><a href="javascript:void(0)" class="btn" onclick="' + funcao + '"> Concluir Problema</a>';
+                            linkStatus = '<br/><a href="javascript:void(0)" class="btn btn-primary" onclick="' + funcao + '"> Concluir Problema</a>';
 
 
                             conteudoBalaoMapa =
-                                    '<div style="font-size: 12; width:300px;"><strong class="tituloProblema"> Tipo: </strong>' +
-                                    objeto.tipo +
-                                    '<br/><strong class="tituloProblema"> Descrição:</strong>' +
-                                    objeto.descricao +
-                                    '<br/><strong class="tituloProblema">Data de abertura : </strong>' +
-                                    objeto.dataProblema +
+                                    '<div style="font-size: 14; width:300px;"><strong class="tituloProblema"> ' + objeto.tipo + ' </strong><span class="pull-right">' + objeto.dataProblema + '</span>' +
+                                    '<br/>' + objeto.descricao +
                                     '<br/><strong class="tituloProblema">Situação:</strong>' +
                                     objeto.nomeStatus +
                                     linkStatus +
@@ -173,12 +174,12 @@ var Conteudo = {
 
 
                             conteudoColunaDireita =
-                                    '<div style="font-size: 12;"><strong class="tituloProblema"> Tipo: </strong><img src="' + imagem + '"/>' + objeto.tipo +
-                                    '<br/><strong class="tituloProblema"> Descrição: </strong>' + objeto.descricao +
-                                    '<br/><strong class="tituloProblema">Data de abertura: </strong>' + objeto.dataProblema +
+                                    '<div style="font-size: 14;"> <img src="' + imagem + '"/><strong class="tituloProblema">' + objeto.tipo + '</strong><span class="pull-right">' + objeto.dataProblema + '</span>' +
+                                    '<br/>' + objeto.descricao +
                                     '<br/><strong class="tituloProblema">Situação:</strong>' +
                                     objeto.nomeStatus +
-                                    '</div>';
+                                    '<div class="" style="text-align: right">' + verificarComentario + botoesApoioDenucia +
+                                    '</div></div>';
 
 
                             break;
@@ -188,12 +189,8 @@ var Conteudo = {
 
 
                             conteudoBalaoMapa =
-                                    '<div style="font-size: 12; width:300px;"><strong class="tituloProblema"> Tipo: </strong>' +
-                                    objeto.tipo +
-                                    '<br/><strong class="tituloProblema"> Descrição:</strong>' +
-                                    objeto.descricao +
-                                    '<br/><strong class="tituloProblema">Data de abertura : </strong>' +
-                                    objeto.dataProblema +
+                                    '<div style="font-size: 14; width:300px;"><strong class="tituloProblema">' + objeto.tipo + '</strong><span class="pull-right">' + objeto.dataProblema + '</span>' +
+                                    '<br/>' + objeto.descricao +
                                     '<br/><strong class="tituloProblema">Situação:</strong>' +
                                     objeto.nomeStatus +
                                     linkStatus +
@@ -203,12 +200,12 @@ var Conteudo = {
 
 
                             conteudoColunaDireita =
-                                    '<div style="font-size: 12;"><strong class="tituloProblema"> Tipo: </strong><img src="' + imagem + '"/>' + objeto.tipo +
-                                    '<br/><strong class="tituloProblema"> Descrição: </strong>' + objeto.descricao +
-                                    '<br/><strong class="tituloProblema">Data de abertura: </strong>' + objeto.dataProblema +
+                                    '<div style="font-size: 14;"> <img src="' + imagem + '"/> <strong class="tituloProblema">' + objeto.tipo + '</strong><span class="pull-right">' + objeto.dataProblema + '</span>' +
+                                    '<br/>' + objeto.descricao +
                                     '<br/><strong class="tituloProblema">Situação:</strong>' +
                                     objeto.nomeStatus +
-                                    '</div>';
+                                    '<div class="" style="text-align: right">' + verificarComentario + botoesApoioDenucia +
+                                    '</div></div>';
                             break;
                     }
 
@@ -254,6 +251,8 @@ var Conteudo = {
         });
 
 
+        Problema.verColaboracoes();
+
         google.maps.event.addListener(Conteudo.map, 'tilesloaded', function() {
             Conteudo.generateLink.style.display = 'block';
         });
@@ -261,7 +260,7 @@ var Conteudo = {
 
         google.maps.event.addDomListener(Conteudo.generateLink, 'click', function() {
 
-            Problema.verColaboracoes();
+
 
         });
 

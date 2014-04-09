@@ -74,7 +74,7 @@ class ListarColaboracaoJson extends CI_Controller {
             
 
 
-            //$data = explode('-', $cl->data);
+           
 
             $dataAtual = strtotime(date("y-m-d"));
             $dataAbertura = strtotime($cl->data);
@@ -115,11 +115,7 @@ class ListarColaboracaoJson extends CI_Controller {
                 }
             }
 
-
-
-
-
-            $dataBrasil = $tempo;    //$data[2] . '/' . $data[1] . '/' . $data[0];
+            $dataBrasil = $tempo;
 
 
             $cl->dataProblema = "$dataBrasil";

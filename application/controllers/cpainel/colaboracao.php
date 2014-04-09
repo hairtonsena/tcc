@@ -13,6 +13,7 @@ class colaboracao extends CI_Controller {
         $this->load->helper('url');
         $this->load->model('cpainel/colaboracao_model');
         $this->load->library('email');
+        
     }
 
     function index() {

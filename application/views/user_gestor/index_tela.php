@@ -109,6 +109,7 @@
                         </div>
                         <div class="form-group col-md-6 semMarge">
                             <select name="ordem" id="ordem" onchange="Problema.verColaboracoes('a');" class="text-pequino semMarge form-control" >
+                                <option value="0"> Ordenar por: </option>
                                 <option value="0"> Mais Atual </option>
                                 <option value="1"> Mais Antigo </option>
                                 <option value="2"> Mais comentádos </option>
@@ -158,18 +159,22 @@
                     </div> 
                 </div>
             </div>
-            <div>
+                <div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content" id="windowModal">
 
-            </div>
+                        </div>
+                    </div>
+                </div>
 
         </div>
     
-    <div class="window" id="janela1">
-    </div>
+<!--    <div class="window" id="janela1">
+    </div>-->
 
 
     <!-- mascara para cobrir o site -->	
-    <div id="mascara" onclick="Tela.fecharModal()" ></div>
+    <!--<div id="mascara" onclick="Tela.fecharModal()" ></div>-->
 
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -183,7 +188,7 @@
 
     <script type="text/javascript" src="<?php echo base_url("jsn/carregarMapsGestor.js"); ?>"></script>        
     <script type="text/javascript" src="<?php echo base_url("jsn/problemaGestor.js"); ?>"></script>
-    <script type="text/javascript" src="<?php echo base_url("jsn/configuracao.js"); ?>"></script>
+    <script type="text/javascript" src="<?php echo base_url("jsn/configuracaoGestor.js"); ?>"></script>
     <script type="text/javascript" src="<?php echo base_url("jsn/jqxcore.js"); ?>"></script>
     <script type="text/javascript" src="<?php echo base_url("jsn/jqxmenu.js"); ?>"></script>
 </body>

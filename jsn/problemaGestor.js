@@ -68,8 +68,11 @@ var Problema ={
        
        var status = $("#status").val();
        var categoria = $("#categoria").val();
+       var ordem = $("#ordem").val();
        
-        Conteudo.generateRandomMarkers(status,categoria);
+       
+       
+        Conteudo.generateRandomMarkers(status,categoria,ordem);
     }
    
     
