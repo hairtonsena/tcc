@@ -48,7 +48,7 @@ class cpainel extends CI_Controller {
                     'cpfGestor' => $cpfGestor,
                     'emailGestor' => $emailGestor,
                     'senhaGestor' => $senhaGestor,
-                    'estadoGestor' => '0',
+                    'estadoGestor' => '1',
                 );
 
                 $this->gestor_model->inserirGestor($dadosGestorInserir);
@@ -269,7 +269,7 @@ class cpainel extends CI_Controller {
                 'gestor' => $this->gestor_model->obterTodosGestor()->result(),
             );
 
-            $this->load->view('admin/bloqueioGestor', $dados);
+            $this->load->view('admin', $dados);
         }else {
             redirect(base_url() . "administrador/seguranca");
         }
@@ -299,7 +299,7 @@ class cpainel extends CI_Controller {
 
                     $this->gestor_model->alterarEstadosGestor($dados, $idGestor);
                 }
-                echo "<script> Gestor.bloqueioGestor() </script>";
+                echo "<script> Gestor.editarGestor() </script>";
             }
         }else {
             redirect(base_url() . "administrador/seguranca");

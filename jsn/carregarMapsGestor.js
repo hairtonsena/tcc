@@ -161,7 +161,7 @@ var Conteudo = {
                         case '5':
 
                             funcao = 'Problema.alterarStatusProblemaParaConcluido(\'' + objeto.idProblema + '\')';
-                            linkStatus = '<br/><a href="javascript:void(0)" class="btn btn-primary" onclick="' + funcao + '"> Concluir Problema</a>';
+                            linkStatus = '<br/><a href="javascript:void(0)" class="btn btn-primary" onclick="' + funcao + '"> Problema foi Resolvido</a>';
 
 
                             conteudoBalaoMapa =

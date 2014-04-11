@@ -168,7 +168,7 @@ var Conteudo = {
                         case '3':
                             var botaoEditar = 'tttt';
                             if (objeto.user == 'sim') {
-                                botaoEditar = '<button class="btn" onclick="Problema.editarColaboracao(' + objeto.idProblema + ')" type="button"> Editar </button>';
+                                botaoEditar = '<button class="btn btn-default" onclick="Problema.editarColaboracao(' + objeto.idProblema + ')" type="button"> Editar </button>';
                             } else {
                                 botaoEditar = '';
                             }
@@ -179,7 +179,7 @@ var Conteudo = {
                                     '<br/>' + objeto.descricao +
                                     '<br/><strong class="tituloProblema">Situação:</strong>' +
                                     objeto.nomeStatus +
-                                    '<div class="" style="text-align: right">'+ botaoEditar + botaoConfirma + verificarComentario + botoesApoioDenuciaB +
+                                    '<div class="" style="text-align: right">'+ botaoEditar + verificarComentario + botoesApoioDenuciaB +
                                     '</div></div>';
 
 
@@ -188,7 +188,7 @@ var Conteudo = {
                                     '<br/>' + objeto.descricao +
                                     '<br/><strong class="tituloProblema">Situação:</strong>' +
                                     objeto.nomeStatus +
-                                    '<div class="" style="text-align: right">'+ botaoEditar + botaoConfirma + verificarComentario + botoesApoioDenucia +
+                                    '<div class="" style="text-align: right">'+ botaoEditar + verificarComentario + botoesApoioDenucia +
                                     '</div></div>';
                             break;
 
@@ -196,7 +196,7 @@ var Conteudo = {
                         case '6':
                             var botaoConfirma = '';
                             if (objeto.user == 'sim') {
-                                botaoConfirma = '<button class="btn" onclick="Problema.editarColaboracao(' + objeto.idProblema + ')" type="button"> Reabrir </button>';
+                                botaoConfirma = '<button class="btn btn-default" onclick="Problema.editarColaboracao(' + objeto.idProblema + ')" type="button"> Reabrir </button>';
                             } else {
                                 botaoConfirma = '';
                             }

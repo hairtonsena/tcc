@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.4
+-- version 4.0.6deb1
 -- http://www.phpmyadmin.net
 --
 -- Máquina: localhost
--- Data de Criação: 03-Abr-2014 às 12:46
--- Versão do servidor: 5.6.12-log
--- versão do PHP: 5.4.16
+-- Data de Criação: 11-Abr-2014 às 16:17
+-- Versão do servidor: 5.5.35-0ubuntu0.13.10.2
+-- versão do PHP: 5.5.3-1ubuntu2.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -19,8 +19,43 @@ SET time_zone = "+00:00";
 --
 -- Base de Dados: `tcc_ci`
 --
-CREATE DATABASE IF NOT EXISTS `tcc_ci` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `tcc_ci`;
+
+DELIMITER $$
+--
+-- Procedures
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `listar_paises`(IN _id INT)
+begin 
+	select tb_problema.idProblema, descricao, data, dataInicioManutencao, dataConclusaoManutencao, dataPrevistaConclusao, latitude, longitude, tb_problema.idTipo,T.tipo,idStatus,idCidadao,qtde_comentario, qtde_apoio, qtde_denuncia  
+ from (
+	select  P.idProblema, descricao, data, dataInicioManutencao, dataConclusaoManutencao, dataPrevistaConclusao, latitude, longitude, idTipo,idStatus,idCidadao,qtde_comentario, qtde_apoio, qtde_denuncia  
+	from problema P
+	inner join
+		(
+			select P.idProblema, count(idComentario)as qtde_comentario 
+			from problema P
+			left join comentarioproblema CP on(CP.idProblema=P.idProblema)
+			group by idProblema
+		) as tb_comentario on(tb_comentario.idProblema=P.idProblema) 
+	inner join (
+			select P.idProblema, count(statusApoio)as qtde_apoio 
+			from problema P
+			left join apoioproblema AP on(AP.idProblema=P.idProblema)
+			group by idProblema
+		) as tb_apoio on(tb_apoio.idProblema=tb_comentario.idProblema)
+	inner join (
+			select P.idProblema, count(statusDenuncia)as qtde_denuncia 
+			from problema P
+			left join denunciaproblema DP on(DP.idProblema=P.idProblema)
+			group by idProblema
+		)as tb_denuncia on(tb_denuncia.idProblema=tb_comentario.idProblema)
+	) as tb_problema 
+inner join tipo T on(tb_problema.idTipo=T.idTipo)
+;
+
+END$$
+
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -47,6 +82,29 @@ INSERT INTO `admin` (`idAdmin`, `nomeAdmin`, `emailAdmin`, `senhaAdmin`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `apoiocomentario`
+--
+
+CREATE TABLE IF NOT EXISTS `apoiocomentario` (
+  `idComentario` int(11) NOT NULL,
+  `idCidadao` int(11) NOT NULL,
+  `statusApoio` int(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `apoiocomentario`
+--
+
+INSERT INTO `apoiocomentario` (`idComentario`, `idCidadao`, `statusApoio`) VALUES
+(24, 2, 1),
+(20, 2, 1),
+(18, 2, 1),
+(7, 2, 1),
+(23, 2, 1);
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `apoioproblema`
 --
 
@@ -55,6 +113,22 @@ CREATE TABLE IF NOT EXISTS `apoioproblema` (
   `idCidadao` int(11) NOT NULL,
   `statusApoio` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `apoioproblema`
+--
+
+INSERT INTO `apoioproblema` (`idProblema`, `idCidadao`, `statusApoio`) VALUES
+(29, 2, 1),
+(26, 2, 1),
+(13, 2, 1),
+(1, 2, 1),
+(6, 2, 1),
+(9, 2, 1),
+(2, 2, 1),
+(7, 2, 1),
+(16, 2, 1),
+(29, 4, 1);
 
 -- --------------------------------------------------------
 
@@ -79,10 +153,10 @@ CREATE TABLE IF NOT EXISTS `cidadao` (
 INSERT INTO `cidadao` (`idCidadao`, `nomeCidadao`, `cpfCidadao`, `emailCidadao`, `senhaCidadao`, `estadoCidadao`) VALUES
 (2, 'Hairton Sobral Silva', '87987656787', 'hairtonsena@yahoo.com.br', '25d55ad283aa400af464c76d713c07ad', 1),
 (3, 'Hairton no hotm', '11111111111', 'hairtonsena@hotmail.com', 'c35b838405fcc23b253e22baec5488c7', 1),
-(4, 'outro', '88888', 'outro@outro.com', '9584ec80754574635f35e63e9262f95a', 1),
+(4, 'outro', '88888', 'outro@outro.com', '582e5ec05d351d80103a7d463f38b32a', 1),
 (7, 'MaesBalada', '12324345676', 'maesbalada.com@gmail.com', '45aabeadbdd9f14710fa00d6f275caeb', 1),
 (8, 'teste 01', '09876543542', 'hairtontcc@yahoo.com.br', 'dcbacadf485c141a2b9b0028f2c0b2e1', 1),
-(9, 'VILSON CORDEIRO', '08932933692', 'vilson0800@yahoo.com.br', 'ce615d2cb39f56f3776e26311ce6d7a1', 1),
+(9, 'VILSON CORDEIRO SILVA', '08932933692', 'vilson0800@yahoo.com.br', '25d55ad283aa400af464c76d713c07ad', 1),
 (10, 'hairton', '11111111111', '', 'd41d8cd98f00b204e9800998ecf8427e', 1),
 (15, 'danilo', '12345678909', 'danilo@danilo.com', '62bf43e2db266caa78d4f0bd18fb5f7e', 1),
 (16, 'teste', '10366182692', 'teste@teste.com', 'e10adc3949ba59abbe56e057f20f883e', 1),
@@ -106,7 +180,7 @@ CREATE TABLE IF NOT EXISTS `comentarioproblema` (
   PRIMARY KEY (`idComentario`),
   KEY `idProblema` (`idProblema`),
   KEY `idCidadao` (`idCidadao`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=25 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=31 ;
 
 --
 -- Extraindo dados da tabela `comentarioproblema`
@@ -126,23 +200,35 @@ INSERT INTO `comentarioproblema` (`idComentario`, `textoComentario`, `dataComent
 (19, 'Outro comentário de teste para nos ajudar a conferir com esta nossos texto e o fluxo de dados neste parte.', '2014-03-22', 0, 0, 9, 2),
 (20, 'Agora vamos teste  se a janela ultrapassa a borda da pagina pois se passar teremos que dar um jeito para não ultrapassar, mas se criar um barra de rolagem no canto direito esta tudo bem.', '2014-03-22', 0, 0, 9, 2),
 (21, 'Mais ou menos ', '2014-03-22', 0, 0, 13, 2),
-(22, 'mais um', '2014-03-22', 0, 0, 13, 2),
 (23, 'bbbbbbbbbbbbbbb', '2014-03-22', 0, 0, 26, 2),
-(24, 'Agora parece que que esta certo.', '2014-03-22', 0, 0, 9, 2);
+(24, 'Agora parece que que esta certo.', '2014-03-22', 0, 0, 9, 2),
+(25, 'gggggggggggggggggg', '2014-04-07', 0, 0, 26, 4),
+(26, 'hhhhhhhhhhhhhhhh', '2014-04-07', 0, 0, 26, 4),
+(27, 'iiiiiiiiiiiiiiiiiii', '2014-04-07', 0, 0, 26, 4),
+(28, 'jjjjjjjjjjjjjjjjjjjjjjj', '2014-04-07', 0, 0, 26, 4),
+(29, 'bla bla bla bla', '2014-04-07', 0, 0, 16, 4),
+(30, 'ccccccccccccc', '2014-04-07', 0, 0, 16, 4);
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `denuciarproblema`
+-- Estrutura da tabela `denunciaproblema`
 --
 
-CREATE TABLE IF NOT EXISTS `denuciarproblema` (
+CREATE TABLE IF NOT EXISTS `denunciaproblema` (
   `idProblema` int(11) NOT NULL,
   `idCidadao` int(11) NOT NULL,
-  `statusApoio` int(1) NOT NULL,
-  KEY `idProblema` (`idProblema`),
-  KEY `idCidadao` (`idCidadao`)
+  `statusDenuncia` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `denunciaproblema`
+--
+
+INSERT INTO `denunciaproblema` (`idProblema`, `idCidadao`, `statusDenuncia`) VALUES
+(29, 2, 1),
+(7, 2, 1),
+(16, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -189,7 +275,7 @@ CREATE TABLE IF NOT EXISTS `problema` (
   KEY `idTipo` (`idTipo`),
   KEY `idStatus` (`idStatus`),
   KEY `idCidadao` (`idCidadao`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=38 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=45 ;
 
 --
 -- Extraindo dados da tabela `problema`
@@ -197,9 +283,9 @@ CREATE TABLE IF NOT EXISTS `problema` (
 
 INSERT INTO `problema` (`idProblema`, `descricao`, `data`, `dataInicioManutencao`, `dataConclusaoManutencao`, `dataPrevistaConclusao`, `latitude`, `longitude`, `idTipo`, `idStatus`, `idCidadao`) VALUES
 (1, 't"est''e as teste', '2013-04-10', '0000-00-00', '2013-05-30', '2013-04-27', '-16.73386566768085', ' -43.84815216064453', 1, 5, 2),
-(2, 'Placa pare quebrada', '2013-04-12', '2013-04-16', '2013-05-27', '2013-04-30', '-16.73374237368369', ' -43.86021137237549', 7, 6, 4),
+(2, 'Placa pare quebrada, ainda não foi resolvido este problema', '2013-04-12', '2013-04-16', '2013-05-27', '2013-04-30', '-16.73374237368369', ' -43.86021137237549', 7, 1, 4),
 (4, 'teste yhjhgjg', '2013-04-14', '0000-00-00', '0000-00-00', '2013-04-26', '-16.74668780774875', ' -43.85913848876953', 7, 1, 2),
-(5, 'muito engarrafamento ', '2013-04-14', '2013-04-16', '2013-04-16', '2013-04-30', '-16.75819412146239', ' -43.86909484863281', 7, 3, 2),
+(5, 'muito engarrafamento nesta rua.', '2013-04-14', '2013-04-16', '2013-04-16', '2013-04-30', '-16.75819412146239', ' -43.86909484863281', 7, 1, 2),
 (6, 'Esgoto a céu aberto neste local', '2012-03-20', '0000-00-00', '0000-00-00', '0000-00-00', '-16.753170468255437', ' -43.867796659469604', 9, 4, 2),
 (7, 'Tem um areia em cima de calsada impedindo de passar', '2013-04-17', '2013-04-17', '0000-00-00', '2013-04-30', '-16.763453918880025', ' -43.84986877441406', 10, 5, 3),
 (8, 'Arvore caída na fiação', '2013-04-17', '2013-05-25', '0000-00-00', '0000-00-00', '-16.72926263769018', ' -43.857421875', 3, 1, 3),
@@ -228,8 +314,39 @@ INSERT INTO `problema` (`idProblema`, `descricao`, `data`, `dataInicioManutencao
 (33, 'vamos ver o que dá', '2014-03-22', '0000-00-00', '0000-00-00', '0000-00-00', '-16.707396727757207', ' -43.84489059448242', 11, 1, 2),
 (34, 'Teste de login ', '2014-03-24', '0000-00-00', '0000-00-00', '0000-00-00', '-16.740770004195095', ' -43.875789642333984', 1, 1, 2),
 (35, 'Parece que agora vai dar certo', '2014-03-24', '0000-00-00', '0000-00-00', '0000-00-00', '-16.739290524577097', ' -43.87836456298828', 2, 1, 2),
-(36, 'Agora parece que esta dando certo.', '2014-03-25', '0000-00-00', '0000-00-00', '0000-00-00', '-16.72170027569882', ' -43.875789642333984', 12, 1, 2),
-(37, 'desperdício de água neste local', '2014-03-25', '0000-00-00', '0000-00-00', '0000-00-00', '-16.715617288653238', ' -43.87235641479492', 11, 1, 2);
+(36, 'Agora parece que esta dando certo.', '2014-03-25', '0000-00-00', '0000-00-00', '0000-00-00', '-16.72170027569882', ' -43.875789642333984', 12, 4, 2),
+(37, 'desperdício de água neste local', '2014-03-25', '0000-00-00', '0000-00-00', '0000-00-00', '-16.715617288653238', ' -43.87235641479492', 11, 1, 2),
+(38, 'mais um teste ', '2014-04-03', '0000-00-00', '0000-00-00', '0000-00-00', '-16.730002417864426', ' -43.8863468170166', 2, 1, 2),
+(39, 'bla bla bla', '2014-04-03', '0000-00-00', '0000-00-00', '0000-00-00', '-16.72276888852419', ' -43.88583183288574', 1, 1, 2),
+(40, 'jjjjjjjjjjjjjjjj', '2014-04-03', '0000-00-00', '0000-00-00', '0000-00-00', '-16.713973204804134', ' -43.88385772705078', 1, 1, 2),
+(41, 'tttttttttt', '2014-04-03', '0000-00-00', '0000-00-00', '0000-00-00', '-16.71668593555792', ' -43.89115333557129', 1, 1, 2),
+(42, 'vamos fazer mais um teste', '2014-04-07', '0000-00-00', '0000-00-00', '0000-00-00', '-16.69703831697391', ' -43.84025573730469', 1, 4, 2),
+(43, 'bla bal blasdlasljsad ', '2014-04-07', '0000-00-00', '0000-00-00', '0000-00-00', '-16.715781696258965', ' -43.880767822265625', 2, 4, 2),
+(44, 'agora eu acho que deu certo', '2014-04-07', '0000-00-00', '0000-00-00', '0000-00-00', '-16.698846968868477', ' -43.87493133544922', 2, 4, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `reprovacomentario`
+--
+
+CREATE TABLE IF NOT EXISTS `reprovacomentario` (
+  `idComentario` int(11) NOT NULL,
+  `idCidadao` int(11) NOT NULL,
+  `statusReprova` int(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `reprovacomentario`
+--
+
+INSERT INTO `reprovacomentario` (`idComentario`, `idCidadao`, `statusReprova`) VALUES
+(24, 2, 1),
+(21, 2, 1),
+(17, 2, 1),
+(16, 2, 1),
+(18, 2, 1),
+(23, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -253,8 +370,7 @@ INSERT INTO `status` (`idStatus`, `nomeStatus`) VALUES
 (3, 'Colaboração Pendente'),
 (4, 'Colaboração Aceita '),
 (5, 'Em andamento'),
-(6, 'Concluido'),
-(7, 'Confimado');
+(6, 'Resolvido');
 
 -- --------------------------------------------------------
 
@@ -290,6 +406,43 @@ INSERT INTO `tipo` (`idTipo`, `tipo`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Stand-in structure for view `vw_consulta_comentarios`
+--
+CREATE TABLE IF NOT EXISTS `vw_consulta_comentarios` (
+`idComentario` int(11)
+,`textoComentario` text
+,`datacomentario` date
+,`idProblema` int(11)
+,`idCidadao` int(11)
+,`qtde_apoio_comentario` bigint(21)
+,`qtde_reprovado_comentario` bigint(21)
+);
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `vw_consulta_principal`
+--
+CREATE TABLE IF NOT EXISTS `vw_consulta_principal` (
+`idProblema` int(11)
+,`descricao` text
+,`data` date
+,`dataInicioManutencao` date
+,`dataConclusaoManutencao` date
+,`dataPrevistaConclusao` date
+,`latitude` varchar(50)
+,`longitude` varchar(50)
+,`idTipo` int(2)
+,`tipo` varchar(50)
+,`idStatus` int(1)
+,`nomeStatus` varchar(50)
+,`idCidadao` int(11)
+,`qtde_comentario` bigint(21)
+,`qtde_apoio` bigint(21)
+,`qtde_denuncia` bigint(21)
+);
+-- --------------------------------------------------------
+
+--
 -- Stand-in structure for view `vw_consulta_problema`
 --
 CREATE TABLE IF NOT EXISTS `vw_consulta_problema` (
@@ -307,11 +460,149 @@ CREATE TABLE IF NOT EXISTS `vw_consulta_problema` (
 -- --------------------------------------------------------
 
 --
+-- Stand-in structure for view `vw_problema_com_apo_den`
+--
+CREATE TABLE IF NOT EXISTS `vw_problema_com_apo_den` (
+`idProblema` int(11)
+,`descricao` text
+,`data` date
+,`dataInicioManutencao` date
+,`dataConclusaoManutencao` date
+,`dataPrevistaConclusao` date
+,`latitude` varchar(50)
+,`longitude` varchar(50)
+,`idTipo` int(2)
+,`idStatus` int(1)
+,`idCidadao` int(11)
+,`qtde_comentario` bigint(21)
+,`qtde_apoio` bigint(21)
+,`qtde_denuncia` bigint(21)
+);
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `vw_qtde_apoio`
+--
+CREATE TABLE IF NOT EXISTS `vw_qtde_apoio` (
+`idProblema` int(11)
+,`qtde_apoio` bigint(21)
+);
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `vw_qtde_apoio_comentario`
+--
+CREATE TABLE IF NOT EXISTS `vw_qtde_apoio_comentario` (
+`idComentario` int(11)
+,`qtde_apoio_comentario` bigint(21)
+);
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `vw_qtde_comentario`
+--
+CREATE TABLE IF NOT EXISTS `vw_qtde_comentario` (
+`idProblema` int(11)
+,`qtde_comentario` bigint(21)
+);
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `vw_qtde_denuncia`
+--
+CREATE TABLE IF NOT EXISTS `vw_qtde_denuncia` (
+`idProblema` int(11)
+,`qtde_denuncia` bigint(21)
+);
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `vw_qtde_reprovado_comentario`
+--
+CREATE TABLE IF NOT EXISTS `vw_qtde_reprovado_comentario` (
+`idComentario` int(11)
+,`qtde_reprovado_comentario` bigint(21)
+);
+-- --------------------------------------------------------
+
+--
+-- Structure for view `vw_consulta_comentarios`
+--
+DROP TABLE IF EXISTS `vw_consulta_comentarios`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_consulta_comentarios` AS select `CP`.`idComentario` AS `idComentario`,`CP`.`textoComentario` AS `textoComentario`,`CP`.`dataComentario` AS `datacomentario`,`CP`.`idProblema` AS `idProblema`,`CP`.`idCidadao` AS `idCidadao`,`VQAC`.`qtde_apoio_comentario` AS `qtde_apoio_comentario`,`VQRC`.`qtde_reprovado_comentario` AS `qtde_reprovado_comentario` from ((`comentarioproblema` `CP` join `vw_qtde_apoio_comentario` `VQAC` on((`VQAC`.`idComentario` = `CP`.`idComentario`))) join `vw_qtde_reprovado_comentario` `VQRC` on((`VQRC`.`idComentario` = `CP`.`idComentario`)));
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `vw_consulta_principal`
+--
+DROP TABLE IF EXISTS `vw_consulta_principal`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_consulta_principal` AS select `VPCAD`.`idProblema` AS `idProblema`,`VPCAD`.`descricao` AS `descricao`,`VPCAD`.`data` AS `data`,`VPCAD`.`dataInicioManutencao` AS `dataInicioManutencao`,`VPCAD`.`dataConclusaoManutencao` AS `dataConclusaoManutencao`,`VPCAD`.`dataPrevistaConclusao` AS `dataPrevistaConclusao`,`VPCAD`.`latitude` AS `latitude`,`VPCAD`.`longitude` AS `longitude`,`VPCAD`.`idTipo` AS `idTipo`,`T`.`tipo` AS `tipo`,`VPCAD`.`idStatus` AS `idStatus`,`S`.`nomeStatus` AS `nomeStatus`,`VPCAD`.`idCidadao` AS `idCidadao`,`VPCAD`.`qtde_comentario` AS `qtde_comentario`,`VPCAD`.`qtde_apoio` AS `qtde_apoio`,`VPCAD`.`qtde_denuncia` AS `qtde_denuncia` from ((`vw_problema_com_apo_den` `VPCAD` join `tipo` `T` on((`T`.`idTipo` = `VPCAD`.`idTipo`))) join `status` `S` on((`S`.`idStatus` = `VPCAD`.`idStatus`)));
+
+-- --------------------------------------------------------
+
+--
 -- Structure for view `vw_consulta_problema`
 --
 DROP TABLE IF EXISTS `vw_consulta_problema`;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_consulta_problema` AS (select `p`.`idProblema` AS `idProblema`,`p`.`descricao` AS `descricao`,`p`.`data` AS `data`,`p`.`latitude` AS `latitude`,`p`.`longitude` AS `longitude`,`p`.`idTipo` AS `idTipo`,`t`.`tipo` AS `tipo`,`p`.`idStatus` AS `idStatus`,`s`.`nomeStatus` AS `nomeStatus`,count(`cp`.`idComentario`) AS `qtde_comentario` from (((`problema` `p` left join `comentarioproblema` `cp` on((`cp`.`idProblema` = `p`.`idProblema`))) join `tipo` `t` on((`t`.`idTipo` = `p`.`idTipo`))) join `status` `s` on((`s`.`idStatus` = `p`.`idStatus`))) group by `p`.`idProblema`,`p`.`descricao`,`p`.`data`,`p`.`latitude`,`p`.`longitude`,`p`.`idTipo`,`t`.`tipo`,`p`.`idStatus`,`s`.`nomeStatus`);
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `vw_problema_com_apo_den`
+--
+DROP TABLE IF EXISTS `vw_problema_com_apo_den`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_problema_com_apo_den` AS select `P`.`idProblema` AS `idProblema`,`P`.`descricao` AS `descricao`,`P`.`data` AS `data`,`P`.`dataInicioManutencao` AS `dataInicioManutencao`,`P`.`dataConclusaoManutencao` AS `dataConclusaoManutencao`,`P`.`dataPrevistaConclusao` AS `dataPrevistaConclusao`,`P`.`latitude` AS `latitude`,`P`.`longitude` AS `longitude`,`P`.`idTipo` AS `idTipo`,`P`.`idStatus` AS `idStatus`,`P`.`idCidadao` AS `idCidadao`,`VC`.`qtde_comentario` AS `qtde_comentario`,`VA`.`qtde_apoio` AS `qtde_apoio`,`VD`.`qtde_denuncia` AS `qtde_denuncia` from (((`problema` `P` join `vw_qtde_comentario` `VC` on((`VC`.`idProblema` = `P`.`idProblema`))) join `vw_qtde_apoio` `VA` on((`VA`.`idProblema` = `P`.`idProblema`))) join `vw_qtde_denuncia` `VD` on((`VD`.`idProblema` = `P`.`idProblema`)));
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `vw_qtde_apoio`
+--
+DROP TABLE IF EXISTS `vw_qtde_apoio`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_qtde_apoio` AS select `P`.`idProblema` AS `idProblema`,count(`AP`.`statusApoio`) AS `qtde_apoio` from (`problema` `P` left join `apoioproblema` `AP` on((`AP`.`idProblema` = `P`.`idProblema`))) group by `P`.`idProblema`;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `vw_qtde_apoio_comentario`
+--
+DROP TABLE IF EXISTS `vw_qtde_apoio_comentario`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_qtde_apoio_comentario` AS select `CP`.`idComentario` AS `idComentario`,count(`AC`.`statusApoio`) AS `qtde_apoio_comentario` from (`comentarioproblema` `CP` left join `apoiocomentario` `AC` on((`AC`.`idComentario` = `CP`.`idComentario`))) group by `CP`.`idComentario`;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `vw_qtde_comentario`
+--
+DROP TABLE IF EXISTS `vw_qtde_comentario`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_qtde_comentario` AS select `P`.`idProblema` AS `idProblema`,count(`CP`.`idComentario`) AS `qtde_comentario` from (`problema` `P` left join `comentarioproblema` `CP` on((`CP`.`idProblema` = `P`.`idProblema`))) group by `P`.`idProblema`;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `vw_qtde_denuncia`
+--
+DROP TABLE IF EXISTS `vw_qtde_denuncia`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_qtde_denuncia` AS select `P`.`idProblema` AS `idProblema`,count(`DP`.`statusDenuncia`) AS `qtde_denuncia` from (`problema` `P` left join `denunciaproblema` `DP` on((`DP`.`idProblema` = `P`.`idProblema`))) group by `P`.`idProblema`;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `vw_qtde_reprovado_comentario`
+--
+DROP TABLE IF EXISTS `vw_qtde_reprovado_comentario`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_qtde_reprovado_comentario` AS select `CP`.`idComentario` AS `idComentario`,count(`RC`.`statusReprova`) AS `qtde_reprovado_comentario` from (`comentarioproblema` `CP` left join `reprovacomentario` `RC` on((`RC`.`idComentario` = `CP`.`idComentario`))) group by `CP`.`idComentario`;
 
 --
 -- Constraints for dumped tables
@@ -323,13 +614,6 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 ALTER TABLE `comentarioproblema`
   ADD CONSTRAINT `comentarioproblema_ibfk_1` FOREIGN KEY (`idProblema`) REFERENCES `problema` (`idProblema`),
   ADD CONSTRAINT `comentarioproblema_ibfk_2` FOREIGN KEY (`idCidadao`) REFERENCES `cidadao` (`idCidadao`);
-
---
--- Limitadores para a tabela `denuciarproblema`
---
-ALTER TABLE `denuciarproblema`
-  ADD CONSTRAINT `denuciarproblema_ibfk_1` FOREIGN KEY (`idProblema`) REFERENCES `problema` (`idProblema`),
-  ADD CONSTRAINT `denuciarproblema_ibfk_2` FOREIGN KEY (`idCidadao`) REFERENCES `cidadao` (`idCidadao`);
 
 --
 -- Limitadores para a tabela `problema`

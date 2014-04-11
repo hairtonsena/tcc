@@ -1,5 +1,6 @@
+
 <table class="span8 thumbnail table table-striped">
-    <caption>Gestores</caption>
+    <caption class="pull-left">Gestores</caption>
     <thead>
         <tr>
             <th> Nome </th>

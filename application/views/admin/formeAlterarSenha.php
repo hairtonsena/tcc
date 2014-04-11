@@ -1,18 +1,23 @@
-<div class="span4 thumbnail">
-    <form onsubmit="Gestor.alterarSenha();
-            return false;">
-        <fieldset>
-<?php foreach ($gestor as $gt) { ?>
-                <legend> Alterar Senha Gestor </legend>
-                <span class="text-error">
-    <?php echo form_error('senhaGestor') ?>
-                </span>
-                <label>Senha :</label>
-                <input type="password" class="span4" required placeholder="********" name="senhaGestor" id="senhaGestor" value=""/> 
-                <input type="hidden" class="span4" name="idGestor" id="idGestor" value="<?php echo $gt->idGestor ?>"/>
-                <br/>
-                <input type="submit" class="btn btn-primary pull-right" value="Salvar"/>
-<?php } ?>
-        </fieldset>
-    </form>
-</div> 
+<div class="col-sm-4">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            Alterar Senha Gestor
+        </div>
+        <div class="panel-body">
+            <form onsubmit="Gestor.alterarSenha(); return false;">
+                <?php foreach ($gestor as $gt) { ?>
+                    <input type="hidden" class="form-control" name="idGestor" id="idGestor" value="<?php echo $gt->idGestor ?>"/>
+
+                    <div class="form-group">
+                        <label for="senhaGestor">Senha :</label>
+                        <input type="password" class="form-control" required placeholder="********" name="senhaGestor" id="senhaGestor" value=""/> 
+                        <span class="text-danger">
+                            <?php echo form_error('senhaGestor') ?>
+                        </span>
+                    </div>
+                    <input type="submit" class="form-control btn btn-primary " value="Salvar"/>
+                    <input type="button" onclick="Gestor.editarGestor()" class="form-control btn btn-default btn-cancelar" value="Cancelar"/>
+                <?php } ?>
+
+            </form>
+        </div> 

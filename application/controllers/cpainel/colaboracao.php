@@ -101,10 +101,10 @@ class colaboracao extends CI_Controller {
 
         $textoUsuario = str_replace($ocorrenciasCod, $cp['idProblema'], $textoUsuario);
 
-        echo $textoUsuario;
+        //echo $textoUsuario;
 
         $assunto = 'Colaboração Rejeitada';
-        $this->email->from('hairtontcc@yahoo.com.br', 'Projeto TCC');
+        $this->email->from('hairtontcc@yahoo.com.br', 'Problema urbanos');
         $this->email->to($cp['emailCidadao']);
         $this->email->subject($assunto);
         $this->email->message($textoUsuario);
@@ -120,7 +120,7 @@ class colaboracao extends CI_Controller {
 
 
 
-        echo $idProblema = $_POST['idProblema'];
+        $idProblema = $_POST['idProblema'];
         $textoUsuario = $_POST['textoUsuario'];
 
         $dados = array(
@@ -129,18 +129,27 @@ class colaboracao extends CI_Controller {
         $this->colaboracao_model->alterarStatus($dados, $idProblema);
         $cidadaoProblema = $this->colaboracao_model->obiterCidadaoProblema($idProblema)->result();
 
-        foreach ($cidadaoProblema as $cp) {
+        $cp = get_object_vars($cidadaoProblema[0]);
 
-            $assunto = 'Colaboração Pendente';
-            $this->email->from('hairtontcc@yahoo.com.br', 'Projeto TCC');
-            $this->email->to($cp->emailCidadao);
-            $this->email->subject($assunto);
-            $this->email->message($textoUsuario);
+        $ocorrenciasUser = array("[Usuário]", "[Usuario]", "[usuário]", "[usuario]", "[USUÁRIO]", "[USUARIO]");
 
-            if (!$this->email->send()) {
-                echo $this->email->print_debugger();
-            }
+        $textoUsuario = str_replace($ocorrenciasUser, $cp['nomeCidadao'], $textoUsuario);
+
+        $ocorrenciasCod = array("[Código]", "[Codigo]", "[código]", "[codigo]", "[CÓDOGO]", "[CODIGO]");
+
+        $textoUsuario = str_replace($ocorrenciasCod, $cp['idProblema'], $textoUsuario);
+
+
+        $assunto = 'Colaboração Pendente';
+        $this->email->from('hairtontcc@yahoo.com.br', 'Projeto TCC');
+        $this->email->to($cp['emailCidadao']);
+        $this->email->subject($assunto);
+        $this->email->message($textoUsuario);
+
+        if (!$this->email->send()) {
+            echo $this->email->print_debugger();
         }
+
 
         echo "<script> Problema.verColaboracoes(1);  </script>";
     }
@@ -162,7 +171,7 @@ class colaboracao extends CI_Controller {
         foreach ($cidadaoProblema as $cp) {
 
             $assunto = 'Colaboração em manutenção';
-            $this->email->from('hairtontcc@yahoo.com.br', 'Projeto TCC');
+            $this->email->from('hairtontcc@yahoo.com.br', 'Problema urbano');
             $this->email->to($cp->emailCidadao);
             $this->email->subject($assunto);
             $this->email->message($textoMensagem);
