@@ -3,63 +3,70 @@
     <head>
         <title> cPainel - Gestor  </title>
         <meta charset="utf-8"/>
-        <link type="text/css" rel="stylesheet" href="<?php echo base_url() ?>bootstrap/css/bootstrap-responsive.css" />
-        <link type="text/css" rel="stylesheet" href="<?php echo base_url() ?>bootstrap/css/bootstrap-responsive.min.css" />
-        <link type="text/css" rel="stylesheet" href="<?php echo base_url() ?>bootstrap/css/bootstrap.css" />
-        <link type="text/css" rel="stylesheet" href="<?php echo base_url() ?>bootstrap/css/bootstrap.min.css" />
+        <link href="<?php echo base_url("css/bt3/css/bootstrap.min.css"); ?>" rel="stylesheet">
 
         <style type="text/css">
             html {
                 height: 100%;
             }
             body {
-                height: 100%;
+                margin: 10% 0% 0% 0%;
                 background-color: #fcfcfc;
             }
 
-            #conteiner {
-                height: 80%;
-
-            }
-
-            #pnlLogin {
-                margin: 6% 40%;
-                background-color: #eee;
-            }
-            
-            .amentarCampo {height: 30px;}
         </style>
     </head>
     <body>
-        <div style=" background-color: #eee; height: 20%">
-            <div style="text-align: center; width: 20%;height: 100%; float: left; background-image: url('<?php echo base_url() ?>icone/moc.png');background-repeat: no-repeat;background-size: 100%" >
-                Montes Claros - MG
-            </div>
-            <a href="<?php echo base_url() ?>" class="btn btn-large btn-primary"> Voltar para o inicio </a> 
-        </div>
-        <div id="conteiner">
-            <div class="thumbnail span4" id="pnlLogin">
-                <form name="frmLogin" action="<?php echo base_url()."cpainel/seguranca/logarUsuario" ?>" method="post">
-                    <fieldset>
 
-                        <legend> Painel de Controle </legend>
-                        <span class="text-error"> 
-                            <?php echo validation_errors(); ?>
-                        </span>
-                        <label> Email: </label>
-                        <input type="email" name="email" class="span4" required /><br/>
-                        <label> Senha: </label>
-                        <input type="password" name="senha" class="span4" required />                        
-                        <br/>
-                        <label>Codigo de Validação:</label>
-                        <?php echo $imagemCaptcha ?>
-                        <input type="text" name="textoImagem" class="input-small" required />
-                        <br/>
-                        <input type="submit" name="acao" class="btn pull-right btn-primary" value="Entrar"/>
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+                <a href="<?php echo base_url() ?>" class="btn btn-large navbar-btn btn-primary"> Voltar para ao site </a> 
+            </div>
+        </nav>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <form name="frmLogin" action="<?php echo base_url("cpainel/seguranca/logarUsuario"); ?>" method="post">
+                        <div class="col-lg-12">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title"> Painel de Controle </h3>
+                                </div>
+                                <div class="panel-body">
 
-                    </fieldset>
-                </form>
+
+                                    <span class="text-danger"> 
+                                        <?php echo validation_errors(); ?>
+                                    </span>
+                                    <div class="form-group">
+                                        <label for="email"> Email: </label>
+                                        <input type="email" class="form-control" id="email" name="email" required />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="senha"> Senha: </label>
+                                        <input type="password" id="senha" class="form-control" name="senha" required />                        
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="textoImagem" class="col-sm-12">Codigo de Validação:</label>
+                                        <div class="col-sm-6 thumbnail">
+                                            <?php echo $imagemCaptcha ?>      
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <input type="text" id="textoImagem" name="textoImagem" class="form-control" required />
+                                        </div>
+
+                                    </div>
+
+                                    <input type="submit" name="acao" class="form-control btn pull-right btn-primary" value="Entrar"/>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
+
     </body>
 </html>

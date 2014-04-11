@@ -12,8 +12,8 @@ class colaboracao extends CI_Controller {
         $this->load->database();
         $this->load->helper('url');
         $this->load->model('cpainel/colaboracao_model');
+        date_default_timezone_set('UTC');
         $this->load->library('email');
-        
     }
 
     function index() {
@@ -54,18 +54,28 @@ class colaboracao extends CI_Controller {
         );
         $this->colaboracao_model->alterarStatus($dados, $idProblema);
         $cidadaoProblema = $this->colaboracao_model->obiterCidadaoProblema($idProblema)->result();
-        
-        foreach ($cidadaoProblema as $cp) {
 
-            $assunto = 'Colaboração aceita';
-            $this->email->from('hairtontcc@yahoo.com.br', 'Projeto TCC');
-            $this->email->to($cp->emailCidadao);
-            $this->email->subject($assunto);
-            $this->email->message($textoUsuario);
+        $cp = get_object_vars($cidadaoProblema[0]);
 
-            if (!$this->email->send()) {
-                echo $this->email->print_debugger();
-            }
+        $ocorrenciasUser = array("[Usuário]", "[Usuario]", "[usuário]", "[usuario]", "[USUÁRIO]", "[USUARIO]");
+
+        $textoUsuario = str_replace($ocorrenciasUser, $cp['nomeCidadao'], $textoUsuario);
+
+        $ocorrenciasCod = array("[Código]", "[Codigo]", "[código]", "[codigo]", "[CÓDOGO]", "[CODIGO]");
+
+        $textoUsuario = str_replace($ocorrenciasCod, $cp['idProblema'], $textoUsuario);
+
+        echo $textoUsuario;
+
+
+        $assunto = 'Colaboração aceita';
+        $this->email->from('hairtontcc@yahoo.com.br', 'Problema urbano');
+        $this->email->to($cp['emailCidadao']);
+        $this->email->subject($assunto);
+        $this->email->message($textoUsuario);
+
+        if (!$this->email->send()) {
+            echo $this->email->print_debugger();
         }
 
         echo "<script> Problema.verColaboracoes(1); Tela.fecharModal(); </script>";
@@ -81,28 +91,35 @@ class colaboracao extends CI_Controller {
         $this->colaboracao_model->alterarStatus($dados, $idProblema);
         $cidadaoProblema = $this->colaboracao_model->obiterCidadaoProblema($idProblema)->result();
 
- 
-        
-        foreach ($cidadaoProblema as $cp) {
+        $cp = get_object_vars($cidadaoProblema[0]);
 
-            $assunto = 'Colaboração Rejeitada';
-            $this->email->from('hairtontcc@yahoo.com.br', 'Projeto TCC');
-            $this->email->to($cp->emailCidadao);
-            $this->email->subject($assunto);
-            $this->email->message($textoUsuario);
+        $ocorrenciasUser = array("[Usuário]", "[Usuario]", "[usuário]", "[usuario]", "[USUÁRIO]", "[USUARIO]");
 
-            if (!$this->email->send()) {
-                echo $this->email->print_debugger();
-            }
+        $textoUsuario = str_replace($ocorrenciasUser, $cp['nomeCidadao'], $textoUsuario);
+
+        $ocorrenciasCod = array("[Código]", "[Codigo]", "[código]", "[codigo]", "[CÓDOGO]", "[CODIGO]");
+
+        $textoUsuario = str_replace($ocorrenciasCod, $cp['idProblema'], $textoUsuario);
+
+        echo $textoUsuario;
+
+        $assunto = 'Colaboração Rejeitada';
+        $this->email->from('hairtontcc@yahoo.com.br', 'Projeto TCC');
+        $this->email->to($cp['emailCidadao']);
+        $this->email->subject($assunto);
+        $this->email->message($textoUsuario);
+
+        if (!$this->email->send()) {
+            echo $this->email->print_debugger();
         }
-    
+
         echo "<script> Problema.verColaboracoes(1); Tela.fecharModal(); </script>";
     }
 
     function tornaPendenteColaboracao() {
-       
-      
-        
+
+
+
         echo $idProblema = $_POST['idProblema'];
         $textoUsuario = $_POST['textoUsuario'];
 
@@ -174,7 +191,7 @@ class colaboracao extends CI_Controller {
         foreach ($cidadaoProblema as $cp) {
 
 
-             $assunto = 'Colaboração Concluida';
+            $assunto = 'Colaboração Concluida';
             $this->email->from('hairtontcc@yahoo.com.br', 'Projeto TCC');
             $this->email->to($cp->emailCidadao);
             $this->email->subject($assunto);

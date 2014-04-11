@@ -1,16 +1,17 @@
-<span class="pull-right"><a href="javascript:void(0)" onclick="Tela.fecharModal()"><i class="icon-remove"></i></a></span><br/>
-
-<div class="thumbnail " style="background-color: #eee;" id="pnlLogin">
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title">Rejeitar Colaboração </h4>
+</div>
+<div class="modal-body">
 
     <form action="#" onsubmit="return Problema.rejeitarColaboracao()" method="post">
-        <fieldset>
-            <legend> Rejeitar Colaboração </legend>
+        <input type="hidden" name="idProblema" id="idProblema" value="<?php echo $idProblema ?>" />
+        <div class="form-group">
             <label>Mensagens Para o usuario</label>
-            <textarea rows="4" name="textoUsuario" id="textoUsuario" class="span3" >Sua colaboração rejeitado por não respeitar os termos de uso. Grato</textarea>
-            <input type="hidden" name="idProblema" id="idProblema" value="<?php echo $idProblema ?>" />
-            <br/>
-            <button class="btn pull-left btn-primary" type="submit"> Enviar </button> <button type="button" onclick="Tela.fecharModal()" class="btn pull-right">Cancelar</button>
-        </fieldset>
-
+            <textarea rows="4" name="textoUsuario" id="textoUsuario" class="form-control" >[usuário], infelizmente o problema urbano com o códito [código] foi rejeitado por não respeitar os termos de uso.
+Pedimos que leia os temos de do usuario antes de reporta um novo problema. Agradecemos a sua compreeção.</textarea>
+        </div>
+        <button class="btn pull-left btn-primary" type="submit"> Enviar </button> <button type="button" onclick="Tela.fecharModal()" class="btn pull-right">Cancelar</button>
+        <br/>
     </form>
 </div>

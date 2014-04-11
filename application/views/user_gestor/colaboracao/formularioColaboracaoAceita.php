@@ -1,15 +1,18 @@
-<span class="pull-right"><a href="javascript:void(0)" onclick="Tela.fecharModal()"><i class="icon-remove"></i></a></span><br/>
-
-<div class="thumbnail " style="background-color: #eee;" id="pnlLogin">
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title"> Aceitar Colaboração </h4>
+</div>
+<div class="modal-body">
     <form action="#" onsubmit="return Problema.aceitaColaboracao()" method="post">
-        <fieldset>
-            <legend> Aceitar Colaboração </legend>
-            <label>Mensagens Para o usuario</label>
-            <textarea rows="4" name="textoUsuario" id="textoUsuario" class="span3" >Sua colaboração foi aceita com sucesso!</textarea>
-            <input type="hidden" name="idProblema" id="idProblema" value="<?php echo $idProblema ?>" />
-            <br/>
-            <button class="btn pull-left btn-primary" type="submit"> Enviar </button> <button type="button" onclick="Tela.fecharModal()" class="btn pull-right">Cancelar</button>
-        </fieldset>
+        <input type="hidden" name="idProblema" id="idProblema" value="<?php echo $idProblema ?>" />
+        <div class="form-group">
+            <label for="textoUsusario">Mensagens Para o usuario</label>
+            <textarea rows="4" name="textoUsuario" id="textoUsuario" class="form-control" > [usuário], O problema urbano com o códito [código] foi aceito.
+A administração pública esta trabalhando para sua satisfação.</textarea>
+        </div>
+
+        <button class="btn pull-left btn-primary" type="submit"> Enviar </button> <button type="button" onclick="Tela.fecharModal()" class="btn pull-right">Cancelar</button>
+        <br/>
 
     </form>
 </div>  

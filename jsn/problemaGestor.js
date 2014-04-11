@@ -2,18 +2,21 @@ var Problema ={
     formularioColaboracaoAceita : function (idProblema){
         var url = Config.base_url+"cpainel/colaboracao/formularioColaboracaoAceita";
         var parametro = 'idProblema='+idProblema;
+        Tela.abrirModal();
         CarregarPagina.carregarConteudo(url, parametro);
      
     },       
     formularioColaboracaoRejeitada : function (idProblema){
         var url = Config.base_url+"cpainel/colaboracao/formularioColaboracaoRejeitada";
         var parametro = 'acao=formularioColaboracaoRejeitada&&idProblema='+idProblema;
+        Tela.abrirModal();
         CarregarPagina.carregarConteudo(url, parametro);
      
     },
     formularioColaboracaoPendente : function (idProblema){
         var url = Config.base_url+"cpainel/colaboracao/formularioColaboracaoPendente";
         var parametro = 'acao=formularioColaboracaoPendente&&idProblema='+idProblema;
+        Tela.abrirModal();
         CarregarPagina.carregarConteudo(url, parametro);
      
     },

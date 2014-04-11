@@ -56,9 +56,9 @@
 
                         <?php if (($this->session->userdata('nomeGestor')) && ($this->session->userdata('emailGestor')) && ($this->session->userdata('senhaGestor'))) { ?>
 
-                            <li><a href="javascript:void(0)" class="btn" onclick=""  data-toggle="tooltip" data-placement="left" title="Minhas Colaborações"> 
-                                    <span class="glyphicon glyphicon-th-list"></span>
-                                </a></li>
+                            <li>
+                                <!-- Para acrecentar agum menu extra-->
+                            </li>
                             <li class="dropdown">
 
                                 <a href="javascript:void(0)" class="btn dropdown-toggle" data-toggle="dropdown" href="#"> 
@@ -99,11 +99,11 @@
                         <div class="form-group col-md-6 semMarge" >
                             <?php if (($this->session->userdata('nomeCidadao')) && ($this->session->userdata('emailCidadao')) && ($this->session->userdata('senhaCidadao'))) { ?>        
                                 <label  class="text-pequino form-control btn btn-default">
-                                    <input onclick="Problema.verColaboracoesCidadao()" type="checkbox" id="minhasColaboracoes"> Minhas Colaborações
+                                    <!--<input onclick="Problema.verColaboracoesCidadao()" type="checkbox" id="minhasColaboracoes"> Minhas Colaborações-->
                                 </label>
                             <?php } else { ?>
                                 <label onclick="" class="text-pequino form-control btn btn-default">
-                                    <input type="checkbox" id="minhasColaboracoes" disabled="true"> Minhas Colaborações
+                                    <!--<input type="checkbox" id="minhasColaboracoes" disabled="true"> Minhas Colaborações-->
                                 </label>
                             <?php } ?>
                         </div>
