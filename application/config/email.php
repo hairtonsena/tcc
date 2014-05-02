@@ -20,5 +20,5 @@ $config['wordwrap'] = TRUE;
 $config['wrapchars'] = 76;
 $config['charset'] = 'utf-8';
 $config['validate'] = TRUE;
-$config['mailtype'] = 'text';
+$config['mailtype'] = 'html';
 

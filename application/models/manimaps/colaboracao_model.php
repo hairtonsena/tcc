@@ -120,7 +120,7 @@ class colaboracao_model extends CI_Model {
             }
             $this->db->where('idStatus =', $status);
             $this->db->where('idTipo =', $categoria);
-            
+
             $this->db->order_by($opcaoOrdem, $tipoOrdem);
             return $query = $this->db->get();
         } else if ($idProblema != 0) {
@@ -158,6 +158,16 @@ class colaboracao_model extends CI_Model {
 
     function obterColaboracaoInserida($dados) {
         return $this->db->get_where('problema', array('longitude' => $dados['longitude'], 'latitude' => $dados['latitude']));
+    }
+
+    function obterColaboracaoUserEmail($dados) {
+        $this->db->select('*');
+        $this->db->from('problema');
+        $this->db->join('tipo', 'tipo.idTipo = problema.idTipo');
+        $this->db->join('status', 'status.idStatus = problema.idStatus');
+        $this->db->where(array('longitude' => $dados['longitude'], 'latitude' => $dados['latitude']));
+//      
+        return $this->db->get();
     }
 
     function quatidadeApoioProblema($problema) {

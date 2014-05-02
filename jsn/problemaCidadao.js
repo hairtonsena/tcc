@@ -69,6 +69,11 @@ var Problema = {
         Conteudo.generateRandomMarkers(status, categoria, ordem, colabocaoCidadao, 0);
 
     },
+    verColaboracaoEmail:function(problema){
+        var parametro = "problema=" + problema;
+        var url = Config.base_url + "colaboracao/visualizarProblemaEmail";
+        CarregarPagina.carregarConteudo(url, parametro);
+    },
     focaProblemaAdicionado: function(idProblema) {
 
         //        Tela.fecharModal();

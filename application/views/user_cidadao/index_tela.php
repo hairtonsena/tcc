@@ -1,3 +1,14 @@
+<?php 
+//$lat = '-16.73386566768085';
+//$log = ' -43.84815216064453';
+//
+//echo $latlog = '('.$lat.','.$log.')';
+//echo '<br/>';
+//echo $cri = base64_encode($latlog);
+//echo '<br/>';
+//echo base64_decode($cri); 
+?>
+
 <html>
     <head>
         <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
@@ -40,8 +51,8 @@
                             <input type="checkbox" id="addColaboracao"><!-- <span class="glyphicon glyphicon-ok-circle"></span>--> Reportar Problema
                         </label>
                     </div>
-                    <form class="navbar-form navbar-left" onsubmit="Problema.pesquisaLocal();
-                                return false;" role="search">
+                          <form class="navbar-form navbar-left" onsubmit="Problema.pesquisaLocal();
+                        return false;" role="search">
 
                         <div class="form-group">
 
@@ -90,9 +101,9 @@
             <div class="row">
 
                 <div class="col-sm-9 col-sm-offset-0 col-md-9 col-md-offset-0 main" id="generateLink">
-                    
+
                     <div id="map_canvas">
-                        
+
                     </div>
                 </div>
                 <div class="col-sm-3 col-md-3 sidebar" id="calunaDireita">
@@ -201,7 +212,7 @@
         if ($this->session->userdata('local')) {
             ?>
             <input type="hidden" id="local" name="local" value="<?php echo $this->session->userdata('local') ?>"/>
-
+            <input type="hidden" id="opcao" name="opcao" value="<?php echo $this->session->userdata('opcao') ?>"/>
 
         <?php } else { ?>
             <input type="hidden" id="local" name="local" value="0"/>

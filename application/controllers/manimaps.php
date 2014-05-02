@@ -21,6 +21,13 @@ class Manimaps extends CI_Controller {
 
     public function index() {
 
+        if(!empty($_GET['problema'])){
+        $teste = base64_decode($_GET['problema']);
+        $this->session->set_userdata('local',$teste);
+        $this->session->set_userdata('opcao','2');
+         redirect(base_url());
+        }
+        
         $dados = array(
             'statusProblema' => $this->status_model->obterTodosStatusProblema()->result(),
             'tipoProblema' => $this->tipo_model->obterTodosTiposProblema()->result()

@@ -36,6 +36,7 @@ class seguranca extends CI_Controller {
         if ($_POST['local']!='no') {
             
             $this->session->set_userdata('local', $_POST['local']);
+            $this->session->set_userdata('opcao','1');
         }
 
         $wordCp = rand(000000, 999999);

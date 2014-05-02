@@ -96,6 +96,8 @@ class colaboracao_model extends CI_Model {
         $this->db->select('*');
         $this->db->from('problema');
         $this->db->join('cidadao', 'cidadao.idCidadao = problema.idCidadao');
+        $this->db->join('tipo', 'tipo.idTipo = problema.idTipo');
+        $this->db->join('status', 'status.idStatus = problema.idStatus');
         $this->db->where('problema.idProblema =', $idProblema);
         return $query = $this->db->get();
     }

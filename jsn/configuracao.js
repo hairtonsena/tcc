@@ -23,7 +23,7 @@ CarregarPagina = {
             url: pg,
             data: parametro,
             success: function(retorno) {
-               // $("#windowModal").html(retorno);
+            // $("#windowModal").html(retorno);
             }
         });
     }
@@ -34,7 +34,7 @@ CarregarPagina = {
 Tela = {
     contextMenu: null
 
-            ,
+    ,
     abriMenuDireito: function() {
         var contextMenu = $("#jqxMenu").jqxMenu({
             width: '120px',
@@ -68,17 +68,23 @@ Tela = {
         if (local == 0) {
             Tela.fecharModal();
         } else {
-            Problema.adicionarPontoMapa(local);
+            var opcao = $('#opcao').val();
+            if(opcao==1){
+                Problema.adicionarPontoMapa(local);
+            }else if(opcao==2){
+                Problema.verColaboracaoEmail(local);
+                //alert(local);
+            }
         }
 
 
         Conteudo.generateRandomMarkers(0, 0, 0, 0, 0);
 
-//        var tamanhoColuna = document.getElementById("calunaDireita").offsetHeight;
-//
-//        $('#map_canvas').css({
-//            height: tamanhoColuna
-//        });
+        //        var tamanhoColuna = document.getElementById("calunaDireita").offsetHeight;
+        //
+        //        $('#map_canvas').css({
+        //            height: tamanhoColuna
+        //        });
 
 
 
@@ -113,7 +119,7 @@ Tela = {
             return false;
         });
 
-        //  Tela.fecharModal()
+    //  Tela.fecharModal()
     },
     isRightClick: function(event) {
         var rightclick;

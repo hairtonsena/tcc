@@ -20,7 +20,10 @@ class colaboracao extends CI_Controller {
     }
 
     function formularioNovaColaboracao() {
+        // isto é uma sessão.
         $this->session->unset_userdata('local');
+        $this->session->unset_userdata('opcao');
+        // isto é uma atribição POST.
         $valor = $this->input->post('local');
 
         if (($this->session->userdata('idCidadao')) && ($this->session->userdata('nomeCidadao')) && ($this->session->userdata('emailCidadao')) && ($this->session->userdata('senhaCidadao'))) {
@@ -121,7 +124,7 @@ class colaboracao extends CI_Controller {
 
             $this->colaboracao_model->alterarColaboracaoPendente($dados, $idProblema);
 
-       echo '<script>        var colabocaoCidadao = 0;
+            echo '<script>        var colabocaoCidadao = 0;
         if ($("#minhasColaboracoes").is(\':checked\', true)) {
             colabocaoCidadao = 1;
         } else {
@@ -132,20 +135,56 @@ class colaboracao extends CI_Controller {
         var ordem = $("#ordem").val();
 
         Conteudo.generateRandomMarkers(status, categoria, ordem, colabocaoCidadao, 0); Tela.fecharModal() </script>';
- 
+        }
+    }
+
+    function visualizarProblemaEmail() {
+
+        if (($this->session->userdata('idCidadao')) && ($this->session->userdata('nomeCidadao')) && ($this->session->userdata('emailCidadao')) && ($this->session->userdata('senhaCidadao'))) {
+            $valor = $this->input->post('problema');
+            $pontos = array("(", ")");
+            $result = str_replace($pontos, "", $valor);
+            $latlng = explode(",", $result);
+
+            $latlng;
+            $dados = array(
+                'latitude' => $latlng[0],
+                'longitude' => $latlng[1],
+            );
+
+            $colaboracao = $this->colaboracao_model->obterColaboracaoUserEmail($dados)->result();
+
+            if (count($colaboracao) == 0) {
+                echo '<script>  Tela.fecharModal(); </script>';
+            } else {
+                foreach ($colaboracao as $cl) {
+                    if ($this->session->userdata('idCidadao') == $cl->idCidadao) {
+                        $dados2 = array(
+                            'colaboracao' => $colaboracao,
+                        );
+
+                        $this->load->view('user_cidadao/colaboracao/colaboracaoUserEmail_view', $dados2);
+                    } else {
+                        echo '<script>  Tela.fecharModal(); </script>';
+                    }
+                }
+            }
+
+            $this->session->unset_userdata('local');
+            $this->session->unset_userdata('opcao');
+        } else {
+            $this->load->view('user_cidadao/seguranca/linkLogin_view');
         }
     }
 
     function confirmaConclusaoProblema() {
 
         $idProblema = $_POST['idProblema'];
-
         $dados = array(
             'idStatus' => '7',
         );
 
         $this->colaboracao_model->alterarStatusConclusao($dados, $idProblema);
-
         echo "<script> Problema.verColaboracoes(0) </script>";
     }
 
@@ -162,7 +201,7 @@ class colaboracao extends CI_Controller {
 
         $this->colaboracao_model->persistirApoiarProblema($dados);
 
-       
+
 
         //  }
     }
@@ -179,7 +218,7 @@ class colaboracao extends CI_Controller {
 
         $this->colaboracao_model->persistirReprovarProblema($dados);
 
-        
+
 
         //  }
     }
