@@ -16,7 +16,7 @@ class colaboracao extends CI_Controller {
     }
 
     function index() {
-        
+        redirect(base_url());
     }
 
     function formularioNovaColaboracao() {
@@ -50,39 +50,42 @@ class colaboracao extends CI_Controller {
     }
 
     function salvarNovaColaboracao() {
+        if (($this->session->userdata('idCidadao')) && ($this->session->userdata('nomeCidadao')) && ($this->session->userdata('emailCidadao')) && ($this->session->userdata('senhaCidadao'))) {
 
-        $dadosColaboracao = array(
-            'idProblema' => '',
-            'descricao' => $this->input->post('descricao'),
-            'data' => date('y-m-d'),
-            'latitude' => $this->input->post('latitude'),
-            'longitude' => $this->input->post('longitude'),
-            'idTipo' => $this->input->post('tipo'),
-            'idStatus' => '1',
-            'idCidadao' => $this->session->userdata('idCidadao'),
-        );
+            $dadosColaboracao = array(
+                'idProblema' => '',
+                'descricao' => $this->input->post('descricao'),
+                'data' => date('y-m-d'),
+                'latitude' => $this->input->post('latitude'),
+                'longitude' => $this->input->post('longitude'),
+                'idTipo' => $this->input->post('tipo'),
+                'idStatus' => '1',
+                'idCidadao' => $this->session->userdata('idCidadao'),
+            );
 
-        $this->colaboracao_model->inserirNovaColaboracao($dadosColaboracao);
+            $this->colaboracao_model->inserirNovaColaboracao($dadosColaboracao);
 
-        $query = $this->colaboracao_model->obterColaboracaoInserida($dadosColaboracao)->result();
+            $query = $this->colaboracao_model->obterColaboracaoInserida($dadosColaboracao)->result();
 
-        $idProblema = 0;
-        foreach ($query as $qr) {
-            $idProblema = $qr->idProblema;
-        }
+            $idProblema = 0;
+            foreach ($query as $qr) {
+                $idProblema = $qr->idProblema;
+            }
 
-        echo '<script>        var colabocaoCidadao = 0;
-        if ($("#minhasColaboracoes").is(\':checked\', true)) {
-            colabocaoCidadao = 1;
-        } else {
-            colabocaoCidadao = 0;
-        }
-        var status = $("#status").val();
-        var categoria = $("#categoria").val();
-        var ordem = $("#ordem").val();
-
-        Conteudo.generateRandomMarkers(status, categoria, ordem, colabocaoCidadao, 0); </script>';
-        echo '
+            echo '<script> Problema.verColaboracoesAposSalvar() </script>';
+            
+//            echo '<script>        var colabocaoCidadao = 0;
+//        if ($("#minhasColaboracoes").is(":checked", true)) {
+//            colabocaoCidadao = 1;
+//        } else {
+//            colabocaoCidadao = 0;
+//        }
+//        var status = $("#status").val();
+//        var categoria = $("#categoria").val();
+//        var ordem = $("#ordem").val();
+//
+//        Conteudo.generateRandomMarkers(status, categoria, ordem, colabocaoCidadao, 0); </script>';
+            echo '
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 
@@ -91,6 +94,7 @@ class colaboracao extends CI_Controller {
         <div class="modal-body"> O problema foi registrado com sucesso. <br/>
             <button type="button" onclick="Tela.fecharModal()" class="btn btn-default">ok</a>
         </div>';
+        }
     }
 
     function formeEditarColaboracao() {
@@ -178,49 +182,57 @@ class colaboracao extends CI_Controller {
     }
 
     function confirmaConclusaoProblema() {
+        if (($this->session->userdata('idCidadao')) && ($this->session->userdata('nomeCidadao')) && ($this->session->userdata('emailCidadao')) && ($this->session->userdata('senhaCidadao'))) {
 
-        $idProblema = $_POST['idProblema'];
-        $dados = array(
-            'idStatus' => '7',
-        );
+            $idProblema = $_POST['idProblema'];
+            $dados = array(
+                'idStatus' => '7',
+            );
 
-        $this->colaboracao_model->alterarStatusConclusao($dados, $idProblema);
-        echo "<script> Problema.verColaboracoes(0) </script>";
+            $this->colaboracao_model->alterarStatusConclusao($dados, $idProblema);
+            echo "<script> Problema.verColaboracoes(0) </script>";
+        }
     }
 
     function apoiarProblema() {
 
-        // if (($this->session->userdata('idCidadao')) && ($this->session->userdata('nomeCidadao')) && ($this->session->userdata('emailCidadao')) && ($this->session->userdata('senhaCidadao'))) {
+        if (($this->session->userdata('idCidadao')) && ($this->session->userdata('nomeCidadao')) && ($this->session->userdata('emailCidadao')) && ($this->session->userdata('senhaCidadao'))) {
 
-        $idProblema = $_POST['idProblema'];
-        $dados = array(
-            'idProblema' => $idProblema,
-            'idCidadao' => $this->session->userdata('idCidadao'),
-            'statusApoio' => '1',
-        );
-
-        $this->colaboracao_model->persistirApoiarProblema($dados);
+            $idProblema = $_POST['idProblema'];
 
 
+            $qtdeApoioProblema = $this->colaboracao_model->verificarUserApoio($idProblema, $this->session->userdata('idCidadao'));
 
-        //  }
+            if ($qtdeApoioProblema < 1) {
+
+                $dados = array(
+                    'idProblema' => $idProblema,
+                    'idCidadao' => $this->session->userdata('idCidadao'),
+                    'statusApoio' => '1',
+                );
+
+                $this->colaboracao_model->persistirApoiarProblema($dados);
+            }
+        }
     }
 
     function reprovaProblema() {
-        // if (($this->session->userdata('idCidadao')) && ($this->session->userdata('nomeCidadao')) && ($this->session->userdata('emailCidadao')) && ($this->session->userdata('senhaCidadao'))) {
+        if (($this->session->userdata('idCidadao')) && ($this->session->userdata('nomeCidadao')) && ($this->session->userdata('emailCidadao')) && ($this->session->userdata('senhaCidadao'))) {
 
-        $idProblema = $_POST['idProblema'];
-        $dados = array(
-            'idProblema' => $idProblema,
-            'idCidadao' => $this->session->userdata('idCidadao'),
-            'statusDenuncia' => '1',
-        );
+            $idProblema = $_POST['idProblema'];
 
-        $this->colaboracao_model->persistirReprovarProblema($dados);
+            $qtdeReprovaProblema = $this->colaboracao_model->verificarUserReprovado($idProblema, $this->session->userdata('idCidadao'));
 
+            if ($qtdeReprovaProblema < 1) {
+                $dados = array(
+                    'idProblema' => $idProblema,
+                    'idCidadao' => $this->session->userdata('idCidadao'),
+                    'statusDenuncia' => '1',
+                );
 
-
-        //  }
+                $this->colaboracao_model->persistirReprovarProblema($dados);
+            }
+        }
     }
 
 }

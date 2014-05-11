@@ -61,24 +61,135 @@ var Problema ={
         var parametro = "idProblema="+idProblema;
         var url = Config.base_url+"cpainel/colaboracao/alterarStatusConcluido";
         CarregarPagina.carregarConteudo(url, parametro);
-    },
-    verColaboracoes_old : function (opcao){
-       
-        var ver = opcao;  
-        Conteudo.generateRandomMarkers(ver);
-    },    
+    }, 
     verColaboracoes : function (){
-       
-       var status = $("#status").val();
-       var categoria = $("#categoria").val();
-       var ordem = $("#ordem").val();
-       
-       
-       
+               
+        var status = $("#status").val();
+        var categoria = $("#categoria").val();
+        var ordem = $("#ordem").val();
+        Tela.abrirModal();
         Conteudo.generateRandomMarkers(status,categoria,ordem);
+        Tela.fecharModal();
+    },    
+    verCometarioModerar : function (){
+        
+        var parametro = "";
+        var url = Config.base_url+"cpainel/colaboracao/verCometarioModerar";
+        Tela.abrirModal();
+        CarregarPagina.carregarConteudo(url, parametro);
+    }, 
+    aceitarComentario: function(comentario){
+        // Tela inicial
+        var qtdeComentarioMederar = $('#qtdeComentarioMederar').html();
+        $('#qtdeComentarioMederar').html(qtdeComentarioMederar-1);
+        // Moderar comentário
+        var bloco = '#blocoComentario'+comentario;
+        $(bloco).hide();
+       
+        var parametro = "idComentario="+comentario;
+        var pg = Config.base_url+'cpainel/colaboracao/aceitarComentario';
+       
+        CarregarPagina.enviarDadosComentairo(pg, parametro);
+        
+        // recarregar os problema da tela inicial.
+        var status = $("#status").val();
+        var categoria = $("#categoria").val();
+        var ordem = $("#ordem").val();
+        
+        var milisegundos = 5000; 
+
+        window.setTimeout(Conteudo.generateRandomMarkers(status,categoria,ordem), milisegundos)
+       
+    },    
+    aceitarComentario2: function(comentario){
+        // Tela inicial
+        var qtdeComentarioMederar = $('#qtdeComentarioMederar').html();
+        $('#qtdeComentarioMederar').html(qtdeComentarioMederar-1);
+        // Moderar comentário
+        var bloco = '#linkModeracaoComentario'+comentario;
+        $(bloco).hide();
+       
+        var parametro = "idComentario="+comentario;
+        var pg = Config.base_url+'cpainel/colaboracao/aceitarComentario';
+       
+        CarregarPagina.enviarDadosComentairo(pg, parametro);
+        
+        // recarregar os problema da tela inicial.
+        var status = $("#status").val();
+        var categoria = $("#categoria").val();
+        var ordem = $("#ordem").val();
+        
+        var milisegundos = 5000; 
+
+        window.setTimeout(Conteudo.generateRandomMarkers(status,categoria,ordem), milisegundos)
+    },   
+    rejeitarComentario: function(comentario){
+        // tele inicial
+        var qtdeComentarioMederar = $('#qtdeComentarioMederar').html();
+        $('#qtdeComentarioMederar').html(qtdeComentarioMederar-1);
+       
+        // Moderar comentarios
+        var bloco = '#blocoComentario'+comentario;
+        $(bloco).hide();
+       
+        var parametro = "idComentario="+comentario;
+        var pg = Config.base_url+'cpainel/colaboracao/rejeitarComentario';
+       
+        CarregarPagina.enviarDadosComentairo(pg, parametro);
+
+        // recarregar os problema da tela inicial.
+        var status = $("#status").val();
+        var categoria = $("#categoria").val();
+        var ordem = $("#ordem").val();
+        
+        var milisegundos = 5000; 
+
+        window.setTimeout(Conteudo.generateRandomMarkers(status,categoria,ordem), milisegundos)
+    ;
+        
+
+
+
+       
+    }, 
+    verTodosComentario: function(idProblema){
+        var parametro = "idProblema=" + idProblema;
+        var url = Config.base_url + "cpainel/colaboracao/verComentariosPorPorblema";
+        // alert(idProblema);
+        Tela.abrirModal();
+        CarregarPagina.carregarConteudo(url, parametro);
+    },
+    formeAlterarGestor: function(id){
+        var url = Config.base_url+'cpainel/configuracao/formeAlterarGestor';
+        var parametro = 'idGestor='+id;
+        Tela.abrirModal();
+        CarregarPagina.carregarConteudo(url, parametro); 
+    },
+    alterarGestor: function(){
+        var idGestor = $("#idGestor").val();
+        var nomeGestor = $("#nomeGestor").val();
+        var emailGestor = $("#emailGestor").val();
+        
+        var url = Config.base_url+'cpainel/configuracao/alterarGestor';
+        var parametro = 'acao=alterarGestor&&idGestor='+idGestor+'&&nomeGestor='+nomeGestor+
+        '&&emailGestor='+emailGestor;
+        CarregarPagina.carregarConteudo(url, parametro)        
+        
+    },
+    formeAlterarSenha: function(id){
+        var url = Config.base_url+'cpainel/configuracao/formeAlterarSenha';
+        Tela.abrirModal()
+        var parametro = 'acao=formeAlterarSenha&&idGestor='+id;
+        CarregarPagina.carregarConteudo(url, parametro); 
+    },
+    alterarSenha : function(){
+        var idGestor = $("#idGestor").val();
+        var senhaGestor = $("#senhaGestor").val();
+        var senhaAtual = $("#senhaAtual").val();
+        var url = Config.base_url+'cpainel/configuracao/alterarSenha';
+        var parametro = 'acao=alterarSenha&&idGestor='+idGestor+'&&senhaGestor='+senhaGestor+'&&senhaAtual='+senhaAtual;
+        CarregarPagina.carregarConteudo(url, parametro);
     }
-   
-    
 }
 
  

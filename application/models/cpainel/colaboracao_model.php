@@ -91,6 +91,15 @@ class colaboracao_model extends CI_Model {
         }
     }
 
+        function obiterProblema($idProblema) {
+        $this->db->select('*');
+        $this->db->from('problema');
+        $this->db->join('tipo', 'tipo.idTipo = problema.idTipo');
+        $this->db->join('status', 'status.idStatus = problema.idStatus');
+        $this->db->where('problema.idProblema =', $idProblema);
+        return $query = $this->db->get();
+    }
+    
     function obiterCidadaoProblema($idProblema) {
 
         $this->db->select('*');
@@ -107,6 +116,43 @@ class colaboracao_model extends CI_Model {
         $this->db->update('problema', $dados);
     }
 
+    function obterComentarioNaoModerados() {
+
+        $this->db->select('*');
+        $this->db->from('problema');
+        $this->db->join('comentarioproblema', 'problema.idProblema = comentarioproblema.idProblema');
+        $this->db->join('cidadao', 'cidadao.idCidadao = comentarioproblema.idCidadao');
+        $this->db->join('tipo', 'tipo.idTipo = problema.idTipo');
+        $this->db->join('status', 'status.idStatus = problema.idStatus');
+        $this->db->where('comentarioproblema.statusComentario =', 0);
+        $this->db->order_by('problema.idProblema','cres');
+       // $this->db->order_by($opcaoOrdem, $tipoOrdem);
+        return $query = $this->db->get();
+    }
+
+    function alterarComentario($idComentario, $dados) {
+        $this->db->where('idComentario', $idComentario);
+        $this->db->update('comentarioproblema', $dados);
+    }
+
+    function excluirComentarioRejeitado($idComentario) {
+        $this->db->delete('apoioComentario', array('idComentario' => $idComentario));
+        $this->db->delete('reprovaComentario', array('idComentario' => $idComentario));
+        $this->db->delete('comentarioproblema', array('idComentario' => $idComentario));
+    }
+
+    function obterComentarioPorColaboracao($problema) {
+        $this->db->from('vw_consulta_comentarios');
+        $this->db->join('cidadao', 'cidadao.idCidadao=vw_consulta_comentarios.idCidadao');
+        $this->db->where(array('idProblema' => $problema));
+        $this->db->order_by("idComentario", "desc");
+        return $this->db->get();
+    }
+
+    function obterConfiguracoa() {
+        return $this->db->get('configuracao');
+    }
+    
 }
 
 ?>

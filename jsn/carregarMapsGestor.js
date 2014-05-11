@@ -42,9 +42,9 @@ var Conteudo = {
         }
 
 
-        Tela.abrirModal();
 
-        $(".window").html('<h2> Carregando... </h2>');
+
+
 
         Conteudo.clearMarkers();
 
@@ -55,11 +55,11 @@ var Conteudo = {
             'ordem': ordem
         }, function(json) {
 
-            Tela.fecharModal();
+            
             if (json.length == 0) {
 
-                div.innerHTML = '<h3>Nenhum marcador Encontrado!</h3>';
-                alert('Nenhum marcador Encontrado!');
+                div.innerHTML = '<h3>Nenhuma colaboração encontrada!</h3>';
+//                alert('Nenhum marcador Encontrado!');
             } else {
                 for (var n = 0; n <= json.length; n++) {
 
@@ -67,10 +67,10 @@ var Conteudo = {
 
 
                     var randLatLng = new google.maps.LatLng(
-                            objeto.latitude
-                            ,
-                            objeto.longitude
-                            );
+                        objeto.latitude
+                        ,
+                        objeto.longitude
+                        );
 
                     var imagem = Config.base_url + 'icone/icone' + objeto.idTipo + '.png';
 
@@ -94,13 +94,13 @@ var Conteudo = {
                     var verificarComentario = '<a href="javascript:void(0)" onclick="Problema.verTodosComentario(\'' + objeto.idProblema + '\')"> Comentários ' + objeto.qtde_comentario + ' </a>';
 
                     var botoesApoioDenucia = '<a class="btn btn-primary btn-xs" href="javascript:void(0)" >' +
-                            '<i class="glyphicon glyphicon-thumbs-up"></i> ' +
-                            '<span class="text-info badge">' + objeto.qtde_apoio + '</span>' +
-                            '</a> ' +
-                            '<a class="btn btn-default btn-xs" href="javascript:void(0)" >' +
-                            '<i class="glyphicon glyphicon-thumbs-down"></i> ' +
-                            '<span class="text-error badge">' + objeto.qtde_denuncia + '</span>' +
-                            '</a>';
+                    '<i class="glyphicon glyphicon-thumbs-up"></i> ' +
+                    '<span class="text-info badge">' + objeto.qtde_apoio + '</span>' +
+                    '</a> ' +
+                    '<a class="btn btn-default btn-xs" href="javascript:void(0)" >' +
+                    '<i class="glyphicon glyphicon-thumbs-down"></i> ' +
+                    '<span class="text-error badge">' + objeto.qtde_denuncia + '</span>' +
+                    '</a>';
 
 
                     switch (objeto.idStatus) {
@@ -108,28 +108,28 @@ var Conteudo = {
 
 
                             linkStatus =
-                                    '<br/><a href="javascript:void(0)" class="btn btn-primary" onclick="Problema.formularioColaboracaoAceita(\'' + objeto.idProblema + '\')"> Aceitar  </a>' +
-                                    ' <a href="javascript:void(0)" class="btn btn-default" onclick="Problema.formularioColaboracaoPendente(\'' + objeto.idProblema + '\')"> Tornar Pendente </a>' +
-                                    ' <a href="javascript:void(0)" class="btn btn-danger" onclick="Problema.formularioColaboracaoRejeitada(\'' + objeto.idProblema + '\')"> Rejeitar </a>';
+                            '<br/><a href="javascript:void(0)" class="btn btn-primary" onclick="Problema.formularioColaboracaoAceita(\'' + objeto.idProblema + '\')"> Aceitar  </a>' +
+                            ' <a href="javascript:void(0)" class="btn btn-default" onclick="Problema.formularioColaboracaoPendente(\'' + objeto.idProblema + '\')"> Tornar Pendente </a>' +
+                            ' <a href="javascript:void(0)" class="btn btn-danger" onclick="Problema.formularioColaboracaoRejeitada(\'' + objeto.idProblema + '\')"> Rejeitar </a>';
 
 
 
                             conteudoBalaoMapa =
-                                    '<div style="font-size: 14; width:300px;"><strong class="tituloProblema"> ' + objeto.tipo + ' </strong><span class="pull-right">' + objeto.dataProblema + '</span>' +
-                                    '<br/>' + objeto.descricao +
-                                    '<br/><strong class="tituloProblema">Situação:</strong>' +
-                                    objeto.nomeStatus +
-                                    linkStatus +
-                                    '</div>';
+                            '<div style="font-size: 14; width:300px;"><strong class="tituloProblema"> ' + objeto.tipo + ' </strong><span class="pull-right">' + objeto.dataProblema + '</span>' +
+                            '<br/>' + objeto.descricao +
+                            '<br/><strong class="tituloProblema">Situação:</strong>' +
+                            objeto.nomeStatus +
+                            linkStatus +
+                            '</div>';
 
 
                             conteudoColunaDireita =
-                                    '<div style="font-size: 14;"><strong class="tituloProblema"> <img src="' + imagem + '"/> ' + objeto.tipo + ' </strong><span class="pull-right">' + objeto.dataProblema + '</span>' +
-                                    '<br/>' + objeto.descricao +
-                                    '<br/><strong class="tituloProblema">Situação:</strong>' +
-                                    objeto.nomeStatus +
-                                    '<div class="" style="text-align: right">' + verificarComentario + botoesApoioDenucia +
-                                    '</div></div>';
+                            '<div style="font-size: 14;"><strong class="tituloProblema"> <img src="' + imagem + '"/> ' + objeto.tipo + ' </strong><span class="pull-right">' + objeto.dataProblema + '</span>' +
+                            '<br/>' + objeto.descricao +
+                            '<br/><strong class="tituloProblema">Situação:</strong>' +
+                            objeto.nomeStatus +
+                            '<div class="" style="text-align: right">' + verificarComentario + botoesApoioDenucia +
+                            '</div></div>';
 
 
                             break;
@@ -140,21 +140,21 @@ var Conteudo = {
 
 
                             conteudoBalaoMapa =
-                                    '<div style="font-size: 14; width:300px;"><strong class="tituloProblema"> ' + objeto.tipo + ' </strong><span class="pull-right">' + objeto.dataProblema + '</span>' +
-                                    '<br/>' + objeto.descricao +
-                                    '<br/><strong class="tituloProblema">Situação:</strong>' +
-                                    objeto.nomeStatus +
-                                    linkStatus +
-                                    '</div>';
+                            '<div style="font-size: 14; width:300px;"><strong class="tituloProblema"> ' + objeto.tipo + ' </strong><span class="pull-right">' + objeto.dataProblema + '</span>' +
+                            '<br/>' + objeto.descricao +
+                            '<br/><strong class="tituloProblema">Situação:</strong>' +
+                            objeto.nomeStatus +
+                            linkStatus +
+                            '</div>';
 
 
                             conteudoColunaDireita =
-                                    '<div style="font-size: 14;"><strong class="tituloProblema"> <img src="' + imagem + '"/> ' + objeto.tipo + ' </strong><span class="pull-right">' + objeto.dataProblema + '</span>' +
-                                    '<br/>' + objeto.descricao +
-                                    '<br/><strong class="tituloProblema">Situação:</strong>' +
-                                    objeto.nomeStatus +
-                                    '<div class="" style="text-align: right">' + verificarComentario + botoesApoioDenucia +
-                                    '</div></div>';
+                            '<div style="font-size: 14;"><strong class="tituloProblema"> <img src="' + imagem + '"/> ' + objeto.tipo + ' </strong><span class="pull-right">' + objeto.dataProblema + '</span>' +
+                            '<br/>' + objeto.descricao +
+                            '<br/><strong class="tituloProblema">Situação:</strong>' +
+                            objeto.nomeStatus +
+                            '<div class="" style="text-align: right">' + verificarComentario + botoesApoioDenucia +
+                            '</div></div>';
 
 
                             break;
@@ -165,21 +165,21 @@ var Conteudo = {
 
 
                             conteudoBalaoMapa =
-                                    '<div style="font-size: 14; width:300px;"><strong class="tituloProblema"> ' + objeto.tipo + ' </strong><span class="pull-right">' + objeto.dataProblema + '</span>' +
-                                    '<br/>' + objeto.descricao +
-                                    '<br/><strong class="tituloProblema">Situação:</strong>' +
-                                    objeto.nomeStatus +
-                                    linkStatus +
-                                    '</div>';
+                            '<div style="font-size: 14; width:300px;"><strong class="tituloProblema"> ' + objeto.tipo + ' </strong><span class="pull-right">' + objeto.dataProblema + '</span>' +
+                            '<br/>' + objeto.descricao +
+                            '<br/><strong class="tituloProblema">Situação:</strong>' +
+                            objeto.nomeStatus +
+                            linkStatus +
+                            '</div>';
 
 
                             conteudoColunaDireita =
-                                    '<div style="font-size: 14;"> <img src="' + imagem + '"/><strong class="tituloProblema">' + objeto.tipo + '</strong><span class="pull-right">' + objeto.dataProblema + '</span>' +
-                                    '<br/>' + objeto.descricao +
-                                    '<br/><strong class="tituloProblema">Situação:</strong>' +
-                                    objeto.nomeStatus +
-                                    '<div class="" style="text-align: right">' + verificarComentario + botoesApoioDenucia +
-                                    '</div></div>';
+                            '<div style="font-size: 14;"> <img src="' + imagem + '"/><strong class="tituloProblema">' + objeto.tipo + '</strong><span class="pull-right">' + objeto.dataProblema + '</span>' +
+                            '<br/>' + objeto.descricao +
+                            '<br/><strong class="tituloProblema">Situação:</strong>' +
+                            objeto.nomeStatus +
+                            '<div class="" style="text-align: right">' + verificarComentario + botoesApoioDenucia +
+                            '</div></div>';
 
 
                             break;
@@ -189,37 +189,37 @@ var Conteudo = {
 
 
                             conteudoBalaoMapa =
-                                    '<div style="font-size: 14; width:300px;"><strong class="tituloProblema">' + objeto.tipo + '</strong><span class="pull-right">' + objeto.dataProblema + '</span>' +
-                                    '<br/>' + objeto.descricao +
-                                    '<br/><strong class="tituloProblema">Situação:</strong>' +
-                                    objeto.nomeStatus +
-                                    linkStatus +
-                                    '</div>';
+                            '<div style="font-size: 14; width:300px;"><strong class="tituloProblema">' + objeto.tipo + '</strong><span class="pull-right">' + objeto.dataProblema + '</span>' +
+                            '<br/>' + objeto.descricao +
+                            '<br/><strong class="tituloProblema">Situação:</strong>' +
+                            objeto.nomeStatus +
+                            linkStatus +
+                            '</div>';
 
 
 
 
                             conteudoColunaDireita =
-                                    '<div style="font-size: 14;"> <img src="' + imagem + '"/> <strong class="tituloProblema">' + objeto.tipo + '</strong><span class="pull-right">' + objeto.dataProblema + '</span>' +
-                                    '<br/>' + objeto.descricao +
-                                    '<br/><strong class="tituloProblema">Situação:</strong>' +
-                                    objeto.nomeStatus +
-                                    '<div class="" style="text-align: right">' + verificarComentario + botoesApoioDenucia +
-                                    '</div></div>';
+                            '<div style="font-size: 14;"> <img src="' + imagem + '"/> <strong class="tituloProblema">' + objeto.tipo + '</strong><span class="pull-right">' + objeto.dataProblema + '</span>' +
+                            '<br/>' + objeto.descricao +
+                            '<br/><strong class="tituloProblema">Situação:</strong>' +
+                            objeto.nomeStatus +
+                            '<div class="" style="text-align: right">' + verificarComentario + botoesApoioDenucia +
+                            '</div></div>';
                             break;
                     }
 
 
                     var infoWindow = new google.maps.InfoWindow({
                         content: [
-                            conteudoBalaoMapa
+                        conteudoBalaoMapa
                         ].join(''),
                         size: new google.maps.Size(200, 80)
                     });
 
 
                     google.maps.event.addListener(
-                            marker, 'click', Conteudo.openInfoWindow(infoWindow, marker));
+                        marker, 'click', Conteudo.openInfoWindow(infoWindow, marker));
 
                     var divd = document.createElement('div');
 
@@ -238,20 +238,21 @@ var Conteudo = {
                 }
             }
 
-            Conteudo.map.setCenter(new google.maps.LatLng(-16.740605618138325, -43.87089729309082));
+            Conteudo.map.setCenter(new google.maps.LatLng(Config.latitudeCentralMaps,Config.longitudeCentralMaps));
         });
     },
     init: function() {
-        var firstLatLng = new google.maps.LatLng(-16.740605618138325, -43.87089729309082);
+        // carregando e configurando maps
+        var firstLatLng = new google.maps.LatLng(Config.latitudeCentralMaps,Config.longitudeCentralMaps);
         Conteudo.map = new google.maps.Map(Conteudo.mapContainer, {
-            zoom: 13,
+            zoom: Config.zoomMapsInicial,
             center: firstLatLng,
-            streetViewControl: false,
+            streetViewControl: Config.streetViewMaps,
             mapTypeId: google.maps.MapTypeId.HYBRID
         });
 
-
-        Problema.verColaboracoes();
+        // Chamando a inicialização de tela.
+        Tela.iniciarTela();
 
         google.maps.event.addListener(Conteudo.map, 'tilesloaded', function() {
             Conteudo.generateLink.style.display = 'block';
@@ -262,11 +263,11 @@ var Conteudo = {
 
 
 
-        });
+            });
 
         google.maps.event.addListener(Conteudo.map, 'click', function(event) {
 
-        });
+            });
 
         google.maps.event.trigger(Conteudo.generateLink, 'click');
 

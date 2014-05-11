@@ -1,12 +1,9 @@
-<?php 
-//$lat = '-16.73386566768085';
-//$log = ' -43.84815216064453';
-//
-//echo $latlog = '('.$lat.','.$log.')';
-//echo '<br/>';
-//echo $cri = base64_encode($latlog);
-//echo '<br/>';
-//echo base64_decode($cri); 
+<?php
+$configuraPagina = array();
+
+foreach ($configuracao as $cf) {
+    $configuraPagina = $cf;
+}
 ?>
 
 <html>
@@ -29,6 +26,27 @@
           <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
         <link rel="shortcut icon" href="<?php echo base_url("icone/favicon.ico"); ?>" type="image/x-icon" />
+
+        <script type="text/javascript">
+        
+            Config = {
+                base_url: "<?php echo base_url() ?>",
+                
+                nomeMunicipio:"<?php echo $configuraPagina->nomeMunicipio ?>" ,
+                latitudeCentralMaps : <?php echo $configuraPagina->latitudeCentralMunicipio ?>,
+                longitudeCentralMaps : <?php echo $configuraPagina->longitudeCentralMunicipio ?>,
+                zoomMapsInicial : <?php echo $configuraPagina->zoomMapsInicial ?>,
+                streetViewMaps : <?php if ($configuraPagina->streetViewMaps == 1) {
+    echo 'true';
+} else {
+    echo 'false';
+} ?>
+                
+
+            };
+    
+        </script>
+
     </head>
     <body>
         <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -41,7 +59,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Montes Claros</a>
+                    <a class="navbar-brand" href="#"><?php echo $configuraPagina->nomeMunicipio ?></a>
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
@@ -52,7 +70,7 @@
                         </label>
                     </div>
                           <form class="navbar-form navbar-left" onsubmit="Problema.pesquisaLocal();
-                        return false;" role="search">
+                              return false;" role="search">
 
                         <div class="form-group">
 
@@ -66,16 +84,13 @@
 
 
 
-                        <?php if (($this->session->userdata('nomeCidadao')) && ($this->session->userdata('emailCidadao')) && ($this->session->userdata('senhaCidadao'))) { ?>
+<?php if (($this->session->userdata('nomeCidadao')) && ($this->session->userdata('emailCidadao')) && ($this->session->userdata('senhaCidadao'))) { ?>
 
-                            <li><a href="javascript:void(0)" class="btn" onclick=""  data-toggle="tooltip" data-placement="left" title="Minhas Colaborações"> 
-                                    <span class="glyphicon glyphicon-th-list"></span>
-                                </a></li>
                             <li class="dropdown">
 
                                 <a href="javascript:void(0)" class="btn dropdown-toggle" data-toggle="dropdown" href="#"> 
                                     <span class="glyphicon glyphicon-user"></span>
-                                    <?php echo $this->session->userdata('nomeCidadao') ?> <b class="caret"></b>
+    <?php echo $this->session->userdata('nomeCidadao') ?> <b class="caret"></b>
                                 </a>
                                 <ul class="dropdown-menu" >
                                     <li><a href="javascript:void(0)" onclick="Cadastro.formeAlterarNome()"><span class="glyphicon glyphicon-pencil"></span> Alterar Nome </a></li>
@@ -85,7 +100,7 @@
                                 </ul>
 
                             </li>
-                        <?php } else { ?>
+<?php } else { ?>
                             <li><a href="javascript:void(0)" onclick="Cadastro.formeLoginCidadao('no')"><span class="glyphicon glyphicon-log-in"></span> Entrar</a></li>
                             <li><a href="javascript:void(0)" onclick="Cadastro.formeCadastroCidadao('no')"><span class="glyphicon glyphicon-list-alt"></span> Cadastrar</a></li>
                         <?php }
@@ -110,18 +125,19 @@
                     <div id="filtros" >
 
                         <div class="form-group col-md-6 semMarge" >
-                            <?php if (($this->session->userdata('nomeCidadao')) && ($this->session->userdata('emailCidadao')) && ($this->session->userdata('senhaCidadao'))) { ?>        
+<?php if (($this->session->userdata('nomeCidadao')) && ($this->session->userdata('emailCidadao')) && ($this->session->userdata('senhaCidadao'))) { ?>        
                                 <label  class="text-pequino form-control btn btn-default">
-                                    <input onclick="Problema.verColaboracoesCidadao()" type="checkbox" id="minhasColaboracoes"> Minhas Colaborações
+                                    <input onclick="Problema.verColaboracoesCidadao()" type="checkbox" id="minhaColaboracoes"> Minhas Colaborações
                                 </label>
-                            <?php } else { ?>
+<?php } else { ?>
                                 <label onclick="" class="text-pequino form-control btn btn-default">
                                     <input type="checkbox" id="minhasColaboracoes" disabled="true"> Minhas Colaborações
                                 </label>
-                            <?php } ?>
+<?php } ?>
                         </div>
                         <div class="form-group col-md-6 semMarge">
-                            <select name="ordem" id="ordem" onchange="Problema.verColaboracoes('a');" class="text-pequino semMarge form-control" >
+                            <select name="ordem" id="ordem" onchange="Problema.verColaboracoes('a');" class=" semMarge form-control" >
+                                <option value="0"> Ordenar Por: </option>
                                 <option value="0"> Mais Atual </option>
                                 <option value="1"> Mais Antigo </option>
                                 <option value="2"> Mais comentádos </option>
@@ -133,7 +149,7 @@
                             </select>
                         </div>
                         <div class="form-group col-md-6 semMarge">
-                            <select name="status" id="status" onchange="Problema.verColaboracoes('a');" class="text-pequino semMarge form-control" >
+                            <select name="status" id="status" onchange="Problema.verColaboracoes('a');" class=" semMarge form-control" >
                                 <option value="0"> Status - Todos </option>
 
                                 <?php
@@ -149,11 +165,11 @@
                             </select>
                         </div>
                         <div class="form-group col-md-6 semMarge">
-                            <select name="categoria" id="categoria" onchange="Problema.verColaboracoes('a');" class="text-pequino semMarge form-control" >
+                            <select name="categoria" id="categoria" onchange="Problema.verColaboracoes('a');" class=" semMarge form-control" >
                                 <option value="0"> Categoria - Todos </option>
                                 <?php foreach ($tipoProblema as $tp) { ?>
                                     <option value=" <?php echo $tp->idTipo ?>"> <?php echo $tp->tipo ?> </option> ";
-                                <?php } ?>
+<?php } ?>
 
                             </select>
                         </div>
@@ -188,8 +204,8 @@
 
 
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-
+<!--        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>-->
+        <script src="<?php echo base_url("jsn/jquery.js"); ?>"></script>
         <!-- Include all compiled plugins (below), or include individual files as needed -->
         <script src="<?php echo base_url("css/bt3/js/bootstrap.min.js"); ?>"></script>
 
@@ -201,7 +217,7 @@
         <script type="text/javascript" src="<?php echo base_url("jsn/configuracao.js"); ?>"></script>
         <script type="text/javascript" src="<?php echo base_url("jsn/jqxcore.js"); ?>"></script>
         <script type="text/javascript" src="<?php echo base_url("jsn/jqxmenu.js"); ?>"></script>
-
+        <script src="<?php echo base_url("jsn/jquery-ui.custom.min.js") ?>"></script>
 
         <div id='jqxMenu' class="" >
 

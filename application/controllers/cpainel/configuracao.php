@@ -1,6 +1,6 @@
 <?php
 
-class cpainel extends CI_Controller {
+class configuracao extends CI_Controller {
 
     function __construct() {
         parent::__construct();
@@ -9,21 +9,32 @@ class cpainel extends CI_Controller {
         $this->load->helper('url');
         $this->load->library('form_validation');
         $this->load->model('cpainel/gestor_model');
+        $this->load->model('admin/admin_model');
     }
 
     function index() {
 
-        if (($this->session->userdata('idAdmin')) && ($this->session->userdata('nomeAdmin')) && ($this->session->userdata('emailAdmin')) && ($this->session->userdata('senhaAdmin'))) {
+        if (($this->session->userdata('idGestor')) && ($this->session->userdata('nomeGestor')) && ($this->session->userdata('emailGestor')) && ($this->session->userdata('senhaGestor'))) {
 
-            $this->load->view('admin/index_tela');
+
+            $dados = array(
+                'configuracao' => $this->admin_model->obterConfiguracao()->result(),
+            );
+
+
+            $this->load->view('admin/index_tela', $dados);
         } else {
             redirect(base_url() . "administrador/seguranca");
         }
     }
 
     function formeInserir() {
+        if (($this->session->userdata('idAdmin')) && ($this->session->userdata('nomeAdmin')) && ($this->session->userdata('emailAdmin')) && ($this->session->userdata('senhaAdmin'))) {
 
-        $this->load->view('admin/formInserir');
+            $this->load->view('admin/formInserir');
+        } else {
+            redirect(base_url("administrador/seguranca"));
+        }
     }
 
     function inserirGestor() {
@@ -56,7 +67,72 @@ class cpainel extends CI_Controller {
                 echo "<script> Gestor.bloqueioGestor(); </script>";
             }
         } else {
-            redirect(base_url() . "administrador/seguranca");
+            redirect(base_url("administrador/seguranca"));
+        }
+    }
+
+    public function configuracaoGeral() {
+        if (($this->session->userdata('idGestor')) && ($this->session->userdata('nomeGestor')) && ($this->session->userdata('emailGestor')) && ($this->session->userdata('senhaGestor'))) {
+
+            $dados = array(
+                'configuracao' => $this->admin_model->obterConfiguracao()->result(),
+            );
+
+
+            $this->load->view('admin/verConfiguracao_view', $dados);
+        } else {
+            redirect(base_url("administrador/seguranca"));
+        }
+    }
+
+    public function editarConfiguracao() {
+        if (($this->session->userdata('idGestor')) && ($this->session->userdata('nomeGestor')) && ($this->session->userdata('emailGestor')) && ($this->session->userdata('senhaGestor'))) {
+
+            $dados = array(
+                'configuracao' => $this->admin_model->obterConfiguracao()->result(),
+            );
+
+
+            $this->load->view('admin/formConfiguracao_view', $dados);
+        } else {
+            redirect(base_url("administrador/seguranca"));
+        }
+    }
+
+    public function salvarConfiguracao() {
+        if (($this->session->userdata('idGestor')) && ($this->session->userdata('nomeGestor')) && ($this->session->userdata('emailGestor')) && ($this->session->userdata('senhaGestor'))) {
+
+            $idMunicipio = $_POST["idMunicipio"];
+            $nomeMunicipio = $_POST["nomeMunicipio"];
+            $cnpjMunicipio = $_POST["cnpjMunicipio"];
+            $cepMunicipio = $_POST["cepMunicipio"];
+            $telefoneMunicipio = $_POST["telefoneMunicipio"];
+            $emailMunicipio = $_POST["emailMunicipio"];
+            $siteMunicipio = $_POST["siteMunicipio"];
+            $latitudeMunicipio = $_POST["latitudeMunicipio"];
+            $longitudeMunicipio = $_POST["longitudeMunicipio"];
+            $zoomMapsInicial = $_POST["zoomMapsInicial"];
+            $streetViewMaps = $_POST["streetViewMaps"];
+
+            $dados = array(
+                "nomeMunicipio" => $nomeMunicipio,
+                "cnpjMunicipio" => $cnpjMunicipio,
+                "cepMunicipio" => $cepMunicipio,
+                "telefoneMunicipio" => $telefoneMunicipio,
+                "emailMunicipio" => $emailMunicipio,
+                "siteMunicipio" => $siteMunicipio,
+                "latitudeCentralMunicipio" => $latitudeMunicipio,
+                "longitudeCentralMunicipio" => $longitudeMunicipio,
+                "zoomMapsInicial" => $zoomMapsInicial,
+                "streetViewMaps" => $streetViewMaps,
+            );
+
+
+            $this->admin_model->alterarConfiguracao($idMunicipio, $dados);
+
+            $this->configuracaoGeral();
+        } else {
+            redirect(base_url("administrador/seguranca"));
         }
     }
 
@@ -136,22 +212,22 @@ class cpainel extends CI_Controller {
     }
 
     function formeAlterarSenha() {
-        if (($this->session->userdata('idAdmin')) && ($this->session->userdata('nomeAdmin')) && ($this->session->userdata('emailAdmin')) && ($this->session->userdata('senhaAdmin'))) {
+        if (($this->session->userdata('idGestor')) && ($this->session->userdata('nomeGestor')) && ($this->session->userdata('emailGestor')) && ($this->session->userdata('senhaGestor'))) {
 
-            $idGestor = base64_decode($_POST['idGestor']);
+            $idGestor = $_POST['idGestor'];
 
             $dados = array(
                 'gestor' => $this->gestor_model->obterGestor($idGestor)->result(),
             );
 
             $this->load->view('admin/formeAlterarSenha', $dados);
-        }else {
+        } else {
             redirect(base_url() . "administrador/seguranca");
         }
     }
 
     function alterarSenha() {
-        if (($this->session->userdata('idAdmin')) && ($this->session->userdata('nomeAdmin')) && ($this->session->userdata('emailAdmin')) && ($this->session->userdata('senhaAdmin'))) {
+        if (($this->session->userdata('idGestor')) && ($this->session->userdata('nomeGestor')) && ($this->session->userdata('emailGestor')) && ($this->session->userdata('senhaGestor'))) {
 
             $this->form_validation->set_rules('senhaGestor', 'Senha', 'required|min_length[6]|max_length[20]');
 
@@ -164,8 +240,19 @@ class cpainel extends CI_Controller {
 
                 $this->load->view('admin/formeAlterarSenha', $dados);
             } else {
-                $idGestor = base64_decode($_POST['idGestor']);
+                $idGestor = $_POST['idGestor'];
                 $senhaGestor = md5($_POST['senhaGestor']);
+
+                $senhaAtual = md5($_POST['senhaAtual']);
+
+                $gestorVerifica = $this->gestor_model->obterGestor($idGestor)->result();
+                foreach ($gestorVerifica as $gv) {
+                    if ($gv->senhaGestor != md5($senhaAtual)) {
+                        echo '<script> Tela.fecharModal </script>';
+                        exit();
+                    }
+                }
+
 
                 $alterarGestor = array(
                     'senhaGestor' => $senhaGestor,
@@ -174,7 +261,7 @@ class cpainel extends CI_Controller {
                 $this->gestor_model->alterarDadosGestor($alterarGestor, $idGestor);
                 echo "<script> Gestor.editarGestor() </script>";
             }
-        }else {
+        } else {
             redirect(base_url() . "administrador/seguranca");
         }
     }
@@ -187,23 +274,24 @@ class cpainel extends CI_Controller {
             );
 
             $this->load->view('admin/editarGestor', $dados);
-        }else {
+        } else {
             redirect(base_url() . "administrador/seguranca");
         }
     }
 
     function formeAlterarGestor() {
 
-        if (($this->session->userdata('idAdmin')) && ($this->session->userdata('nomeAdmin')) && ($this->session->userdata('emailAdmin')) && ($this->session->userdata('senhaAdmin'))) {
+        if (($this->session->userdata('idGestor')) && ($this->session->userdata('nomeGestor')) && ($this->session->userdata('emailGestor')) && ($this->session->userdata('senhaGestor'))) {
 
-            $idGestor = base64_decode($_POST['idGestor']);
+            $idGestor = $_POST['idGestor'];
 
             $dados = array(
                 'gestor' => $this->gestor_model->obterGestor($idGestor)->result(),
             );
 
+
             $this->load->view('admin/formeAlterarGestor', $dados);
-        }else {
+        } else {
             redirect(base_url() . "administrador/seguranca");
         }
     }
@@ -212,7 +300,7 @@ class cpainel extends CI_Controller {
         if (($this->session->userdata('idAdmin')) && ($this->session->userdata('nomeAdmin')) && ($this->session->userdata('emailAdmin')) && ($this->session->userdata('senhaAdmin'))) {
 
             $this->form_validation->set_rules('nomeGestor', 'Nome', 'required|trim|min_length[4]|max_length[50]');
-            $this->form_validation->set_rules('cpfGestor', 'CPF', 'callback_cpf_check|required|trim|min_length[11]|max_length[11]');
+            //  $this->form_validation->set_rules('cpfGestor', 'CPF', 'callback_cpf_check|required|trim|min_length[11]|max_length[11]');
             $this->form_validation->set_rules('emailGestor', 'Email', 'required|trim|min_length[5]|max_length[70]|valid_email');
             //$this->form_validation->set_rules('senhaGestor', 'Senha', 'required|min_length[6]|max_length[20]');
 
@@ -228,7 +316,7 @@ class cpainel extends CI_Controller {
 
                 $idGestor = $_POST['idGestor'];
                 $nomeGestor = $_POST['nomeGestor'];
-                $cpfGestor = $_POST['cpfGestor'];
+                //  $cpfGestor = $_POST['cpfGestor'];
                 $emailGestor = $_POST['emailGestor'];
 
 
@@ -236,7 +324,7 @@ class cpainel extends CI_Controller {
 
                 $alterarGestor = array(
                     'nomeGestor' => $nomeGestor,
-                    'cpfGestor' => $cpfGestor,
+                    //   'cpfGestor' => $cpfGestor,
                     'emailGestor' => $emailGestor,
                 );
                 $this->gestor_model->alterarDadosGestor($alterarGestor, $idGestor);
@@ -244,7 +332,7 @@ class cpainel extends CI_Controller {
 
                 echo "<script> Gestor.editarGestor() </script>";
             }
-        }else {
+        } else {
             redirect(base_url() . "administrador/seguranca");
         }
     }
@@ -257,7 +345,7 @@ class cpainel extends CI_Controller {
             $this->gestor_model->excluirGestor($idGestor);
 
             echo "<script> Gestor.editarGestor() </script>";
-        }else {
+        } else {
             redirect(base_url() . "administrador/seguranca");
         }
     }
@@ -270,7 +358,7 @@ class cpainel extends CI_Controller {
             );
 
             $this->load->view('admin', $dados);
-        }else {
+        } else {
             redirect(base_url() . "administrador/seguranca");
         }
     }
@@ -301,10 +389,11 @@ class cpainel extends CI_Controller {
                 }
                 echo "<script> Gestor.editarGestor() </script>";
             }
-        }else {
+        } else {
             redirect(base_url() . "administrador/seguranca");
         }
     }
+
 }
 
 ?>

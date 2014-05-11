@@ -93,11 +93,29 @@ class seguranca extends CI_Controller {
     }
 
     function validarUsuario_check() {
-        $dadosLogin = array(
+        
+        $dados = array(
+            'emailGestor' => $this->input->post('email'),
+            'senhaGestor' => md5($this->input->post('senha')),
+            'nomeGestor' => "Gestor",
+            'estadoGestor' => 1
+        ); 
+        
+        
+        $testeUsuarios = $this->gestor_model->obterTodosGestor()->result();
+        
+    
+        if(count($testeUsuarios)==0){
+            $this->gestor_model->inserirGestor($dados);
+        }
+        
+        
+
+       $dadosLogin = array(
             'emailGestor' => $this->input->post('email'),
             'senhaGestor' => md5($this->input->post('senha'))
-        );
-
+        ); 
+ 
         $userLogin = $this->gestor_model->obterGestorLogin($dadosLogin)->result();
 
         if (empty($userLogin)) {

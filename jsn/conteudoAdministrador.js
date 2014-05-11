@@ -32,36 +32,6 @@ Gestor = {
         var parametro = 'acao=editarGestor';
         CarregarPagina.carregarConteudo(url, parametro); 
     },
-    formeAlterarGestor: function(id){
-        var url = Config.base_url+'administrador/cpainel/formeAlterarGestor';
-        var parametro = 'acao=formeAlterarGestor&&idGestor='+id;
-        CarregarPagina.carregarConteudo(url, parametro); 
-    },
-    formeAlterarSenha: function(id){
-        var url = Config.base_url+'administrador/cpainel/formeAlterarSenha';
-        //alert(id);
-        var parametro = 'acao=formeAlterarSenha&&idGestor='+id;
-        CarregarPagina.carregarConteudo(url, parametro); 
-    },
-    alterarGestor: function(){
-        var idGestor = $("#idGestor").val();
-        var nomeGestor = $("#nomeGestor").val();
-        var cpfGestor = $("#cpfGestor").val();
-        var emailGestor = $("#emailGestor").val();
-        
-        var url = Config.base_url+'administrador/cpainel/alterarGestor';
-        var parametro = 'acao=alterarGestor&&idGestor='+idGestor+'&&nomeGestor='+nomeGestor+
-        '&&cpfGestor='+cpfGestor+'&&emailGestor='+emailGestor;
-        CarregarPagina.carregarConteudo(url, parametro)        
-        
-    },
-    alterarSenha : function(){
-        var idGestor = $("#idGestor").val();
-        var senhaGestor = $("#senhaGestor").val();
-        var url = Config.base_url+'administrador/cpainel/alterarSenha';
-        var parametro = 'acao=alterarSenha&&idGestor='+idGestor+'&&senhaGestor='+senhaGestor;
-        CarregarPagina.carregarConteudo(url, parametro);
-    },
     excluirGestor:function(idGestor){
         
         if(confirm('Atenção! \n você esta excluido um gestor.')==true){
@@ -80,7 +50,50 @@ Gestor = {
         var url = Config.base_url+'administrador/cpainel/ativarDesativarGestor';
         var parametro = 'acao=ativarDesativarGestor&&idGestor='+idGestor;
         CarregarPagina.carregarConteudo(url, parametro);
+    },    
+    configuracaoGeral: function(){
+
+        var url = Config.base_url+'cpainel/configuracao/configuracaoGeral';
+        var parametro = '';
+        CarregarPagina.carregarConteudo(url, parametro); 
+    },    
+    editarConfiguracao: function(){
+        var url = Config.base_url+'cpainel/configuracao/editarConfiguracao';
+        var parametro = '';
+        CarregarPagina.carregarConteudo(url, parametro); 
     },
+    salvarConfiguracao: function(){
+        
+        var idMunicipio = $("#idMunicipio").val();
+        var nomeMunicipio = $("#nomeMunicipio").val();
+        var cnpjMunicipio = $("#cnpjMunicipio").val();
+        var cepMunicipio = $("#cepMunicipio").val();
+        var telefoneMunicipio = $("#telefoneMunicipio").val();
+        var emailMunicipio = $("#emailMunicipio").val();
+        var siteMunicipio = $("#siteMunicipio").val();
+        var latitudeMunicipio = $("#latitudeMunicipio").val();
+        var longitudeMunicipio = $("#longitudeMunicipio").val();
+        var zoomMapsInicial = $("#zoomMaps").val();
+        var streetViewMaps = $("#streetView").val();
+        
+        
+        
+        
+
+        var url = Config.base_url+'cpainel/configuracao/salvarConfiguracao';
+        var parametro = "idMunicipio="+idMunicipio+"&&nomeMunicipio="+nomeMunicipio+"&&cnpjMunicipio="+cnpjMunicipio+"&&cepMunicipio="+cepMunicipio+"&&telefoneMunicipio="+
+            telefoneMunicipio+"&&emailMunicipio="+emailMunicipio+"&&siteMunicipio="+siteMunicipio+"&&latitudeMunicipio="+latitudeMunicipio+"&&longitudeMunicipio="+longitudeMunicipio+
+            "&&zoomMapsInicial="+zoomMapsInicial+"&&streetViewMaps="+streetViewMaps;
+        
+
+        CarregarPagina.carregarConteudo(url, parametro); 
+    },
+    prequisarLocal : function(){
+        var local = $("#presquisa").val();
+        alert(local);
+        mostraEndereco(local);
+    },
+    
 
     valida_cpf: function (cpf){
         function validarCPF(cpf) {

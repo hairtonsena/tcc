@@ -1,3 +1,10 @@
+<?php
+$configuraPagina = array();
+
+foreach ($configuracao as $cf) {
+    $configuraPagina = $cf;
+}
+?>
 <html>
     <head>
         <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
@@ -17,6 +24,28 @@
           <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
         <link rel="shortcut icon" href="<?php echo base_url("icone/favicon.ico"); ?>" type="image/x-icon" />
+
+        <script type="text/javascript">
+            Config = {
+                base_url: "<?php echo base_url() ?>",
+                
+                nomeMunicipio:"<?php echo $configuraPagina->nomeMunicipio ?>" ,
+                latitudeCentralMaps : <?php echo $configuraPagina->latitudeCentralMunicipio ?>,
+                longitudeCentralMaps : <?php echo $configuraPagina->longitudeCentralMunicipio ?>,
+                zoomMapsInicial : <?php echo $configuraPagina->zoomMapsInicial ?>,
+                streetViewMaps : <?php
+if ($configuraPagina->streetViewMaps == 1) {
+    echo 'true';
+} else {
+    echo 'false';
+}
+?>
+                
+
+    };
+    
+        </script>
+
     </head>
     <body>
         <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -34,6 +63,12 @@
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="<?php echo base_url("cpainel/home") ?>" >Inicio</a></li>
+
+
+                    </ul>
                     <!--                    <div class="" >
                                             <label onclick="Tela.alternarButao()" class="btn btn-primary navbar-btn navbar-left pull-left">
                                                 <input type="checkbox" id="addColaboracao"> <span class="glyphicon glyphicon-ok-circle"></span> Reportar Problema
@@ -54,20 +89,20 @@
 
 
 
-                        <?php if (($this->session->userdata('nomeGestor')) && ($this->session->userdata('emailGestor')) && ($this->session->userdata('senhaGestor'))) { ?>
+<?php if (($this->session->userdata('nomeGestor')) && ($this->session->userdata('emailGestor')) && ($this->session->userdata('senhaGestor'))) { ?>
 
                             <li>
-                                <!-- Para acrecentar agum menu extra-->
+                                <a href="<?php echo base_url("cpainel/configuracao") ?>" >Configuração</a>
                             </li>
                             <li class="dropdown">
 
                                 <a href="javascript:void(0)" class="btn dropdown-toggle" data-toggle="dropdown" href="#"> 
                                     <span class="glyphicon glyphicon-user"></span>
-                                    <?php echo $this->session->userdata('nomeGestor') ?> <b class="caret"></b>
+    <?php echo $this->session->userdata('nomeGestor') ?> <b class="caret"></b>
                                 </a>
                                 <ul class="dropdown-menu" >
-                                    <li><a href="javascript:void(0)" onclick="Cadastro.formeAlterarNome()"><span class="glyphicon glyphicon-pencil"></span> Alterar Nome </a></li>
-                                    <li><a href="javascript:void(0)" onclick="Cadastro.formeAlterarSenha()"><span class="glyphicon glyphicon-pencil"></span> Alterar Senha </a></li>
+                                    <!--<li><a href="javascript:void(0)" onclick="Problema.formeAlterarGestor('')"><span class="glyphicon glyphicon-pencil"></span> Alterar Nome </a></li>-->
+                                    <li><a href="javascript:void(0)" onclick="Problema.formeAlterarSenha('<?php echo $this->session->userdata('idGestor') ?>')"><span class="glyphicon glyphicon-pencil"></span> Alterar Senha </a></li>
                                     <li class="divider"></li>
                                     <li><a href="<?php echo base_url("cpainel/seguranca/logoutUser"); ?>" title=" Sair "><span class="glyphicon glyphicon-log-out"></span> Sair</a></li>
                                 </ul>
@@ -76,8 +111,8 @@
                         <?php } else { ?>
                             <li><a href="javascript:void(0)" onclick="Cadastro.formeLoginCidadao('no')"><span class="glyphicon glyphicon-log-in"></span> Entrar</a></li>
                             <li><a href="javascript:void(0)" onclick="Cadastro.formeCadastroCidadao('no')"><span class="glyphicon glyphicon-list-alt"></span> Cadastrar</a></li>
-                        <?php }
-                        ?>
+<?php }
+?>
 
                     </ul>
                 </div><!-- /.navbar-collapse -->
@@ -97,15 +132,16 @@
                     <div id="filtros" >
 
                         <div class="form-group col-md-6 semMarge" >
-                            <?php if (($this->session->userdata('nomeCidadao')) && ($this->session->userdata('emailCidadao')) && ($this->session->userdata('senhaCidadao'))) { ?>        
-                                <label  class="text-pequino form-control btn btn-default">
-                                    <!--<input onclick="Problema.verColaboracoesCidadao()" type="checkbox" id="minhasColaboracoes"> Minhas Colaborações-->
+<?php if (($this->session->userdata('nomeGestor')) && ($this->session->userdata('emailGestor')) && ($this->session->userdata('senhaGestor'))) { ?>        
+                                <label onclick="Problema.verCometarioModerar()"  class="text-pequino form-control btn btn-default">
+                                    Comentário  <span class="badge pull-right" id="qtdeComentarioMederar"><?php echo $qtdeComentarioAvaliar ?></span>
+                                    <!--<input onclick="" class="text-pequino form-control btn btn-default" type="button" id="avaliarComentario" value="Avaliar Comentário">--> 
                                 </label>
-                            <?php } else { ?>
+<?php } else { ?>
                                 <label onclick="" class="text-pequino form-control btn btn-default">
                                     <!--<input type="checkbox" id="minhasColaboracoes" disabled="true"> Minhas Colaborações-->
                                 </label>
-                            <?php } ?>
+<?php } ?>
                         </div>
                         <div class="form-group col-md-6 semMarge">
                             <select name="ordem" id="ordem" onchange="Problema.verColaboracoes('a');" class="text-pequino semMarge form-control" >
@@ -139,7 +175,7 @@
                                 <option value="0"> Categoria - Todos </option>
                                 <?php foreach ($tipoProblema as $tp) { ?>
                                     <option value=" <?php echo $tp->idTipo ?>"> <?php echo $tp->tipo ?> </option> ";
-                                <?php } ?>
+<?php } ?>
 
                             </select>
                         </div>
@@ -154,42 +190,43 @@
                             $icone = base_url("icone/icone" . $tp->idTipo . ".png");
                             ?>
                             <span class="pull-left" style="display: table"><img src='<?php echo $icone ?>'/><font style="font-size: 10px"><?php echo $tp->tipo ?></font></span>
-                        <?php }
-                        ?>  
+<?php }
+?>  
                     </div> 
                 </div>
             </div>
-                <div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-sm">
-                        <div class="modal-content" id="windowModal">
+            <div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content" onchange="Problema.verColaboracoes()" id="windowModal">
 
-                        </div>
                     </div>
                 </div>
+            </div>
 
         </div>
-    
-<!--    <div class="window" id="janela1">
-    </div>-->
+
+        <!--    <div class="window" id="janela1">
+            </div>-->
 
 
-    <!-- mascara para cobrir o site -->	
-    <!--<div id="mascara" onclick="Tela.fecharModal()" ></div>-->
+        <!-- mascara para cobrir o site -->	
+        <!--<div id="mascara" onclick="Tela.fecharModal()" ></div>-->
 
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="<?php echo base_url("css/bt3/js/bootstrap.min.js"); ?>"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="<?php echo base_url("css/bt3/js/bootstrap.min.js"); ?>"></script>
 
 
-    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+        <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 
-    <script type="text/javascript" src="<?php echo base_url("jsn/carregarMapsGestor.js"); ?>"></script>        
-    <script type="text/javascript" src="<?php echo base_url("jsn/problemaGestor.js"); ?>"></script>
-    <script type="text/javascript" src="<?php echo base_url("jsn/configuracaoGestor.js"); ?>"></script>
-    <script type="text/javascript" src="<?php echo base_url("jsn/jqxcore.js"); ?>"></script>
-    <script type="text/javascript" src="<?php echo base_url("jsn/jqxmenu.js"); ?>"></script>
-</body>
+        <script type="text/javascript" src="<?php echo base_url("jsn/carregarMapsGestor.js"); ?>"></script>        
+        <script type="text/javascript" src="<?php echo base_url("jsn/problemaGestor.js"); ?>"></script>
+        <script type="text/javascript" src="<?php echo base_url("jsn/configuracaoGestor.js"); ?>"></script>
+        <script type="text/javascript" src="<?php echo base_url("jsn/conteudoAdministrador.js") ?>"></script>
+        <script type="text/javascript" src="<?php echo base_url("jsn/jqxcore.js"); ?>"></script>
+        <script type="text/javascript" src="<?php echo base_url("jsn/jqxmenu.js"); ?>"></script>
+    </body>
 </html>

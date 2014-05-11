@@ -156,7 +156,7 @@ class seguranca extends CI_Controller {
 
         $this->form_validation->set_rules('nomeCidadaoCadastro', 'Nome', 'required|trim|min_length[4]|max_length[50]');
         $this->form_validation->set_rules('cpfCidadaoCadastro', 'CPF', 'callback_cpf_check|required|trim|numeric|min_length[11]|max_length[11]|is_unique[cidadao.cpfCidadao]');
-        $this->form_validation->set_message('required', 'Já existe um usuário cadastrado para este %s.');
+        $this->form_validation->set_message('is_unique', 'Já existe um usuário cadastrado para este %s.');
         $this->form_validation->set_rules('emailCidadaoCadastro', 'Email', 'required|trim|min_length[5]|max_length[70]|valid_email|is_unique[cidadao.emailCidadao]');
         $this->form_validation->set_message('is_unique', 'Já existe um usuário cadastrado para este %s.');
         $this->form_validation->set_rules('senhaCidadaoCadastro', 'Senha', 'required|min_length[6]|max_length[20]');

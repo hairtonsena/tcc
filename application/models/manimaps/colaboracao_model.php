@@ -170,6 +170,15 @@ class colaboracao_model extends CI_Model {
         return $this->db->get();
     }
 
+    function obterProblema($idProblema) {
+        $this->db->select('*');
+        $this->db->from('problema');
+        $this->db->join('tipo', 'tipo.idTipo = problema.idTipo');
+        $this->db->join('status', 'status.idStatus = problema.idStatus');
+        $this->db->where(array('idProblema' => $idProblema));
+        return $this->db->get();
+    }
+
     function quatidadeApoioProblema($problema) {
 
         $this->db->from('apoioproblema');
@@ -213,6 +222,10 @@ class colaboracao_model extends CI_Model {
         $this->db->update('problema', $dados);
     }
 
+    
+    function obterConfiguracoa(){
+        return $this->db->get('configuracao');
+    }
 }
 
 ?>

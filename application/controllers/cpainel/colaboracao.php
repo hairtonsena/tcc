@@ -236,6 +236,49 @@ class colaboracao extends CI_Controller {
         echo "<script> Problema.verColaboracoes(4); Tela.fecharModal(); </script>";
     }
 
+    function verCometarioModerar() {
+
+        $dados = array(
+            'cometarios_moderar' => $this->colaboracao_model->obterComentarioNaoModerados()->result(),
+        );
+
+        $this->load->view('user_gestor/colaboracao/comentariosModerar_view', $dados);
+    }
+
+    function aceitarComentario() {
+        if (isset($_POST['idComentario'])) {
+            $idComentario = $_POST['idComentario'];
+            $dados = array(
+                'statusComentario' => 1,
+            );
+
+            $this->colaboracao_model->alterarComentario($idComentario, $dados);
+        }
+    }
+
+    function rejeitarComentario() {
+        if (isset($_POST['idComentario'])) {
+            $idComentario = $_POST['idComentario'];
+
+
+            $this->colaboracao_model->excluirComentarioRejeitado($idComentario);
+        }
+    }
+
+    function verComentariosPorPorblema() {
+        if (isset($_POST['idProblema'])) {
+            $idProblema = $_POST['idProblema'];
+
+            $dados = array(
+                'problemaComentario' => $this->colaboracao_model->obiterProblema($idProblema)->result(),
+                'comentarios_problema' => $this->colaboracao_model->obterComentarioPorColaboracao($idProblema)->result(),
+            );
+
+            $this->load->view('user_gestor/colaboracao/verComentario_view', $dados);
+        }
+    }
+
+
 }
 
 ?>

@@ -1,7 +1,3 @@
-Config = {
-    base_url: "http://localhost/tcc_ci/"
-
-};
 
 
 CarregarPagina = {
@@ -64,16 +60,35 @@ Tela = {
         Tela.abrirModal();
 
         var local = $('#local').val();
-
+        
         if (local == 0) {
             Tela.fecharModal();
         } else {
             var opcao = $('#opcao').val();
             if(opcao==1){
                 Problema.adicionarPontoMapa(local);
+                
+                var latlong = ""+local      
+                latlong = latlong.replace("(", "");
+                latlong = latlong.replace(")", "");
+        
+                var arrLatLong = latlong.split(",");
+                            
+                Conteudo.map.setCenter(new google.maps.LatLng(arrLatLong[0],arrLatLong[1]));
+
             }else if(opcao==2){
                 Problema.verColaboracaoEmail(local);
-                //alert(local);
+                
+                var latlong = ""+local      
+                latlong = latlong.replace("(", "");
+                latlong = latlong.replace(")", "");
+        
+                var arrLatLong = latlong.split(",");
+                            
+                Conteudo.map.setCenter(new google.maps.LatLng(arrLatLong[0],arrLatLong[1]));
+         
+            }else{
+                Tela.fecharModal();
             }
         }
 
@@ -143,4 +158,4 @@ Tela = {
 
 };
 
-			
+	

@@ -1,14 +1,15 @@
+<?php if(count($comentarios)>0) {?>
+    comentários
+    <?php } ?>
 <div class="list-group">
     <?php
     foreach ($comentarios as $cm) {
 
         if (($cm->nomeCidadao != null) || ($cm->nomeCidadao != '')) {
 
-            $data = explode('-', $cm->datacomentario);
-            $dataBrasil = $data[2] . '/' . $data[1] . '/' . $data[0];
             ?>
             <div class="list-group-item"><strong>
-                    <?php echo $cm->nomeCidadao ?></strong><span class='pull-right'> <?php echo $dataBrasil ?></span>
+                    <?php echo $cm->nomeCidadao ?></strong><span class='pull-right'> <?php echo implode("/", array_reverse(explode("-", $cm->datacomentario))) ?></span>
                 <br/>
                 <?php echo $cm->textoComentario ?>
                 <br/>
@@ -55,7 +56,7 @@
                         <i class="glyphicon glyphicon-thumbs-up"></i>
                         <span class="text-info badge"> <?php echo $cm->qtde_apoio_comentario ?></span>
                     </a>  
-                    <a class="btn btn-default btn-xs" href="javascript:void(0)" onclick="alert('Desculpe, Você não esta logado!')" >3
+                    <a class="btn btn-default btn-xs" href="javascript:void(0)" onclick="alert('Desculpe, Você não esta logado!')" >
                         <i class="glyphicon glyphicon-thumbs-down"></i>
                         <span class="text-error badge"><?php echo $cm->qtde_reprovado_comentario ?></span>
                     </a> 

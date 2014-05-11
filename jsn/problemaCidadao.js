@@ -18,6 +18,22 @@ var Problema = {
 
         return false;
     },
+    verColaboracoesAposSalvar: function() {
+        
+        var colabocaoCidadao = 0;
+        if ($("#minhaColaboracoes").is(':checked', true)) {
+            colabocaoCidadao = 1;
+        } else {
+            colabocaoCidadao = 0;
+        }
+        var status = $("#status").val();
+        var categoria = $("#categoria").val();
+        var ordem = $("#ordem").val();
+
+        // Tela.abrirModal();
+        Conteudo.generateRandomMarkers(status, categoria, ordem, colabocaoCidadao, 0);
+    // Tela.fecharModal();
+    },
     editarColaboracao: function(idProblema) {
 
         Tela.abrirModal();
@@ -41,7 +57,7 @@ var Problema = {
     },
     verColaboracoes: function() {
         var colabocaoCidadao = 0;
-        if ($("#minhasColaboracoes").is(':checked', true)) {
+        if ($("#minhaColaboracoes").is(':checked', true)) {
             colabocaoCidadao = 1;
         } else {
             colabocaoCidadao = 0;
@@ -50,13 +66,14 @@ var Problema = {
         var categoria = $("#categoria").val();
         var ordem = $("#ordem").val();
 
+
         Tela.abrirModal();
         Conteudo.generateRandomMarkers(status, categoria, ordem, colabocaoCidadao, 0);
         Tela.fecharModal();
     },
     verColaboracoesCidadao: function() {
         var colabocaoCidadao = 0;
-        if ($("#minhasColaboracoes").is(':checked', true)) {
+        if ($("#minhaColaboracoes").is(':checked', true)) {
             colabocaoCidadao = 1;
         } else {
             colabocaoCidadao = 0;
@@ -92,7 +109,7 @@ var Problema = {
         //            textePesquisa = 'Raimundo penalva';
         //        }
 
-        var localizacao = textePesquisa + ', Montes Claros, Minas gerais';
+        var localizacao = textePesquisa +','+Config.nomeMunicipio+', Brasil';
         Conteudo.mostraEndereco(localizacao);
 
     },
@@ -128,13 +145,19 @@ var Problema = {
     reprovadoProblema: function(idProblema) {
 
         var nomeid = "#numReprova" + idProblema;
+        var nomeidB = "#numReprovaB" + idProblema;
         var botaoReprova = "#botaoReprova" + idProblema;
+        var botaoReprovaB = "#botaoReprovaB" + idProblema;        
+        
 
         $(botaoReprova).attr('disabled', 'true');
-
+        $(botaoReprovaB).attr('disabled', 'true');
+        
         var num = $(nomeid).html();
         num++
+        
         $(nomeid).html(num);
+        $(nomeidB).html(num);
 
         var parametro = "idProblema=" + idProblema;
         var url = Config.base_url + "colaboracao/reprovaProblema";

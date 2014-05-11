@@ -12,15 +12,22 @@ class home extends CI_Controller {
         $this->load->helper('url');
         $this->load->model('cpainel/tipo_modal');
         $this->load->model('cpainel/status_model');
+        $this->load->model('cpainel/colaboracao_model');
     }
 
     function index() {
 
         if (($this->session->userdata('idGestor')) && ($this->session->userdata('nomeGestor')) && ($this->session->userdata('emailGestor')) && ($this->session->userdata('senhaGestor'))) {
 
+            $comentariaNaoAvaliados = $this->colaboracao_model->obterComentarioNaoModerados()->result();
+            
+           // echo count($comentariaNaoAvaliados);
+            
             $dados = array(
+                'configuracao' => $this->colaboracao_model->obterConfiguracoa()->result(),
                 'tipoProblema' => $this->tipo_modal->obiterTipo()->result(),
                 'statusProblema' => $this->status_model->obiterStatus()->result(),
+                'qtdeComentarioAvaliar'=> count($comentariaNaoAvaliados),
             );
 
 

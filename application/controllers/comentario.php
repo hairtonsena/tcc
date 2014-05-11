@@ -11,6 +11,7 @@ class Comentario extends CI_Controller {
         $this->load->database();
         $this->load->library('session');
         $this->load->model('manimaps/comentario_model');
+        $this->load->model('manimaps/colaboracao_model');
         date_default_timezone_set('UTC');
     }
 
@@ -26,13 +27,17 @@ class Comentario extends CI_Controller {
         if ($this->session->userdata('local')) {
             $this->session->unset_userdata('local');
         }
-
+        $dado = array(
+            'problemaComentario' =>  $this->colaboracao_model->obterProblema($idProblema)->result(),
+            'idProblema' => $idProblema,
+            );
         if (($this->session->userdata('idCidadao')) && ($this->session->userdata('nomeCidadao')) && ($this->session->userdata('emailCidadao')) && ($this->session->userdata('senhaCidadao'))) {
             $userLogado = TRUE;
-            $dado = array('idProblema' => $idProblema);
+
+
             $this->load->view('user_cidadao/comentario/formNovoComentario_view', $dado);
         } else {
-            $this->load->view('user_cidadao/seguranca/linkLogin_view');
+            $this->load->view('user_cidadao/seguranca/linkLoginComentario_view', $dado);
         }
 
         $arr = array();
@@ -91,7 +96,7 @@ class Comentario extends CI_Controller {
         var ordem = $("#ordem").val();
 
         Conteudo.generateRandomMarkers(status, categoria, ordem, colabocaoCidadao, 0);
-        Problema.verTodosComentarios(\''.$idProblema.'\'); </script>';
+        Problema.verTodosComentarios(\'' . $idProblema . '\'); </script>';
     }
 
     function apoiaComentario() {

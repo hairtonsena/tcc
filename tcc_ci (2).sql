@@ -137,6 +137,7 @@ CREATE TABLE IF NOT EXISTS `comentarioproblema` (
   `dataComentario` date NOT NULL,
   `apoiadoComentario` int(11) NOT NULL,
   `reprovadoComentario` int(11) NOT NULL,
+  `statusComentario` int(1) NOT NULL,
   `idProblema` int(11) NOT NULL,
   `idCidadao` int(11) NOT NULL,
   PRIMARY KEY (`idComentario`),
@@ -238,6 +239,16 @@ CREATE TABLE IF NOT EXISTS `problema` (
   KEY `idStatus` (`idStatus`),
   KEY `idCidadao` (`idCidadao`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=45 ;
+
+
+-- ALTER TABLE `comentarioproblema`
+--  ADD CONSTRAINT `comentarioproblema_ibfk_1` FOREIGN KEY (`idProblema`) REFERENCES `problema` (`idProblema`),
+--  ADD CONSTRAINT `comentarioproblema_ibfk_2` FOREIGN KEY (`idCidadao`) REFERENCES `cidadao` (`idCidadao`);
+
+
+-- ALTER TABLE `problema`
+ -- ADD CONSTRAINT `problema_ibfk_1` FOREIGN KEY (`idTipo`) REFERENCES `tipo` (`idTipo`),
+ -- ADD CONSTRAINT `problema_ibfk_2` FOREIGN KEY (`idCidadao`) REFERENCES `cidadao` (`idCidadao`);
 
 --
 -- Extraindo dados da tabela `problema`
@@ -365,233 +376,28 @@ INSERT INTO `tipo` (`idTipo`, `tipo`) VALUES
 (12, 'Entulhos'),
 (13, 'Outros');
 
--- --------------------------------------------------------
-
---
--- Stand-in structure for view `vw_consulta_comentarios`
---
-CREATE TABLE IF NOT EXISTS `vw_consulta_comentarios` (
-`idComentario` int(11)
-,`textoComentario` text
-,`datacomentario` date
-,`idProblema` int(11)
-,`idCidadao` int(11)
-,`qtde_apoio_comentario` bigint(21)
-,`qtde_reprovado_comentario` bigint(21)
-);
--- --------------------------------------------------------
-
---
--- Stand-in structure for view `vw_consulta_principal`
---
-CREATE TABLE IF NOT EXISTS `vw_consulta_principal` (
-`idProblema` int(11)
-,`descricao` text
-,`data` date
-,`dataInicioManutencao` date
-,`dataConclusaoManutencao` date
-,`dataPrevistaConclusao` date
-,`latitude` varchar(50)
-,`longitude` varchar(50)
-,`idTipo` int(2)
-,`tipo` varchar(50)
-,`idStatus` int(1)
-,`nomeStatus` varchar(50)
-,`idCidadao` int(11)
-,`qtde_comentario` bigint(21)
-,`qtde_apoio` bigint(21)
-,`qtde_denuncia` bigint(21)
-);
--- --------------------------------------------------------
-
---
--- Stand-in structure for view `vw_consulta_problema`
---
-CREATE TABLE IF NOT EXISTS `vw_consulta_problema` (
-`idProblema` int(11)
-,`descricao` text
-,`data` date
-,`latitude` varchar(50)
-,`longitude` varchar(50)
-,`idTipo` int(2)
-,`tipo` varchar(50)
-,`idStatus` int(1)
-,`nomeStatus` varchar(50)
-,`qtde_comentario` bigint(21)
-);
--- --------------------------------------------------------
-
---
--- Stand-in structure for view `vw_problema_com_apo_den`
---
-CREATE TABLE IF NOT EXISTS `vw_problema_com_apo_den` (
-`idProblema` int(11)
-,`descricao` text
-,`data` date
-,`dataInicioManutencao` date
-,`dataConclusaoManutencao` date
-,`dataPrevistaConclusao` date
-,`latitude` varchar(50)
-,`longitude` varchar(50)
-,`idTipo` int(2)
-,`idStatus` int(1)
-,`idCidadao` int(11)
-,`qtde_comentario` bigint(21)
-,`qtde_apoio` bigint(21)
-,`qtde_denuncia` bigint(21)
-);
--- --------------------------------------------------------
-
---
--- Stand-in structure for view `vw_qtde_apoio`
---
-CREATE TABLE IF NOT EXISTS `vw_qtde_apoio` (
-`idProblema` int(11)
-,`qtde_apoio` bigint(21)
-);
--- --------------------------------------------------------
-
---
--- Stand-in structure for view `vw_qtde_apoio_comentario`
---
-CREATE TABLE IF NOT EXISTS `vw_qtde_apoio_comentario` (
-`idComentario` int(11)
-,`qtde_apoio_comentario` bigint(21)
-);
--- --------------------------------------------------------
-
---
--- Stand-in structure for view `vw_qtde_comentario`
---
-CREATE TABLE IF NOT EXISTS `vw_qtde_comentario` (
-`idProblema` int(11)
-,`qtde_comentario` bigint(21)
-);
--- --------------------------------------------------------
-
---
--- Stand-in structure for view `vw_qtde_denuncia`
---
-CREATE TABLE IF NOT EXISTS `vw_qtde_denuncia` (
-`idProblema` int(11)
-,`qtde_denuncia` bigint(21)
-);
--- --------------------------------------------------------
-
---
--- Stand-in structure for view `vw_qtde_reprovado_comentario`
---
-CREATE TABLE IF NOT EXISTS `vw_qtde_reprovado_comentario` (
-`idComentario` int(11)
-,`qtde_reprovado_comentario` bigint(21)
-);
--- --------------------------------------------------------
-
---
--- Structure for view `vw_consulta_comentarios`
---
-DROP TABLE IF EXISTS `vw_consulta_comentarios`;
-DROP VIEW IF EXISTS `vw_consulta_comentarios`;
 
 
-CREATE VIEW `vw_consulta_comentarios` AS select `CP`.`idComentario` AS `idComentario`,`CP`.`textoComentario` AS `textoComentario`,`CP`.`dataComentario` AS `datacomentario`,`CP`.`idProblema` AS `idProblema`,`CP`.`idCidadao` AS `idCidadao`,`VQAC`.`qtde_apoio_comentario` AS `qtde_apoio_comentario`,`VQRC`.`qtde_reprovado_comentario` AS `qtde_reprovado_comentario` from ((`comentarioproblema` `CP` join `vw_qtde_apoio_comentario` `VQAC` on((`VQAC`.`idComentario` = `CP`.`idComentario`))) join `vw_qtde_reprovado_comentario` `VQRC` on((`VQRC`.`idComentario` = `CP`.`idComentario`)));
+CREATE VIEW `vw_consulta_comentarios` AS 
+select `CP`.`idComentario` AS `idComentario`,`CP`.`textoComentario` AS `textoComentario`,`CP`.`dataComentario` AS `datacomentario`,`CP`.`statusComentario` AS `statusComentario`,`CP`.`idProblema` AS `idProblema`,`CP`.`idCidadao` AS `idCidadao`,`VQAC`.`qtde_apoio_comentario` AS `qtde_apoio_comentario`,`VQRC`.`qtde_reprovado_comentario` AS `qtde_reprovado_comentario` 
+from ((`comentarioproblema` `CP` join `vw_qtde_apoio_comentario` `VQAC` on((`VQAC`.`idComentario` = `CP`.`idComentario`))) 
+join `vw_qtde_reprovado_comentario` `VQRC` on((`VQRC`.`idComentario` = `CP`.`idComentario`)));
 
--- --------------------------------------------------------
-
---
--- Structure for view `vw_consulta_principal`
---
-DROP TABLE IF EXISTS `vw_consulta_principal`;
-DROP VIEW IF EXISTS `vw_consulta_principal`;
 
 CREATE VIEW `vw_consulta_principal` AS select `VPCAD`.`idProblema` AS `idProblema`,`VPCAD`.`descricao` AS `descricao`,`VPCAD`.`data` AS `data`,`VPCAD`.`dataInicioManutencao` AS `dataInicioManutencao`,`VPCAD`.`dataConclusaoManutencao` AS `dataConclusaoManutencao`,`VPCAD`.`dataPrevistaConclusao` AS `dataPrevistaConclusao`,`VPCAD`.`latitude` AS `latitude`,`VPCAD`.`longitude` AS `longitude`,`VPCAD`.`idTipo` AS `idTipo`,`T`.`tipo` AS `tipo`,`VPCAD`.`idStatus` AS `idStatus`,`S`.`nomeStatus` AS `nomeStatus`,`VPCAD`.`idCidadao` AS `idCidadao`,`VPCAD`.`qtde_comentario` AS `qtde_comentario`,`VPCAD`.`qtde_apoio` AS `qtde_apoio`,`VPCAD`.`qtde_denuncia` AS `qtde_denuncia` from ((`vw_problema_com_apo_den` `VPCAD` join `tipo` `T` on((`T`.`idTipo` = `VPCAD`.`idTipo`))) join `status` `S` on((`S`.`idStatus` = `VPCAD`.`idStatus`)));
 
--- --------------------------------------------------------
-
---
--- Structure for view `vw_consulta_problema`
---
-DROP TABLE IF EXISTS `vw_consulta_problema`;
-DROP VIEW IF EXISTS `vw_consulta_problema`;
-
 CREATE VIEW `vw_consulta_problema` AS (select `p`.`idProblema` AS `idProblema`,`p`.`descricao` AS `descricao`,`p`.`data` AS `data`,`p`.`latitude` AS `latitude`,`p`.`longitude` AS `longitude`,`p`.`idTipo` AS `idTipo`,`t`.`tipo` AS `tipo`,`p`.`idStatus` AS `idStatus`,`s`.`nomeStatus` AS `nomeStatus`,count(`cp`.`idComentario`) AS `qtde_comentario` from (((`problema` `p` left join `comentarioproblema` `cp` on((`cp`.`idProblema` = `p`.`idProblema`))) join `tipo` `t` on((`t`.`idTipo` = `p`.`idTipo`))) join `status` `s` on((`s`.`idStatus` = `p`.`idStatus`))) group by `p`.`idProblema`,`p`.`descricao`,`p`.`data`,`p`.`latitude`,`p`.`longitude`,`p`.`idTipo`,`t`.`tipo`,`p`.`idStatus`,`s`.`nomeStatus`);
-
--- --------------------------------------------------------
-
---
--- Structure for view `vw_problema_com_apo_den`
---
-DROP TABLE IF EXISTS `vw_problema_com_apo_den`;
-DROP VIEW IF EXISTS `vw_problema_com_apo_den`;
 
 CREATE VIEW `vw_problema_com_apo_den` AS select `P`.`idProblema` AS `idProblema`,`P`.`descricao` AS `descricao`,`P`.`data` AS `data`,`P`.`dataInicioManutencao` AS `dataInicioManutencao`,`P`.`dataConclusaoManutencao` AS `dataConclusaoManutencao`,`P`.`dataPrevistaConclusao` AS `dataPrevistaConclusao`,`P`.`latitude` AS `latitude`,`P`.`longitude` AS `longitude`,`P`.`idTipo` AS `idTipo`,`P`.`idStatus` AS `idStatus`,`P`.`idCidadao` AS `idCidadao`,`VC`.`qtde_comentario` AS `qtde_comentario`,`VA`.`qtde_apoio` AS `qtde_apoio`,`VD`.`qtde_denuncia` AS `qtde_denuncia` from (((`problema` `P` join `vw_qtde_comentario` `VC` on((`VC`.`idProblema` = `P`.`idProblema`))) join `vw_qtde_apoio` `VA` on((`VA`.`idProblema` = `P`.`idProblema`))) join `vw_qtde_denuncia` `VD` on((`VD`.`idProblema` = `P`.`idProblema`)));
 
--- --------------------------------------------------------
-
---
--- Structure for view `vw_qtde_apoio`
---
-DROP TABLE IF EXISTS `vw_qtde_apoio`;
-DROP VIEW IF EXISTS `vw_qtde_apoio`;
-
 CREATE VIEW `vw_qtde_apoio` AS select `P`.`idProblema` AS `idProblema`,count(`AP`.`statusApoio`) AS `qtde_apoio` from (`problema` `P` left join `apoioproblema` `AP` on((`AP`.`idProblema` = `P`.`idProblema`))) group by `P`.`idProblema`;
 
--- --------------------------------------------------------
 
---
--- Structure for view `vw_qtde_apoio_comentario`
---
-DROP TABLE IF EXISTS `vw_qtde_apoio_comentario`;
-DROP VIEW  IF EXISTS `vw_qtde_apoio_comentario`;
-
-CREATE SQL SECURITY DEFINER VIEW `vw_qtde_apoio_comentario` AS select `CP`.`idComentario` AS `idComentario`,count(`AC`.`statusApoio`) AS `qtde_apoio_comentario` from (`comentarioproblema` `CP` left join `apoiocomentario` `AC` on((`AC`.`idComentario` = `CP`.`idComentario`))) group by `CP`.`idComentario`;
-
--- --------------------------------------------------------
-
---
--- Structure for view `vw_qtde_comentario`
---
-DROP TABLE IF EXISTS `vw_qtde_comentario`;
-DROP VIEW IF EXISTS `vw_qtde_comentario`;
-
+CREATE VIEW `vw_qtde_apoio_comentario` AS select `CP`.`idComentario` AS `idComentario`,count(`AC`.`statusApoio`) AS `qtde_apoio_comentario` from (`comentarioproblema` `CP` left join `apoiocomentario` `AC` on((`AC`.`idComentario` = `CP`.`idComentario`))) group by `CP`.`idComentario`;
 
 CREATE VIEW `vw_qtde_comentario` AS select `P`.`idProblema` AS `idProblema`,count(`CP`.`idComentario`) AS `qtde_comentario` from (`problema` `P` left join `comentarioproblema` `CP` on((`CP`.`idProblema` = `P`.`idProblema`))) group by `P`.`idProblema`;
 
--- --------------------------------------------------------
-
---
--- Structure for view `vw_qtde_denuncia`
---
-DROP TABLE IF EXISTS `vw_qtde_denuncia`;
-DROP VIEW IF EXISTS `vw_qtde_denuncia`;
-
 CREATE VIEW `vw_qtde_denuncia` AS select `P`.`idProblema` AS `idProblema`,count(`DP`.`statusDenuncia`) AS `qtde_denuncia` from (`problema` `P` left join `denunciaproblema` `DP` on((`DP`.`idProblema` = `P`.`idProblema`))) group by `P`.`idProblema`;
 
--- --------------------------------------------------------
-
---
--- Structure for view `vw_qtde_reprovado_comentario`
---
-DROP TABLE IF EXISTS `vw_qtde_reprovado_comentario`;
-DROP VIEW IF EXISTS `vw_qtde_reprovado_comentario`;
 
 CREATE VIEW `vw_qtde_reprovado_comentario` AS select `CP`.`idComentario` AS `idComentario`,count(`RC`.`statusReprova`) AS `qtde_reprovado_comentario` from (`comentarioproblema` `CP` left join `reprovacomentario` `RC` on((`RC`.`idComentario` = `CP`.`idComentario`))) group by `CP`.`idComentario`;
-
---
--- Constraints for dumped tables
---
-
---
--- Limitadores para a tabela `comentarioproblema`
---
-ALTER TABLE `comentarioproblema`
-  ADD CONSTRAINT `comentarioproblema_ibfk_1` FOREIGN KEY (`idProblema`) REFERENCES `problema` (`idProblema`),
-  ADD CONSTRAINT `comentarioproblema_ibfk_2` FOREIGN KEY (`idCidadao`) REFERENCES `cidadao` (`idCidadao`);
-
---
--- Limitadores para a tabela `problema`
---
-ALTER TABLE `problema`
-  ADD CONSTRAINT `problema_ibfk_1` FOREIGN KEY (`idTipo`) REFERENCES `tipo` (`idTipo`),
-  ADD CONSTRAINT `problema_ibfk_2` FOREIGN KEY (`idCidadao`) REFERENCES `cidadao` (`idCidadao`);
-
