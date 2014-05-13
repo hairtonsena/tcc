@@ -18,7 +18,7 @@ if (!defined('BASEPATH'))
 class seguranca extends CI_Controller {
 
     public
-            function __construct() {
+    function __construct() {
         parent::__construct();
         $this->load->helper('url');
         $this->load->helper('captcha');
@@ -27,6 +27,7 @@ class seguranca extends CI_Controller {
         $this->load->database();
         $this->load->library('session');
         $this->load->model('cpainel/gestor_model');
+        $this->load->model('cpainel/colaboracao_model');
     }
 
     function index() {
@@ -45,7 +46,9 @@ class seguranca extends CI_Controller {
 
         $cap = create_captcha($vals);
 
+
         $dados = array(
+            'configuracao' => $this->colaboracao_model->obterConfiguracoa()->result(),
             'imagemCaptcha' => $cap['image'],
         );
 
@@ -55,7 +58,7 @@ class seguranca extends CI_Controller {
     function logarUsuario() {
 
         $teste = false;
-         $this->form_validation->set_rules('textoImagem', 'Codigo', 'callback_codigoValidacao_check');
+        $this->form_validation->set_rules('textoImagem', 'Codigo', 'callback_codigoValidacao_check');
         if ($this->form_validation->run() == TRUE) {
             $teste = TRUE;
         }
@@ -66,56 +69,39 @@ class seguranca extends CI_Controller {
         }
 
         if ($this->form_validation->run() == FALSE) {
+            
+            $this->index();
 
-            $wordCp = rand(000000, 999999);
-            $this->session->set_userdata(array('textCaptcha' => $wordCp));
-            $vals = array(
-                'word' => $wordCp,
-                'img_path' => './captcha/',
-                'img_url' => base_url() . 'captcha/',
-                // 'font_path' => './path/to/fonts/texb.ttf',
-                'img_width' => '130',
-                'img_height' => 30,
-                'expiration' => 7200
-            );
-
-            $cap = create_captcha($vals);
-
-            $dados = array(
-                'imagemCaptcha' => $cap['image'],
-            );
-
-            $this->load->view('user_gestor/seguranca/formLogin_view', $dados);
         } else {
 
-            redirect(base_url() . "cpainel/home"); 
+            redirect(base_url() . "cpainel/home");
         }
     }
 
     function validarUsuario_check() {
-        
+
         $dados = array(
             'emailGestor' => $this->input->post('email'),
             'senhaGestor' => md5($this->input->post('senha')),
             'nomeGestor' => "Gestor",
             'estadoGestor' => 1
-        ); 
-        
-        
+        );
+
+
         $testeUsuarios = $this->gestor_model->obterTodosGestor()->result();
-        
-    
-        if(count($testeUsuarios)==0){
+
+
+        if (count($testeUsuarios) == 0) {
             $this->gestor_model->inserirGestor($dados);
         }
-        
-        
 
-       $dadosLogin = array(
+
+
+        $dadosLogin = array(
             'emailGestor' => $this->input->post('email'),
             'senhaGestor' => md5($this->input->post('senha'))
-        ); 
- 
+        );
+
         $userLogin = $this->gestor_model->obterGestorLogin($dadosLogin)->result();
 
         if (empty($userLogin)) {

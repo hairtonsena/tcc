@@ -1,13 +1,13 @@
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-    <h4 class="modal-title"> Editar Problema Pendente</h4>
+    <h4 class="modal-title"> Alterar problema </h4>
 </div>
 <div class="modal-body">
     <form class="form" name="frmNovoProblema" method="post" action="salvar.php" onsubmit="return Problema.alterarColaboracaoPendente()">
     <?php foreach ($colaboracao as $cl) { ?>
         
         <div class="form-group">
-            <label for="tipo"> Tipo de Problema </label>
+            <label for="tipo"> Tipo de problema </label>
             <select id="tipo" name="tipo" class="form-control">
                 <?php
                 foreach ($tipo as $tp) {

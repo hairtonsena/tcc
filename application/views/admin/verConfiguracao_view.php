@@ -40,13 +40,13 @@ if ($configuraPagina->streetViewMaps == 1) {
 </script> 
 
 <script>initialize()</script>
-<h2>Configuração Geral</h2>
+<h2>Configuração geral</h2>
 <div class="row">
     <div class="col-lg-12">
-        <button class="btn btn-primary" onclick="Gestor.editarConfiguracao()" type="button">Editar Configuracão</button>
+        <button class="btn btn-primary" onclick="Gestor.editarConfiguracao()" type="button">Editar configuracão</button>
     </div>
     <div class="col-md-4">
-        <h4>Municipio</h4>
+        <h4>Município</h4>
 
         <span class="col-md-4"><strong> Nome :</strong></span>
         <div class="col-md-8"><?php echo $configuraPagina->nomeMunicipio ?></div>
@@ -63,7 +63,7 @@ if ($configuraPagina->streetViewMaps == 1) {
         <span class="col-md-4"><strong>Telefone :</strong></span>
         <div class="col-md-8"><?php echo $configuraPagina->telefoneMunicipio ?></div> 
 
-        <span class="col-md-4"><strong>Email :</strong></span>
+        <span class="col-md-4"><strong>E-mail :</strong></span>
         <div class="col-md-8"><?php echo $configuraPagina->emailMunicipio ?></div> 
 
         <span class="col-md-4"><strong>Web Site :</strong></span>
@@ -87,13 +87,13 @@ if ($configuraPagina->streetViewMaps == 1) {
         <span class="col-md-4"><strong>Stree View :</strong></span>
         <div class="col-md-8"><?php
 if ($configuraPagina->streetViewMaps == 1) {
-    echo 'true';
+    echo 'Sim';
 } else {
-    echo 'false';
+    echo 'Não';
 }
 ?></div> 
     </div>
-    <div class="col-md-4" id="map-canvas" style="height: 200px; background-color: #269abc">
+    <div class="col-md-4" id="map-canvas" style="height: 300px; background-color: #269abc">
 
     </div>
 

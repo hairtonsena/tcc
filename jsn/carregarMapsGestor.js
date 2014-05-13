@@ -109,7 +109,7 @@ var Conteudo = {
 
                             linkStatus =
                             '<br/><a href="javascript:void(0)" class="btn btn-primary" onclick="Problema.formularioColaboracaoAceita(\'' + objeto.idProblema + '\')"> Aceitar  </a>' +
-                            ' <a href="javascript:void(0)" class="btn btn-default" onclick="Problema.formularioColaboracaoPendente(\'' + objeto.idProblema + '\')"> Tornar Pendente </a>' +
+                            ' <a href="javascript:void(0)" class="btn btn-default" onclick="Problema.formularioColaboracaoPendente(\'' + objeto.idProblema + '\')"> Tornar pendente </a>' +
                             ' <a href="javascript:void(0)" class="btn btn-danger" onclick="Problema.formularioColaboracaoRejeitada(\'' + objeto.idProblema + '\')"> Rejeitar </a>';
 
 

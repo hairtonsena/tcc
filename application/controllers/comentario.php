@@ -10,13 +10,14 @@ class Comentario extends CI_Controller {
         $this->load->helper('url');
         $this->load->database();
         $this->load->library('session');
+        $this->load->library('form_validation');
         $this->load->model('manimaps/comentario_model');
         $this->load->model('manimaps/colaboracao_model');
         date_default_timezone_set('UTC');
     }
 
     public function index() {
-        echo "A pagina não foi encontrada";
+        redirect(base_url());
     }
 
     function verComentarios() {
@@ -28,9 +29,9 @@ class Comentario extends CI_Controller {
             $this->session->unset_userdata('local');
         }
         $dado = array(
-            'problemaComentario' =>  $this->colaboracao_model->obterProblema($idProblema)->result(),
+            'problemaComentario' => $this->colaboracao_model->obterProblema($idProblema)->result(),
             'idProblema' => $idProblema,
-            );
+        );
         if (($this->session->userdata('idCidadao')) && ($this->session->userdata('nomeCidadao')) && ($this->session->userdata('emailCidadao')) && ($this->session->userdata('senhaCidadao'))) {
             $userLogado = TRUE;
 
@@ -67,36 +68,51 @@ class Comentario extends CI_Controller {
     }
 
     function salvarNovoComentarioProblema() {
+        if (($this->session->userdata('idCidadao')) && ($this->session->userdata('nomeCidadao')) && ($this->session->userdata('emailCidadao')) && ($this->session->userdata('senhaCidadao'))) {
 
+            $this->form_validation->set_rules('comentario', 'Comentário', 'required|min_length[9]');
 
-        $idProblema = $_POST['idProblema'];
-        $comentario = $_POST['comentario'];
+            if ($this->form_validation->run() == FALSE) {
+                echo "<script> alert('O comentário não foi realizado, texto muito curto.'); Tela.fecharModal(); </script>";
+            } else {
 
-        $this->session->userdata('idCidadao');
+                $comentario = strip_tags($this->input->post('comentario'));
 
-        $data = date('y-m-d');
+                if (strlen($comentario) < 10) {
+                    echo "<script> alert('O comentário não foi realizado, texto muito curto.'); Tela.fecharModal(); </script>";
+                    exit();
+                };
 
-        $dadosComentario = array(
-            'idComentario' => '',
-            'textoComentario' => $comentario,
-            'dataComentario' => $data,
-            'idProblema' => $idProblema,
-            'idCidadao' => $this->session->userdata('idCidadao')
-        );
+                $idProblema = $_POST['idProblema'];
+               // $comentario = $_POST['comentario'];
 
-        $this->comentario_model->salvarNovoComentario($dadosComentario);
-        echo '<script>   var colabocaoCidadao = 0;
-        if ($("#minhasColaboracoes").is(\':checked\', true)) {
-            colabocaoCidadao = 1;
-        } else {
-            colabocaoCidadao = 0;
+                $this->session->userdata('idCidadao');
+
+                $data = date('y-m-d');
+
+                $dadosComentario = array(
+                    'idComentario' => '',
+                    'textoComentario' => $comentario,
+                    'dataComentario' => $data,
+                    'idProblema' => $idProblema,
+                    'idCidadao' => $this->session->userdata('idCidadao')
+                );
+
+                $this->comentario_model->salvarNovoComentario($dadosComentario);
+                echo '<script>   var colabocaoCidadao = 0;
+                if ($("#minhasColaboracoes").is(\':checked\', true)) {
+                    colabocaoCidadao = 1;
+                } else {
+                    colabocaoCidadao = 0;
+                }
+                var status = $("#status").val();
+                var categoria = $("#categoria").val();
+                var ordem = $("#ordem").val();
+
+                Conteudo.generateRandomMarkers(status, categoria, ordem, colabocaoCidadao, 0);
+                Problema.verTodosComentarios(\'' . $idProblema . '\'); </script>';
+            }
         }
-        var status = $("#status").val();
-        var categoria = $("#categoria").val();
-        var ordem = $("#ordem").val();
-
-        Conteudo.generateRandomMarkers(status, categoria, ordem, colabocaoCidadao, 0);
-        Problema.verTodosComentarios(\'' . $idProblema . '\'); </script>';
     }
 
     function apoiaComentario() {

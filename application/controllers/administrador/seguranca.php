@@ -30,26 +30,28 @@ class seguranca extends CI_Controller {
     }
 
     function index() {
+        
+        redirect(base_url("cpainel/home"));
 
-        $wordCp = rand(000000, 999999);
-        $this->session->set_userdata(array('textCaptcha' => $wordCp));
-        $vals = array(
-            'word' => $wordCp,
-            'img_path' => './captcha/',
-            'img_url' => base_url() . 'captcha/',
-            // 'font_path' => './path/to/fonts/texb.ttf',
-            'img_width' => '130',
-            'img_height' => 30,
-            'expiration' => 7200
-        );
-
-        $cap = create_captcha($vals);
-
-        $dados = array(
-            'imagemCaptcha' => $cap['image'],
-        );
-
-        $this->load->view('admin/seguranca/formLogin_view', $dados);
+//        $wordCp = rand(000000, 999999);
+//        $this->session->set_userdata(array('textCaptcha' => $wordCp));
+//        $vals = array(
+//            'word' => $wordCp,
+//            'img_path' => './captcha/',
+//            'img_url' => base_url() . 'captcha/',
+//            // 'font_path' => './path/to/fonts/texb.ttf',
+//            'img_width' => '130',
+//            'img_height' => 30,
+//            'expiration' => 7200
+//        );
+//
+//        $cap = create_captcha($vals);
+//
+//        $dados = array(
+//            'imagemCaptcha' => $cap['image'],
+//        );
+//
+//        $this->load->view('admin/seguranca/formLogin_view', $dados);
     }
 
     function logarUsuario() {

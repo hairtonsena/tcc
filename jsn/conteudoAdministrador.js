@@ -1,7 +1,7 @@
 
 Gestor = {
     verGestor: function(){
-        var url = Config.base_url+'administrador/cpainel/verGestor';
+        var url = Config.base_url+'cpainel/configuracao/verGestor';
         var parametro = 'acao=verGestor';
         CarregarPagina.carregarConteudo(url, parametro);
     },
@@ -11,6 +11,12 @@ Gestor = {
         var parametro = 'acao=formeInserir';
         CarregarPagina.carregarConteudo(url, parametro);
   
+    },
+    formeAlterarGestor: function(id){
+        var url = Config.base_url+'cpainel/configuracao/formeAlterarGestor';
+        var parametro = 'idGestor='+id;
+        Tela.abrirModal();
+        CarregarPagina.carregarConteudo(url, parametro); 
     },
     inserirGestor: function(){
         var nomeGestor = $("#nomeGestor").val();
@@ -28,9 +34,37 @@ Gestor = {
     },
     editarGestor: function(){
         
-        var url = Config.base_url+'administrador/cpainel/editarGestor';
+        var url = Config.base_url+'cpainel/configuracao/editarGestor';
         var parametro = 'acao=editarGestor';
         CarregarPagina.carregarConteudo(url, parametro); 
+    },
+    alterarGestor: function(){
+
+        var idGestor = $("#idGestor").val();
+        var nomeGestor = $("#nomeGestor").val();
+        var emailGestor = $("#emailGestor").val();
+        var senhaAtual = $("#senhaAtual").val();
+        
+        var url = Config.base_url+'cpainel/configuracao/alterarGestor';
+        var parametro = 'acao=alterarGestor&&idGestor='+idGestor+'&&nomeGestor='+nomeGestor+
+        '&&emailGestor='+emailGestor+'&&senhaAtual='+senhaAtual;
+        CarregarPagina.carregarConteudo(url, parametro)        
+        return false;
+    },
+    formeAlterarSenha: function(id){
+        var url = Config.base_url+'cpainel/configuracao/formeAlterarSenha';
+        Tela.abrirModal()
+        var parametro = 'acao=formeAlterarSenha&&idGestor='+id;
+        CarregarPagina.carregarConteudo(url, parametro); 
+    },
+    alterarSenhaGestor : function(){
+        var idGestor = $("#idGestor").val();
+        var senhaGestor = $("#senhaGestor").val();
+        var senhaAtual = $("#senhaAtual").val();
+        var url = Config.base_url+'cpainel/configuracao/alterarSenha';
+        var parametro = 'acao=alterarSenha&&idGestor='+idGestor+'&&senhaGestor='+senhaGestor+'&&senhaAtual='+senhaAtual;
+         CarregarPagina.carregarConteudo(url, parametro);
+        return false;
     },
     excluirGestor:function(idGestor){
         
@@ -82,8 +116,8 @@ Gestor = {
 
         var url = Config.base_url+'cpainel/configuracao/salvarConfiguracao';
         var parametro = "idMunicipio="+idMunicipio+"&&nomeMunicipio="+nomeMunicipio+"&&cnpjMunicipio="+cnpjMunicipio+"&&cepMunicipio="+cepMunicipio+"&&telefoneMunicipio="+
-            telefoneMunicipio+"&&emailMunicipio="+emailMunicipio+"&&siteMunicipio="+siteMunicipio+"&&latitudeMunicipio="+latitudeMunicipio+"&&longitudeMunicipio="+longitudeMunicipio+
-            "&&zoomMapsInicial="+zoomMapsInicial+"&&streetViewMaps="+streetViewMaps;
+        telefoneMunicipio+"&&emailMunicipio="+emailMunicipio+"&&siteMunicipio="+siteMunicipio+"&&latitudeMunicipio="+latitudeMunicipio+"&&longitudeMunicipio="+longitudeMunicipio+
+        "&&zoomMapsInicial="+zoomMapsInicial+"&&streetViewMaps="+streetViewMaps;
         
 
         CarregarPagina.carregarConteudo(url, parametro); 

@@ -1,11 +1,11 @@
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-    <h4 class="modal-title"> Nova Colaboração</h4>
+    <h4 class="modal-title"> Nova colaboração</h4>
 </div>
 <div class="modal-body">
     <form name="frmNovoProblema" class="form" method="post" action="salvar.php" onsubmit="return Problema.salvarProblema()">
         <div class="form-group">
-        <label for="tipo"> Tipo de Problema </label>
+        <label for="tipo"> Tipo de problema </label>
         <select id="tipo" name="tipo" class="form-control">
             <?php foreach ($tipo as $ti) { ?>
                 <option value=" <?php echo $ti->idTipo ?>"> <?php echo $ti->tipo ?></option>

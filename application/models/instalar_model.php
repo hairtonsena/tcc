@@ -384,10 +384,10 @@ select `CP`.`idComentario` AS `idComentario`,`CP`.`textoComentario` AS `textoCom
 
         // dados status
         $query_criar_db = "INSERT INTO `status` (`idStatus`, `nomeStatus`) VALUES
-            (1, 'Aguardando Validação'),
-            (2, 'Colaboração Rejeitada'),
-            (3, 'Colaboração Pendente'),
-            (4, 'Colaboração Aceita '),
+            (1, 'Aguardando validação'),
+            (2, 'Colaboração rejeitada'),
+            (3, 'Colaboração pendente'),
+            (4, 'Colaboração aceita '),
             (5, 'Em andamento'),
             (6, 'Resolvido'); ";
 

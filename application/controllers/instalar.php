@@ -29,10 +29,10 @@ class instalar extends CI_controller {
 
         echo '<html>
     <head>
-        <title> cPainel - Gestor  </title>
+        <title> Problema urbano  </title>
         <meta charset="utf-8"/>
         <link href="' . base_url("css/bt3/css/bootstrap.min.css") . '" rel="stylesheet">
-
+        <link rel="shortcut icon" href="' . base_url("icone/PU.ico") . '" type="image/x-icon" />
         <style type="text/css">
             html {
                 height: 100%;
@@ -47,7 +47,22 @@ class instalar extends CI_controller {
     <body>
 
         <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
 
+                    <a class="navbar-brand" style="margin: 0px 0px 0px 0px; padding:0px 10px 0px 0px;"  href="">
+                        <img src="' . base_url("icone/PU321.png") . '" height="50px" />
+                        Problema urbano
+                    </a>
+                </div>
+            </div>
         </nav>
         <div class="container-fluid">
             <div class="row">
@@ -56,12 +71,12 @@ class instalar extends CI_controller {
                         <div class="col-lg-12">
                             <div class="panel panel-primary">
                                 <div class="panel-heading">
-                                    <h3 class="panel-title"> Instalar Problemas Urbanos </h3>
+                                    <h3 class="panel-title"> Instalar problemas urbanos </h3>
                                 </div>
                                 <div class="panel-body">
 
                                     <div class="form-group">
-                                       <p> Para intalar o banco de dados no sistema click no botão abaixo "Instalar Banco de Dados", em seguida você será encaminhado para a tela de login do gestor.</p>
+                                       <p> Para intalar o banco de dados no sistema click no botão abaixo "Instalar banco de dados", em seguida você será encaminhado para a tela de login do gestor.</p>
                                         <p>
                                    <span class="text-danger"> 
                                         Atenção! : </span> é importante ler o X passo do manual de intalação para obter sucesso na instalação.
@@ -70,7 +85,7 @@ class instalar extends CI_controller {
                                     </div>
 
 
-                                    <a href="' . base_url("instalar/criarBanco") . '" name="acao" class="form-control btn pull-right btn-primary"> Intalar Banco de Dados </a>
+                                    <a href="' . base_url("instalar/criarBanco") . '" name="acao" class="form-control btn pull-right btn-primary"> Intalar banco de dados </a>
 
                                 </div>
                             </div>

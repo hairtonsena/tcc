@@ -8,11 +8,11 @@ foreach ($configuracao as $cf) {
 
 <style type="text/css">
     /* =============== Estilos do autocomplete =============== */
-    
+
     .ui-helper-hidden-accessible {
         display: none;
     }
-    
+
     .ui-autocomplete { 
         background: #fff; 
         border-top: 1px solid #ccc;
@@ -71,11 +71,18 @@ if ($configuraPagina->streetViewMaps == 1) {
         
             var arrLatLong = latlong.split(",");
             
-            $("#latitudeMunicipio").val(arrLatLong[0]);
-            $("#longitudeMunicipio").val(arrLatLong[1]);
+            $("#latitudeMunicipio").val();
+            $("#longitudeMunicipio").val();
             
+            preencherLatLng(arrLatLong[0],arrLatLong[1])
             
         });
+    }
+    
+    function preencherLatLng(lat,lng){
+        $("#latitudeMunicipio").val(lat);
+        $("#longitudeMunicipio").val(lng);
+            
     }
     
     $("#presquisa").autocomplete({
@@ -94,6 +101,9 @@ if ($configuraPagina->streetViewMaps == 1) {
         select: function (event, ui) {
 
             var location = new google.maps.LatLng(ui.item.latitude, ui.item.longitude);
+
+
+            preencherLatLng(ui.item.latitude, ui.item.longitude);
 
             map.setCenter(location);
             map.setZoom(nivelZoom);
@@ -139,90 +149,100 @@ if ($configuraPagina->streetViewMaps == 1) {
 <h2>Configuração Geral</h2>
 
 <div class="row">
-    <form onsubmit="Gestor.salvarConfiguracao(); return false">
-        <div class="col-md-4">
-            <h4>Municipio</h4>
-            <input id="idMunicipio" type="hidden" value="<?php echo $configuraPagina->idConfiguracao ?>"/>
-            <span class="col-md-4"><strong> Nome :</strong></span>
-            <div class="col-md-8"><input class="form-control" name="nome" id="nomeMunicipio" value="<?php echo $configuraPagina->nomeMunicipio ?>"/></div>
+    <div class="col-md-8">
+        <form onsubmit="Gestor.salvarConfiguracao(); return false">
+            <div class="col-md-6">
+                <h4>Município</h4>
+                <input id="idMunicipio" type="hidden" value="<?php echo $configuraPagina->idConfiguracao ?>"/>
+                <span class="col-md-4"><strong> Nome :</strong></span>
+                <div class="col-md-8"><input class="form-control" name="nome" id="nomeMunicipio" value="<?php echo $configuraPagina->nomeMunicipio ?>"/></div>
 
 
-            <span class="col-md-4"><strong>CNPJ :</strong></span>
-            <div class="col-md-8"><input class="form-control" name="cnpj" id="cnpjMunicipio" value="<?php echo $configuraPagina->cnpjMunicipio ?>"/></div>
+                <span class="col-md-4"><strong>CNPJ :</strong></span>
+                <div class="col-md-8"><input class="form-control" name="cnpj" id="cnpjMunicipio" value="<?php echo $configuraPagina->cnpjMunicipio ?>"/></div>
 
 
-            <span class="col-md-4"><strong>CEP :</strong></span>
-            <div class="col-md-8"><input class="form-control" name="cep" id="cepMunicipio" value="<?php echo $configuraPagina->cepMunicipio ?>"/></div> 
+                <span class="col-md-4"><strong>CEP :</strong></span>
+                <div class="col-md-8"><input class="form-control" name="cep" id="cepMunicipio" value="<?php echo $configuraPagina->cepMunicipio ?>"/></div> 
 
 
-            <span class="col-md-4"><strong>Telefone :</strong></span>
-            <div class="col-md-8"><input class="form-control" name="telefone" id="telefoneMunicipio" value="<?php echo $configuraPagina->telefoneMunicipio ?>"/></div> 
+                <span class="col-md-4"><strong>Telefone :</strong></span>
+                <div class="col-md-8"><input class="form-control" name="telefone" id="telefoneMunicipio" value="<?php echo $configuraPagina->telefoneMunicipio ?>"/></div> 
 
-            <span class="col-md-4"><strong>Email :</strong></span>
-            <div class="col-md-8"><input class="form-control" name="email" id="emailMunicipio" value="<?php echo $configuraPagina->emailMunicipio ?>"/></div> 
+                <span class="col-md-4"><strong>Email :</strong></span>
+                <div class="col-md-8"><input class="form-control" name="email" id="emailMunicipio" value="<?php echo $configuraPagina->emailMunicipio ?>"/></div> 
 
-            <span class="col-md-4"><strong>Web Site :</strong></span>
-            <div class="col-md-8"><input class="form-control" name="site" id="siteMunicipio" value="<?php echo $configuraPagina->siteMunicipio ?>"/></div> 
+                <span class="col-md-4"><strong>Web Site :</strong></span>
+                <div class="col-md-8"><input class="form-control" name="site" id="siteMunicipio" value="<?php echo $configuraPagina->siteMunicipio ?>"/></div> 
 
-        </div>
-        <div class="col-md-4">
-            <h4>Maps</h4>
-            <span class="col-md-4"><strong> Latitude :</strong></span>
-            <div class="col-md-8"><input class="form-control" title="Click no mapa ao lado para alterar este valor" readonly="true" name="latitude" id="latitudeMunicipio" value="<?php echo $configuraPagina->latitudeCentralMunicipio ?>"/></div>
-
-
-            <span class="col-md-4"><strong>Longitude :</strong></span>
-            <div class="col-md-8"><input class="form-control" title="Click no mapa ao lado para alterar este valor" readonly="true" name="longitude" id="longitudeMunicipio" value="<?php echo $configuraPagina->longitudeCentralMunicipio ?>"/></div>
+            </div>
+            <div class="col-md-6">
+                <h4>Maps</h4>
+                <span class="col-md-4"><strong> Latitude :</strong></span>
+                <div class="col-md-8"><input class="form-control" title="Click no mapa ao lado para alterar este valor" readonly="true" name="latitude" id="latitudeMunicipio" value="<?php echo $configuraPagina->latitudeCentralMunicipio ?>"/></div>
 
 
-            <span class="col-md-4"><strong>Zoom Maps :</strong></span>
-            <div class="col-md-8">
-                <select class="form-control" name="zoom" id="zoomMaps" >
-                    <?php for ($i = 0; $i < 22; $i++) { ?>
-                        <?php if ($configuraPagina->zoomMapsInicial == $i) { ?>
+                <span class="col-md-4"><strong>Longitude :</strong></span>
+                <div class="col-md-8"><input class="form-control" title="Click no mapa ao lado para alterar este valor" readonly="true" name="longitude" id="longitudeMunicipio" value="<?php echo $configuraPagina->longitudeCentralMunicipio ?>"/></div>
 
-                            <option selected="true" value="<?php echo $i ?>"><?php echo $i ?></option>
-                        <?php } else { ?>
-                            <option value="<?php echo $i ?>"><?php echo $i ?></option>
-                            <?php
+
+                <span class="col-md-4"><strong>Zoom Maps :</strong></span>
+                <div class="col-md-8">
+                    <select class="form-control" name="zoom" id="zoomMaps" >
+                        <?php for ($i = 0; $i < 22; $i++) { ?>
+                            <?php if ($configuraPagina->zoomMapsInicial == $i) { ?>
+
+                                <option selected="true" value="<?php echo $i ?>"><?php echo $i ?></option>
+                            <?php } else { ?>
+                                <option value="<?php echo $i ?>"><?php echo $i ?></option>
+                                <?php
+                            }
                         }
-                    }
-                    ?>
-                </select>
-            </div> 
+                        ?>
+                    </select>
+                </div> 
 
 
-            <span class="col-md-4"><strong>Stree View :</strong></span>
-            <div class="col-md-8">
-                <select class="form-control" name="streetView" id="streetView">
 
-                    <?php if ($configuraPagina->streetViewMaps == 1) { ?>
-                        <option value="1" selected="true">true</option>
-                        <option value="0" >false</option>
-                    <?php } else { ?>
-                        <option value="1">true</option>
-                        <option value="0" selected="true">false</option>
-                    <?php } ?>
-                </select></div> 
-        </div>
-        <div class="col-md-4"  >
-            <div class="col-md-8">
-                <input class="form-control"  name="presquisa" id="presquisa" value=""/>
+
+                <span class="col-md-4"><strong>Stree View :</strong></span>
+                <div class="col-md-8">
+                    <select class="form-control" name="streetView" id="streetView">
+
+                        <?php if ($configuraPagina->streetViewMaps == 1) { ?>
+                            <option value="1" selected="true">Sim</option>
+                            <option value="0" >Não</option>
+                        <?php } else { ?>
+                            <option value="1">Sim</option>
+                            <option value="0" selected="true">Não</option>
+                        <?php } ?>
+                    </select></div> 
             </div>
-            <span class="col-md-4"><button type="button" id="btnPesquisar" class="btn btn-primary">Pesquisar</button></span>
 
-            <div class="col-lg-12" id="map-canvas" style="height: 200px; background-color: #269abc">
-
+            <div class="col-lg-12">
+                <div class="col-md-4 col-md-offset-8">
+                    <br/>
+                    <button type="submit" class="btn btn-primary" >Salvar</button>
+                    <button type="button" class="btn btn-default" onclick="Gestor.configuracaoGeral()">Cancelar</button>
+                    
+                </div>
             </div>
-        </div>
+        </form>
 
-        <div class="col-lg-12">
-            <div class="col-md-6 col-md-offset-6">
-                <br/>
-                <button type="button" class="btn btn-default" onclick="Gestor.configuracaoGeral()">Cancelar</button>
-                <button type="submit" class="btn btn-primary" >Salvar</button>
-            </div>
+    </div>
+
+    <div class="col-md-4"  >
+        <div class="col-md-8">
+            <input class="form-control"  name="presquisa" id="presquisa" value=""/>
         </div>
-    </form>
+        <span class="col-md-4"><button type="button" id="btnPesquisar" class="btn btn-primary">Pesquisar</button></span>
+
+        <div class="col-lg-12" id="map-canvas" style="height: 300px; background-color: #269abc">
+
+        </div>
+    </div>
+
+
+
 </div>
 

@@ -10,8 +10,11 @@ class colaboracao extends CI_Controller {
         $this->load->helper('url');
         $this->load->database();
         $this->load->library('session');
+        $this->load->library('email');
+        $this->load->library('form_validation');
         $this->load->model('manimaps/tipo_model');
         $this->load->model('manimaps/colaboracao_model');
+        $this->load->model('cpainel/gestor_model');
         date_default_timezone_set('UTC');
     }
 
@@ -52,48 +55,72 @@ class colaboracao extends CI_Controller {
     function salvarNovaColaboracao() {
         if (($this->session->userdata('idCidadao')) && ($this->session->userdata('nomeCidadao')) && ($this->session->userdata('emailCidadao')) && ($this->session->userdata('senhaCidadao'))) {
 
-            $dadosColaboracao = array(
-                'idProblema' => '',
-                'descricao' => $this->input->post('descricao'),
-                'data' => date('y-m-d'),
-                'latitude' => $this->input->post('latitude'),
-                'longitude' => $this->input->post('longitude'),
-                'idTipo' => $this->input->post('tipo'),
-                'idStatus' => '1',
-                'idCidadao' => $this->session->userdata('idCidadao'),
-            );
+            $this->form_validation->set_rules('descricao', 'Descrição', 'required|min_length[6]');
 
-            $this->colaboracao_model->inserirNovaColaboracao($dadosColaboracao);
+            if ($this->form_validation->run() == FALSE) {
+                echo "<script> alert('A colaboração não foi realizada, descrição deve ter mais de seis letras.'); Tela.fecharModal(); </script>";
+            } else {
 
-            $query = $this->colaboracao_model->obterColaboracaoInserida($dadosColaboracao)->result();
+                $descricao = strip_tags($this->input->post('descricao'));
 
-            $idProblema = 0;
-            foreach ($query as $qr) {
-                $idProblema = $qr->idProblema;
+                if (strlen($descricao) < 7) {
+                    echo "<script> alert('A colaboração não foi realizada, descrição deve ter mais de seis letras.'); Tela.fecharModal(); </script>";
+                    exit();
+                };
+
+
+                $dadosColaboracao = array(
+                    'idProblema' => '',
+                    'descricao' => $descricao,
+                    'data' => date('y-m-d'),
+                    'latitude' => $this->input->post('latitude'),
+                    'longitude' => $this->input->post('longitude'),
+                    'idTipo' => $this->input->post('tipo'),
+                    'idStatus' => '1',
+                    'idCidadao' => $this->session->userdata('idCidadao'),
+                );
+
+                $this->colaboracao_model->inserirNovaColaboracao($dadosColaboracao);
+
+                $query = $this->colaboracao_model->obterColaboracaoInserida($dadosColaboracao)->result();
+
+                $textoMensagem = "Uma nova reclamação e/ou sugestação foi recebido.<br/>  
+                                Click <a href='" . base_url("administrativo") . "'>aqui</a> para acessar o sistema e avaliar a colaboração.    
+                               ";
+
+                $tituloMensagem = 'Problema urbano, nova Colaboração';
+
+                $gestorEmail = $this->gestor_model->obterTodosGestor()->result();
+                $ge = get_object_vars($gestorEmail[0]);
+
+                $assunto = $tituloMensagem;
+
+                // $assunto = 'Novo Email Projeto TCC';
+                $this->email->from('hairtontcc@yahoo.com.br', 'Projeto TCC');
+                $this->email->to($ge['emailGestor']);
+                $this->email->subject($assunto);
+                $this->email->message($textoMensagem);
+
+                if (!$this->email->send()) {
+                     $this->email->print_debugger();
+                }
+
+                $idProblema = 0;
+                foreach ($query as $qr) {
+                    $idProblema = $qr->idProblema;
+                }
+
+                echo '<script> Problema.verColaboracoesAposSalvar() </script>';
+                echo '
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+                    <h4 class="modal-title"> Registro de problema</h4>
+                </div>            
+                <div class="modal-body"> O problema foi registrado com sucesso. <br/>
+                    <button type="button" onclick="Tela.fecharModal()" class="btn btn-default">ok</a>
+                </div>';
             }
-
-            echo '<script> Problema.verColaboracoesAposSalvar() </script>';
-            
-//            echo '<script>        var colabocaoCidadao = 0;
-//        if ($("#minhasColaboracoes").is(":checked", true)) {
-//            colabocaoCidadao = 1;
-//        } else {
-//            colabocaoCidadao = 0;
-//        }
-//        var status = $("#status").val();
-//        var categoria = $("#categoria").val();
-//        var ordem = $("#ordem").val();
-//
-//        Conteudo.generateRandomMarkers(status, categoria, ordem, colabocaoCidadao, 0); </script>';
-            echo '
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-
-            <h4 class="modal-title"> Registro de Problema</h4>
-        </div>            
-        <div class="modal-body"> O problema foi registrado com sucesso. <br/>
-            <button type="button" onclick="Tela.fecharModal()" class="btn btn-default">ok</a>
-        </div>';
         }
     }
 
@@ -115,30 +142,43 @@ class colaboracao extends CI_Controller {
 
     function alterarColaboracaoPendente() {
         if (($this->session->userdata('idCidadao')) && ($this->session->userdata('nomeCidadao')) && ($this->session->userdata('emailCidadao')) && ($this->session->userdata('senhaCidadao'))) {
+            $this->form_validation->set_rules('descricao', 'Descrição', 'required|min_length[6]');
 
-            $idProblema = $_POST['idProblema'];
-            $tipo = $_POST['tipo'];
-            $descricao = $_POST['descricao'];
+            if ($this->form_validation->run() == FALSE) {
+                echo "<script> alert('A colaboração não foi alterada, descrição deve ter mais de seis letras.'); Tela.fecharModal(); </script>";
+            } else {
 
-            $dados = array(
-                'descricao' => $descricao,
-                'idTipo' => $tipo,
-                'idStatus' => '1',
-            );
+                $descricao = strip_tags($this->input->post('descricao'));
 
-            $this->colaboracao_model->alterarColaboracaoPendente($dados, $idProblema);
+                if (strlen($descricao) < 7) {
+                    echo "<script> alert('A colaboração não foi alterada, descrição deve ter mais de seis letras.'); Tela.fecharModal(); </script>";
+                    exit();
+                };
 
-            echo '<script>        var colabocaoCidadao = 0;
-        if ($("#minhasColaboracoes").is(\':checked\', true)) {
-            colabocaoCidadao = 1;
-        } else {
-            colabocaoCidadao = 0;
-        }
-        var status = $("#status").val();
-        var categoria = $("#categoria").val();
-        var ordem = $("#ordem").val();
 
-        Conteudo.generateRandomMarkers(status, categoria, ordem, colabocaoCidadao, 0); Tela.fecharModal() </script>';
+                $idProblema = $this->input->post('idProblema');
+                $tipo = $this->input->post('tipo');
+
+
+                $dados = array(
+                    'descricao' => $descricao,
+                    'idTipo' => $tipo,
+                    'idStatus' => '1',
+                );
+
+                $this->colaboracao_model->alterarColaboracaoPendente($dados, $idProblema);
+
+                echo '<script> Problema.verColaboracoesAposSalvar() </script>';
+                echo '
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+                    <h4 class="modal-title"> Alterar problema </h4>
+                </div>            
+                <div class="modal-body"> O problema foi alterado com sucesso. <br/>
+                    <button type="button" onclick="Tela.fecharModal()" class="btn btn-default">ok</a>
+                </div>';
+            }
         }
     }
 

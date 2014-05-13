@@ -1,5 +1,5 @@
 <?php if(count($comentarios)>0) {?>
-    comentários
+    Comentários
     <?php } ?>
 <div class="list-group">
     <?php
@@ -52,11 +52,11 @@
                     </button>
                 <?php } ?>
                 <?php } else { ?>
-                    <a class="btn btn-primary btn-xs" href="javascript:void(0)" onclick="alert('Desculpe, Você não esta logado!')"  >
+                    <a class="btn btn-primary btn-xs" href="javascript:void(0)" onclick="alert('Desculpe, você não esta logado!')"  >
                         <i class="glyphicon glyphicon-thumbs-up"></i>
                         <span class="text-info badge"> <?php echo $cm->qtde_apoio_comentario ?></span>
                     </a>  
-                    <a class="btn btn-default btn-xs" href="javascript:void(0)" onclick="alert('Desculpe, Você não esta logado!')" >
+                    <a class="btn btn-default btn-xs" href="javascript:void(0)" onclick="alert('Desculpe, você não esta logado!')" >
                         <i class="glyphicon glyphicon-thumbs-down"></i>
                         <span class="text-error badge"><?php echo $cm->qtde_reprovado_comentario ?></span>
                     </a> 

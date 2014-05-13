@@ -33,10 +33,10 @@ class seguranca extends CI_Controller {
 
     function index() {
 
-        if ($_POST['local']!='no') {
-            
+        if ($_POST['local'] != 'no') {
+
             $this->session->set_userdata('local', $_POST['local']);
-            $this->session->set_userdata('opcao','1');
+            $this->session->set_userdata('opcao', '1');
         }
 
         $wordCp = rand(000000, 999999);
@@ -67,7 +67,7 @@ class seguranca extends CI_Controller {
             $teste = TRUE;
         }
         if ($teste == TRUE) {
-            $this->form_validation->set_rules('email', 'Email', 'required|trim|min_length[5]|valid_email');
+            $this->form_validation->set_rules('email', 'E-mail', 'required|trim|min_length[5]|valid_email');
             $this->form_validation->set_rules('senha', 'Senha', 'required|min_length[6]|callback_validarUsuario_check');
             $this->form_validation->set_rules('textoImagem', 'Codigo', '');
         }
@@ -108,7 +108,7 @@ class seguranca extends CI_Controller {
 
         if (empty($userLogin)) {
 
-            $this->form_validation->set_message('validarUsuario_check', 'Email ou senha incorretos!');
+            $this->form_validation->set_message('validarUsuario_check', 'O e-mail ou a senha inseridos estão incorretos.');
             return FALSE;
         } else {
             foreach ($userLogin as $ul) {
@@ -144,8 +144,8 @@ class seguranca extends CI_Controller {
     }
 
     function cadastro_cidadao() {
-        if ($_POST['local']!='no') {
-            
+        if ($_POST['local'] != 'no') {
+
             $this->session->set_userdata('local', $_POST['local']);
         }
 
@@ -157,7 +157,7 @@ class seguranca extends CI_Controller {
         $this->form_validation->set_rules('nomeCidadaoCadastro', 'Nome', 'required|trim|min_length[4]|max_length[50]');
         $this->form_validation->set_rules('cpfCidadaoCadastro', 'CPF', 'callback_cpf_check|required|trim|numeric|min_length[11]|max_length[11]|is_unique[cidadao.cpfCidadao]');
         $this->form_validation->set_message('is_unique', 'Já existe um usuário cadastrado para este %s.');
-        $this->form_validation->set_rules('emailCidadaoCadastro', 'Email', 'required|trim|min_length[5]|max_length[70]|valid_email|is_unique[cidadao.emailCidadao]');
+        $this->form_validation->set_rules('emailCidadaoCadastro', 'E-mail', 'required|trim|min_length[5]|max_length[70]|valid_email|is_unique[cidadao.emailCidadao]');
         $this->form_validation->set_message('is_unique', 'Já existe um usuário cadastrado para este %s.');
         $this->form_validation->set_rules('senhaCidadaoCadastro', 'Senha', 'required|min_length[6]|max_length[20]');
         $this->form_validation->set_rules('confirmaSenhaCidadaoCadastro', 'Senha de Confirmação', 'callback_confirmaSenha_check');
@@ -322,15 +322,18 @@ class seguranca extends CI_Controller {
 
                 $this->cidadao_model->alterarStatusConclusao($alterarSenha, $idCidadao);
 
-                $textoMensagem = "Uma nova senha foi gerada para você acessa um Projeto TCC<br/><br/> Senha: " . $novaSenha . "";
+                $textoMensagem = "Foi gerada uma nova senha para que você continue acompanhando a situação que nos apresentou.<br/>
+                                Aconselhamos, que assim que logar altere sua senha, para sua segurança. </br>  
+                                Click <a href='" . base_url() . "'>aqui</a> para acessar o sistema.    
+                                <br/><br/> Senha: " . $novaSenha . "";
 
-                $tituloMensagem = 'Projeto TCC, nova senha';
+                $tituloMensagem = 'Problema urbano, nova senha';
 
-                $paraEmail = $email;
+                // $paraEmail = $email;
                 $assunto = $tituloMensagem;
 
 
-                $assunto = 'Novo Email Projeto TCC';
+                // $assunto = 'Novo Email Projeto TCC';
                 $this->email->from('hairtontcc@yahoo.com.br', 'Projeto TCC');
                 $this->email->to($email);
                 $this->email->subject($assunto);
@@ -340,11 +343,21 @@ class seguranca extends CI_Controller {
                     echo $this->email->print_debugger();
                 }
 
-                echo "Email gerado com sucesso!<br/><br/>
-                    Acesse seu email para pegar a nova senha.";
+                echo '
+                    <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+                <h4 class="modal-title">Gerar nova senha </h4>
+                </div>
+             <div class="modal-body">Uma nova senha foi encaminhada para seu e-mail!<br/></div>';
                 //redirect(base_url() . 'seguranca/nova_senha');
             } else {
-                echo "<script> alert('Este emial não esta registrado!'); </script>";
+                echo '                    <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+                <h4 class="modal-title">Gerar nova senha </h4>
+                </div>
+             <div class="modal-body">Este e-mail não foi encontrado em nossos registros ou esta bloqueado!<br/></div>';
             }
         }
     }
@@ -363,8 +376,8 @@ class seguranca extends CI_Controller {
             if ((isset($_POST['senhaAtual'])) && (isset($_POST['alterarNome']))) {
 
 
-                $this->form_validation->set_rules('alterarNome', 'Alterar Nome', 'required|trim|min_length[4]|max_length[50]');
-                $this->form_validation->set_rules('senhaAtual', 'Senha Atual', 'required|min_length[6]|max_length[20]|callback_verificarUsuario_check');
+                $this->form_validation->set_rules('alterarNome', 'Alterar nome', 'required|trim|min_length[4]|max_length[50]');
+                $this->form_validation->set_rules('senhaAtual', 'Senha atual', 'required|min_length[6]|max_length[20]|callback_verificarUsuario_check');
 
 
                 if ($this->form_validation->run() == FALSE) {
@@ -426,9 +439,9 @@ class seguranca extends CI_Controller {
 
             if ((isset($_POST['senhaAtual'])) && (isset($_POST['novaSenha'])) && (isset($_POST['confirmarNovaSenha']))) {
 
-                $this->form_validation->set_rules('senhaAtual', 'Senha Atual', 'required|min_length[6]|max_length[20]|callback_verificarUsuario_check');
-                $this->form_validation->set_rules('novaSenha', 'Nova Senha', 'required|trim|min_length[6]|max_length[20]');
-                $this->form_validation->set_rules('confirmarNovaSenha', 'Confirmação de Senha', 'required|trim|min_length[6]|max_length[20]|callback_verificarSenhaIguais_check');
+                $this->form_validation->set_rules('senhaAtual', 'Senha atual', 'required|min_length[6]|max_length[20]|callback_verificarUsuario_check');
+                $this->form_validation->set_rules('novaSenha', 'Nova senha', 'required|trim|min_length[6]|max_length[20]');
+                $this->form_validation->set_rules('confirmarNovaSenha', 'Confirmação de senha', 'required|trim|min_length[6]|max_length[20]|callback_verificarSenhaIguais_check');
 
                 if ($this->form_validation->run() == FALSE) {
                     $this->load->view('user_cidadao/seguranca/alterarSenhaCidadao');

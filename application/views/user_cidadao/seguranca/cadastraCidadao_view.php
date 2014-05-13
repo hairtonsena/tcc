@@ -63,7 +63,7 @@
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 
-    <h4 class="modal-title">Cadastro Cidadão</h4>
+    <h4 class="modal-title">Cadastro cidadão</h4>
 </div>
 <div class="modal-body">
 
@@ -93,9 +93,9 @@
         </div>
         <div class="form-group">
 
-            <label for="emailCidadaoCadastro">Email:</label>
+            <label for="emailCidadaoCadastro">E-mail:</label>
             <div class="input-group">
-                <input type="email" required placeholder="informe seu email" title="informe seu email" class="form-control" id="emailCidadaoCadastro" name="emailCidadaoCadastro" value="<?php echo set_value('emailCidadaoCadastro'); ?>"/>
+                <input type="email" required placeholder="Seu e-mail" title="informe seu e-mail" class="form-control" id="emailCidadaoCadastro" name="emailCidadaoCadastro" value="<?php echo set_value('emailCidadaoCadastro'); ?>"/>
                 <span class="input-group-addon" title="Campo obrigatorio">*</span>
             </div>  
             <span class="text-danger" id="MensagemErro">
@@ -106,7 +106,7 @@
 
             <label for="senhaCidadaoCadastro">Senha:</label>
             <div class="input-group">
-                <input type="password" required maxlength="12" placeholder="********" title="Informe uma senha" class="form-control" id="senhaCidadaoCadastro" name="senhaCidadaoCadastro" value="" />
+                <input type="password" required maxlength="20" placeholder="********" title="Informe uma senha" class="form-control" id="senhaCidadaoCadastro" name="senhaCidadaoCadastro" value="" />
                 <span class="input-group-addon" title="Campo obrigatorio">*</span>
             </div>
             <span class="text-danger" id="MensagemErro">
@@ -117,14 +117,14 @@
 
             <label for="confirmaSenhaCidadaoCadastro">Confirmar senha:</label>
             <div class="input-group">
-                <input type="password" required maxlength="12" placeholder="********" title="Repita a senha informada" class="form-control" id="confirmaSenhaCidadaoCadastro" name="confirmaSenhaCidadaoCadastro" value="" />
+                <input type="password" required maxlength="20" placeholder="********" title="Repita a senha informada" class="form-control" id="confirmaSenhaCidadaoCadastro" name="confirmaSenhaCidadaoCadastro" value="" />
                 <span class="input-group-addon" title="Campo obrigatorio">*</span>
             </div>
             <span class="text-danger" id="MensagemErro">
                 <?php echo form_error('confirmaSenhaCidadaoCadastro'); ?>
             </span>
 
-            <span class="help-block text-danger">( * ) Campos obrigatorios </span>
+            <span class="help-block text-danger">( * ) Campos obrigatórios </span>
         </div>
         <button class="btn btn-primary pull-left" type="submit" > Castastrar </button><button class="btn btn-default pull-right" type="button" onclick="Tela.fecharModal()" > Cancelar </button>
     </form>                                        

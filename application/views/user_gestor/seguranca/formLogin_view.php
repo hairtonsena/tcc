@@ -1,17 +1,22 @@
-
+<?php
+$configuraPagina = array();
+foreach ($configuracao as $cf) {
+    $configuraPagina = $cf;
+}
+?>
 <html>
     <head>
         <title> cPainel - Gestor  </title>
         <meta charset="utf-8"/>
         <link href="<?php echo base_url("css/bt3/css/bootstrap.min.css"); ?>" rel="stylesheet">
-
+        <link rel="shortcut icon" href="<?php echo base_url("icone/PU.ico"); ?>" type="image/x-icon" />
         <style type="text/css">
             html {
                 height: 100%;
             }
             body {
                 margin: 10% 0% 0% 0%;
-                background-color: #fcfcfc;
+                background-color: #f5f5f9;
             }
 
         </style>
@@ -19,8 +24,28 @@
     <body>
 
         <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-            <div class="container">
-                <a href="<?php echo base_url() ?>" class="btn btn-large navbar-btn btn-primary"> Voltar para ao site </a> 
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
+
+                    <a class="navbar-brand" style="margin: 0px 0px 0px 0px; padding:0px 0px 0px 0px;"  href="<?php echo base_url() ?>">
+                        <img src="<?php echo base_url("icone/PU321.png") ?>" height="50px" />
+                        Problema urbano
+                    </a>
+                </div> 
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav col-md-5 navbar-right">
+                        <li> <a class="" href="javascript:void(0)"><span style="font-size: 20"> <?php echo $cf->nomeMunicipio ?></span></a></li>
+
+                    </ul>
+                </div>
+                
             </div>
         </nav>
         <div class="container-fluid">

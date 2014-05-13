@@ -10,6 +10,7 @@ class configuracao extends CI_Controller {
         $this->load->library('form_validation');
         $this->load->model('cpainel/gestor_model');
         $this->load->model('admin/admin_model');
+        
     }
 
     function index() {
@@ -18,9 +19,9 @@ class configuracao extends CI_Controller {
 
 
             $dados = array(
+                
                 'configuracao' => $this->admin_model->obterConfiguracao()->result(),
             );
-
 
             $this->load->view('admin/index_tela', $dados);
         } else {
@@ -214,7 +215,7 @@ class configuracao extends CI_Controller {
     function formeAlterarSenha() {
         if (($this->session->userdata('idGestor')) && ($this->session->userdata('nomeGestor')) && ($this->session->userdata('emailGestor')) && ($this->session->userdata('senhaGestor'))) {
 
-            $idGestor = $_POST['idGestor'];
+            $idGestor = $this->session->userdata('idGestor');
 
             $dados = array(
                 'gestor' => $this->gestor_model->obterGestor($idGestor)->result(),
@@ -229,10 +230,10 @@ class configuracao extends CI_Controller {
     function alterarSenha() {
         if (($this->session->userdata('idGestor')) && ($this->session->userdata('nomeGestor')) && ($this->session->userdata('emailGestor')) && ($this->session->userdata('senhaGestor'))) {
 
-            $this->form_validation->set_rules('senhaGestor', 'Senha', 'required|min_length[6]|max_length[20]');
-
+            $this->form_validation->set_rules('senhaGestor', 'Nova senha', 'required|min_length[6]|max_length[20]');
+            $this->form_validation->set_rules('senhaAtual', 'Senha atual', 'required|min_length[6]|max_length[20]');
             if ($this->form_validation->run() == FALSE) {
-                $idGestor = $_POST['idGestor'];
+                $idGestor = $this->session->userdata('idGestor');
 
                 $dados = array(
                     'gestor' => $this->gestor_model->obterGestor($idGestor)->result(),
@@ -245,21 +246,25 @@ class configuracao extends CI_Controller {
 
                 $senhaAtual = md5($_POST['senhaAtual']);
 
+
+                $testeGestor = FALSE;
                 $gestorVerifica = $this->gestor_model->obterGestor($idGestor)->result();
                 foreach ($gestorVerifica as $gv) {
-                    if ($gv->senhaGestor != md5($senhaAtual)) {
-                        echo '<script> Tela.fecharModal </script>';
-                        exit();
+                    if ($gv->senhaGestor == $senhaAtual) {
+                        $testeGestor = TRUE;
                     }
                 }
 
+                if ($testeGestor == TRUE) {
+                    $alterarGestor = array(
+                        'senhaGestor' => $senhaGestor,
+                    );
 
-                $alterarGestor = array(
-                    'senhaGestor' => $senhaGestor,
-                );
-
-                $this->gestor_model->alterarDadosGestor($alterarGestor, $idGestor);
-                echo "<script> Gestor.editarGestor() </script>";
+                    $this->gestor_model->alterarDadosGestor($alterarGestor, $idGestor);
+                    echo "<script> alert('Senha alterada com sucesso!'); Gestor.editarGestor() </script>";
+                } else {
+                    echo "<script> alert('Devido à divergência de informações a senha não pode ser alterada!'); Gestor.editarGestor() </script>";
+                }
             }
         } else {
             redirect(base_url() . "administrador/seguranca");
@@ -267,7 +272,7 @@ class configuracao extends CI_Controller {
     }
 
     function editarGestor() {
-        if (($this->session->userdata('idAdmin')) && ($this->session->userdata('nomeAdmin')) && ($this->session->userdata('emailAdmin')) && ($this->session->userdata('senhaAdmin'))) {
+        if (($this->session->userdata('idGestor')) && ($this->session->userdata('nomeGestor')) && ($this->session->userdata('emailGestor')) && ($this->session->userdata('senhaGestor'))) {
 
             $dados = array(
                 'gestor' => $this->gestor_model->obterTodosGestor()->result(),
@@ -283,7 +288,7 @@ class configuracao extends CI_Controller {
 
         if (($this->session->userdata('idGestor')) && ($this->session->userdata('nomeGestor')) && ($this->session->userdata('emailGestor')) && ($this->session->userdata('senhaGestor'))) {
 
-            $idGestor = $_POST['idGestor'];
+            $idGestor = $this->session->userdata('idGestor');
 
             $dados = array(
                 'gestor' => $this->gestor_model->obterGestor($idGestor)->result(),
@@ -297,12 +302,12 @@ class configuracao extends CI_Controller {
     }
 
     function alterarGestor() {
-        if (($this->session->userdata('idAdmin')) && ($this->session->userdata('nomeAdmin')) && ($this->session->userdata('emailAdmin')) && ($this->session->userdata('senhaAdmin'))) {
+        if (($this->session->userdata('idGestor')) && ($this->session->userdata('nomeGestor')) && ($this->session->userdata('emailGestor')) && ($this->session->userdata('senhaGestor'))) {
 
             $this->form_validation->set_rules('nomeGestor', 'Nome', 'required|trim|min_length[4]|max_length[50]');
             //  $this->form_validation->set_rules('cpfGestor', 'CPF', 'callback_cpf_check|required|trim|min_length[11]|max_length[11]');
             $this->form_validation->set_rules('emailGestor', 'Email', 'required|trim|min_length[5]|max_length[70]|valid_email');
-            //$this->form_validation->set_rules('senhaGestor', 'Senha', 'required|min_length[6]|max_length[20]');
+            $this->form_validation->set_rules('senhaAtual', 'Senha atual', 'required|min_length[6]|max_length[20]');
 
             if ($this->form_validation->run() == FALSE) {
                 $idGestor = $_POST['idGestor'];
@@ -316,21 +321,34 @@ class configuracao extends CI_Controller {
 
                 $idGestor = $_POST['idGestor'];
                 $nomeGestor = $_POST['nomeGestor'];
-                //  $cpfGestor = $_POST['cpfGestor'];
+
                 $emailGestor = $_POST['emailGestor'];
+                $senhaAtual = md5($_POST['senhaAtual']);
 
+                $testeGestor = FALSE;
+                $gestorVerifica = $this->gestor_model->obterGestor($idGestor)->result();
+                foreach ($gestorVerifica as $gv) {
+                    if ($gv->senhaGestor == $senhaAtual) {
+                        $testeGestor = TRUE;
+                    }
+                }
 
+                if ($testeGestor == TRUE) {
 
+                    $alterarGestor = array(
+                        'nomeGestor' => $nomeGestor,
+                        //   'cpfGestor' => $cpfGestor,
+                        'emailGestor' => $emailGestor,
+                    );
+                    $this->gestor_model->alterarDadosGestor($alterarGestor, $idGestor);
 
-                $alterarGestor = array(
-                    'nomeGestor' => $nomeGestor,
-                    //   'cpfGestor' => $cpfGestor,
-                    'emailGestor' => $emailGestor,
-                );
-                $this->gestor_model->alterarDadosGestor($alterarGestor, $idGestor);
+                    $this->session->set_userdata('nomeGestor', $nomeGestor);
+                    $this->session->set_userdata('emailGestor', $emailGestor);
 
-
-                echo "<script> Gestor.editarGestor() </script>";
+                    echo "<script> alert('Os dados foram alterados com sucesso!'); location.href='" . base_url("cpainel/configuracao/") . "'; </script>";
+                } else {
+                    echo "<script> alert('Devido à divergência de informações os dados não podem ser alterados!'); Gestor.editarGestor()</script>";
+                }
             }
         } else {
             redirect(base_url() . "administrador/seguranca");

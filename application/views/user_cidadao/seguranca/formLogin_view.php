@@ -11,8 +11,8 @@
             <?php echo validation_errors(); ?>
         </span>
         <div class="form-group">
-            <label for="email"> Email: </label>
-            <input type="email" name="email" id="email" class="form-control" value="<?php echo set_value('email') ?>" required />
+            <label for="email"> E-mail: </label>
+            <input type="email" name="email" id="email" placeholder="E-mail" class="form-control" value="<?php echo set_value('email') ?>" required />
         </div>
         <div class="form-group">
             <label for="senha"> Senha: </label>

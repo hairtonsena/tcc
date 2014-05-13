@@ -1,6 +1,6 @@
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-    <h4 class="modal-title"> Moderar Comentários </h4>
+    <h4 class="modal-title"> Moderar comentários </h4>
 </div>
 <div class="modal-body">
     <div class="list-group">

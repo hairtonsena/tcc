@@ -158,37 +158,6 @@ var Problema ={
         // alert(idProblema);
         Tela.abrirModal();
         CarregarPagina.carregarConteudo(url, parametro);
-    },
-    formeAlterarGestor: function(id){
-        var url = Config.base_url+'cpainel/configuracao/formeAlterarGestor';
-        var parametro = 'idGestor='+id;
-        Tela.abrirModal();
-        CarregarPagina.carregarConteudo(url, parametro); 
-    },
-    alterarGestor: function(){
-        var idGestor = $("#idGestor").val();
-        var nomeGestor = $("#nomeGestor").val();
-        var emailGestor = $("#emailGestor").val();
-        
-        var url = Config.base_url+'cpainel/configuracao/alterarGestor';
-        var parametro = 'acao=alterarGestor&&idGestor='+idGestor+'&&nomeGestor='+nomeGestor+
-        '&&emailGestor='+emailGestor;
-        CarregarPagina.carregarConteudo(url, parametro)        
-        
-    },
-    formeAlterarSenha: function(id){
-        var url = Config.base_url+'cpainel/configuracao/formeAlterarSenha';
-        Tela.abrirModal()
-        var parametro = 'acao=formeAlterarSenha&&idGestor='+id;
-        CarregarPagina.carregarConteudo(url, parametro); 
-    },
-    alterarSenha : function(){
-        var idGestor = $("#idGestor").val();
-        var senhaGestor = $("#senhaGestor").val();
-        var senhaAtual = $("#senhaAtual").val();
-        var url = Config.base_url+'cpainel/configuracao/alterarSenha';
-        var parametro = 'acao=alterarSenha&&idGestor='+idGestor+'&&senhaGestor='+senhaGestor+'&&senhaAtual='+senhaAtual;
-        CarregarPagina.carregarConteudo(url, parametro);
     }
 }
 
