@@ -9,11 +9,12 @@ class listaColaboracaoJson extends CI_Controller {
     public function __construct() {
         parent::__construct();
         // carregando as bibliotecas, os model, os helper e as configurações do CI
+        date_default_timezone_set('UTC');
         $this->load->library('session');
         $this->load->database();
         $this->load->helper('url');
         $this->load->model('cpainel/colaboracao_model');
-        date_default_timezone_set('UTC');
+        
     }
 
     // função inicial da classe

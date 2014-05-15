@@ -1,10 +1,4 @@
 <script>
-
-    
-//        $(function(){
-//            $('#emailCidadaoCadastro').bind('keydown',soNums123); // o "#input" é o input que vc quer aplicar a funcionalidade
-//          
-//        });
   
     $('#cpfCidadaoCadastro').keydown(function(e) {
         if(e.shiftKey) e.preventDefault();    // Verifica se o shift esta precionado.
@@ -42,21 +36,21 @@
     ) e.preventDefault(); //Números
     });
  
-    function soNums123(e){
- 
-
-        var resultado="";
-        for (propriedade in e) {
-            resultado += propriedade + ": " + e[propriedade] + "\n"; 
-        };
-        alert(resultado);
-     
-        //Verifica se a tecla digitada é permitida
-        if ($.inArray(keyCode,keyCodesPermitidos) != -1){
-            return true;
-        }    
-        return false;
-    }
+//    function soNums123(e){
+// 
+//
+//        var resultado="";
+//        for (propriedade in e) {
+//            resultado += propriedade + ": " + e[propriedade] + "\n"; 
+//        };
+//        alert(resultado);
+//     
+//        //Verifica se a tecla digitada é permitida
+//        if ($.inArray(keyCode,keyCodesPermitidos) != -1){
+//            return true;
+//        }    
+//        return false;
+//    }
 
 </script>
 

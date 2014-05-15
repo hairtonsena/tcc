@@ -20,6 +20,7 @@ class seguranca extends CI_Controller {
     public
     function __construct() {
         parent::__construct();
+        date_default_timezone_set('UTC');
         $this->load->helper('url');
         $this->load->helper('captcha');
         $this->load->helper('form');
@@ -83,7 +84,7 @@ class seguranca extends CI_Controller {
         $dados = array(
             'emailGestor' => $this->input->post('email'),
             'senhaGestor' => md5($this->input->post('senha')),
-            'nomeGestor' => "Gestor",
+            'nomeGestor' => "Gestor municipal",
             'estadoGestor' => 1
         );
 

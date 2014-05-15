@@ -19,7 +19,7 @@ var Problema = {
         return false;
     },
     verColaboracoesAposSalvar: function() {
-        
+
         var colabocaoCidadao = 0;
         if ($("#minhaColaboracoes").is(':checked', true)) {
             colabocaoCidadao = 1;
@@ -32,7 +32,7 @@ var Problema = {
 
         // Tela.abrirModal();
         Conteudo.generateRandomMarkers(status, categoria, ordem, colabocaoCidadao, 0);
-    // Tela.fecharModal();
+        // Tela.fecharModal();
     },
     editarColaboracao: function(idProblema) {
 
@@ -86,7 +86,7 @@ var Problema = {
         Conteudo.generateRandomMarkers(status, categoria, ordem, colabocaoCidadao, 0);
 
     },
-    verColaboracaoEmail:function(problema){
+    verColaboracaoEmail: function(problema) {
         var parametro = "problema=" + problema;
         var url = Config.base_url + "colaboracao/visualizarProblemaEmail";
         CarregarPagina.carregarConteudo(url, parametro);
@@ -109,7 +109,7 @@ var Problema = {
         //            textePesquisa = 'Raimundo penalva';
         //        }
 
-        var localizacao = textePesquisa +','+Config.nomeMunicipio+', Brasil';
+        var localizacao = textePesquisa + ',' + Config.nomeMunicipio + ', Brasil';
         Conteudo.mostraEndereco(localizacao);
 
     },
@@ -131,38 +131,32 @@ var Problema = {
         $(botaoApoio).attr('disabled', 'true');
         $(botaoApoioB).attr('disabled', 'true');
 
-        var num = $(nomeid).html();
-        num++
-
-        $(nomeid).html(num);
-        $(nomeidB).html(num);
-
         var parametro = "idProblema=" + idProblema;
         var url = Config.base_url + "colaboracao/apoiarProblema";
 
-        CarregarPagina.carregarConteudo(url, parametro);
+        CarregarPagina.enviarDadosApoioReprova(url, parametro,nomeid,nomeidB);
     },
     reprovadoProblema: function(idProblema) {
 
         var nomeid = "#numReprova" + idProblema;
         var nomeidB = "#numReprovaB" + idProblema;
         var botaoReprova = "#botaoReprova" + idProblema;
-        var botaoReprovaB = "#botaoReprovaB" + idProblema;        
-        
+        var botaoReprovaB = "#botaoReprovaB" + idProblema;
+
 
         $(botaoReprova).attr('disabled', 'true');
         $(botaoReprovaB).attr('disabled', 'true');
-        
-        var num = $(nomeid).html();
-        num++
-        
-        $(nomeid).html(num);
-        $(nomeidB).html(num);
+
+//        var num = $(nomeid).html();
+//        num++
+//
+//        $(nomeid).html(num);
+//        $(nomeidB).html(num);
 
         var parametro = "idProblema=" + idProblema;
         var url = Config.base_url + "colaboracao/reprovaProblema";
 
-        CarregarPagina.carregarConteudo(url, parametro);
+        CarregarPagina.enviarDadosApoioReprova(url, parametro,nomeid,nomeidB);
     },
     formeComentaProblema: function(idProblema) {
 
@@ -197,7 +191,7 @@ var Problema = {
         var url = Config.base_url + "comentario/verComentarios";
         CarregarPagina.carregarConteudo(url, parametro);
 
-    },            
+    },
     apoiaComentario: function(idComentario) {
 
         var nomeid = "#numApoioComentario" + idComentario;
@@ -216,8 +210,8 @@ var Problema = {
 
     },
     reprovadoComentario: function(idComentario) {
-       
-       
+
+
         var nomeid = "#numReprovaComentario" + idComentario;
         var botaoReprovaComentario = "#botaoReprovaComentario" + idComentario;
 
@@ -226,10 +220,16 @@ var Problema = {
         var num = $(nomeid).html();
         num++
         $(nomeid).html(num);
-       
+
         var parametro = "idComentario=" + idComentario;
         var url = Config.base_url + "comentario/reprovarComentario";
         CarregarPagina.enviarDadosComentairo(url, parametro);
+    },
+    informacaoGeral: function() {
+        Tela.abrirModal();
+        var url = Config.base_url+"manimaps/informacao";
+        var parametro = "";
+        CarregarPagina.carregarConteudo(url,parametro);
     }
 };
 

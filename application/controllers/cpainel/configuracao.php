@@ -4,13 +4,13 @@ class configuracao extends CI_Controller {
 
     function __construct() {
         parent::__construct();
+        date_default_timezone_set('UTC');
         $this->load->library('session');
         $this->load->database();
         $this->load->helper('url');
         $this->load->library('form_validation');
         $this->load->model('cpainel/gestor_model');
         $this->load->model('admin/admin_model');
-        
     }
 
     function index() {
@@ -19,7 +19,6 @@ class configuracao extends CI_Controller {
 
 
             $dados = array(
-                
                 'configuracao' => $this->admin_model->obterConfiguracao()->result(),
             );
 
@@ -131,7 +130,12 @@ class configuracao extends CI_Controller {
 
             $this->admin_model->alterarConfiguracao($idMunicipio, $dados);
 
-            $this->configuracaoGeral();
+
+            echo '<script language="javascript" type="text/javascript">';
+          //  echo 'window.alert("Nome alterado com sucesso!");';
+            echo 'window.location.href="' . base_url("cpainel/configuracao") . '";';
+            echo '</script>';
+            // $this->configuracaoGeral();
         } else {
             redirect(base_url("administrador/seguranca"));
         }

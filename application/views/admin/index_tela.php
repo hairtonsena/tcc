@@ -9,7 +9,7 @@ foreach ($configuracao as $cf) {
     <head>
         <title> Problema urbano </title>
         <meta charset="utf-8"/>
-        <link rel="shortcut icon" href="<?php echo base_url("icone/PU.ico"); ?>" type="image/x-icon" />
+        <link rel="shortcut icon" href="<?php echo base_url("icone/pu.ico"); ?>" type="image/x-icon" />
         <link href="<?php echo base_url("css/bt3/css/bootstrap.min.css"); ?>" rel="stylesheet">  
         <style type="text/css">
 
@@ -80,7 +80,7 @@ if ($configuraPagina->streetViewMaps == 1) {
 
                     <ul class="nav navbar-nav navbar-right">
 
-                        <li class="active"><a href="javascript:void(0)" onclick="Gestor.configuracaoGeral()">Configuração</a></li>
+                        <li class="active"><a href="<?php echo base_url("cpainel/configuracao") ?>" >Configuração</a></li>
                         <li class="dropdown">
                             <a href="javascript:void(0)" class="btn dropdown-toggle" data-toggle="dropdown" href="#"> 
                                 <span class="glyphicon glyphicon-user"></span>

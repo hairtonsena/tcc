@@ -9,7 +9,7 @@ foreach ($configuracao as $cf) {
         <title> cPainel - Gestor  </title>
         <meta charset="utf-8"/>
         <link href="<?php echo base_url("css/bt3/css/bootstrap.min.css"); ?>" rel="stylesheet">
-        <link rel="shortcut icon" href="<?php echo base_url("icone/PU.ico"); ?>" type="image/x-icon" />
+        <link rel="shortcut icon" href="<?php echo base_url("icone/pu.ico"); ?>" type="image/x-icon" />
         <style type="text/css">
             html {
                 height: 100%;

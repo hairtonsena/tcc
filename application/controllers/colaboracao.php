@@ -7,7 +7,8 @@ class colaboracao extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->load->helper('url');
+        date_default_timezone_set('UTC');
+        $this->load->helper('url');         
         $this->load->database();
         $this->load->library('session');
         $this->load->library('email');
@@ -15,7 +16,7 @@ class colaboracao extends CI_Controller {
         $this->load->model('manimaps/tipo_model');
         $this->load->model('manimaps/colaboracao_model');
         $this->load->model('cpainel/gestor_model');
-        date_default_timezone_set('UTC');
+       
     }
 
     function index() {
@@ -253,6 +254,9 @@ class colaboracao extends CI_Controller {
 
                 $this->colaboracao_model->persistirApoiarProblema($dados);
             }
+            
+            echo $this->colaboracao_model->quatidadeApoioProblema($idProblema);
+            
         }
     }
 
@@ -272,6 +276,7 @@ class colaboracao extends CI_Controller {
 
                 $this->colaboracao_model->persistirReprovarProblema($dados);
             }
+            echo $this->colaboracao_model->quatidadeDenunciaProblema($idProblema);
         }
     }
 

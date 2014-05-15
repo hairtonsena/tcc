@@ -7,11 +7,11 @@ class ListarColaboracaoJson extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
+        date_default_timezone_set('UTC');
         $this->load->helper('url');
         $this->load->database();
         $this->load->library('session');
         $this->load->model('manimaps/colaboracao_model');
-        date_default_timezone_set('UTC');
     }
 
     public function index() {

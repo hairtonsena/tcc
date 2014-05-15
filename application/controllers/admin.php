@@ -18,7 +18,7 @@ class admin extends CI_Controller{
         
         $this->load->helper('url');
         
-        redirect(base_url()."administrador/cpainel");
+        redirect(base_url());
     }
     //put your code here
 }

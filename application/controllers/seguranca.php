@@ -18,7 +18,7 @@ if (!defined('BASEPATH'))
 class seguranca extends CI_Controller {
 
     public
-    function __construct() {
+            function __construct() {
         parent::__construct();
         date_default_timezone_set('UTC');
         $this->load->helper('url');
@@ -100,7 +100,7 @@ class seguranca extends CI_Controller {
 
     function validarUsuario_check() {
         $dadosLogin = array(
-            'emailCidadao' => $this->input->post('email'),
+            'emailCidadao' => strtolower($this->input->post('email')),
             'senhaCidadao' => md5($this->input->post('senha'))
         );
 
@@ -154,7 +154,7 @@ class seguranca extends CI_Controller {
 
     function cadastraCidadaoEXE() {
 
-        $this->form_validation->set_rules('nomeCidadaoCadastro', 'Nome', 'required|trim|min_length[4]|max_length[50]');
+        $this->form_validation->set_rules('nomeCidadaoCadastro', 'Nome', 'required|trim|min_length[4]|max_length[50]|callback_verificarHtml_check');
         $this->form_validation->set_rules('cpfCidadaoCadastro', 'CPF', 'callback_cpf_check|required|trim|numeric|min_length[11]|max_length[11]|is_unique[cidadao.cpfCidadao]');
         $this->form_validation->set_message('is_unique', 'Já existe um usuário cadastrado para este %s.');
         $this->form_validation->set_rules('emailCidadaoCadastro', 'E-mail', 'required|trim|min_length[5]|max_length[70]|valid_email|is_unique[cidadao.emailCidadao]');
@@ -167,11 +167,15 @@ class seguranca extends CI_Controller {
             $this->load->view('user_cidadao/seguranca/cadastraCidadao_view');
         } else {
 
+            $nome = ucwords(strip_tags($this->input->post('nomeCidadaoCadastro')));
+            $emailCidadao = strtolower($this->input->post('emailCidadaoCadastro'));
+
+
             $cidadaoCadastro = array(
                 'idCidadao' => '',
-                'nomeCidadao' => $this->input->post('nomeCidadaoCadastro'),
+                'nomeCidadao' => $nome,
                 'cpfCidadao' => $this->input->post('cpfCidadaoCadastro'),
-                'emailCidadao' => $this->input->post('emailCidadaoCadastro'),
+                'emailCidadao' => $emailCidadao,
                 'senhaCidadao' => md5($this->input->post('senhaCidadaoCadastro')),
                 'estadoCidadao' => 1,
             );
@@ -200,6 +204,18 @@ class seguranca extends CI_Controller {
                     echo '<script language = "JavaScript">location.href = "' . base_url() . '";</script>';
                 }
             }
+        }
+    }
+
+    public function verificarHtml_check($campoNome) {
+
+        $nome = strip_tags($campoNome);
+        $qtdeCaracter = 4;
+        if (strlen($nome) <= $qtdeCaracter) {
+            $this->form_validation->set_message('verificarHtml_check', 'O campo %s deve ter mais de ' . $qtdeCaracter . ' letras !');
+            return FALSE;
+        } else {
+            return TRUE;
         }
     }
 
@@ -340,7 +356,7 @@ class seguranca extends CI_Controller {
                 $this->email->message($textoMensagem);
 
                 if (!$this->email->send()) {
-                    echo $this->email->print_debugger();
+                    $this->email->print_debugger();
                 }
 
                 echo '
@@ -376,16 +392,15 @@ class seguranca extends CI_Controller {
             if ((isset($_POST['senhaAtual'])) && (isset($_POST['alterarNome']))) {
 
 
-                $this->form_validation->set_rules('alterarNome', 'Alterar nome', 'required|trim|min_length[4]|max_length[50]');
+                $this->form_validation->set_rules('alterarNome', 'Alterar nome', 'required|trim|min_length[4]|max_length[50]|callback_verificarHtml_check');
                 $this->form_validation->set_rules('senhaAtual', 'Senha atual', 'required|min_length[6]|max_length[20]|callback_verificarUsuario_check');
 
 
                 if ($this->form_validation->run() == FALSE) {
-
                     $this->load->view('user_cidadao/seguranca/alterarNomeCidadao');
                 } else {
 
-                    $alterarNome = trim($_POST['alterarNome']);
+                    $alterarNome = trim(strip_tags($_POST['alterarNome']));
 
                     $dadosNome = array(
                         'nomeCidadao' => $alterarNome,

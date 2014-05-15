@@ -7,6 +7,7 @@ class Manimaps extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
+        date_default_timezone_set('UTC');
         $this->load->helper('url');
         $this->load->helper('form');
         $this->load->database();
@@ -16,8 +17,9 @@ class Manimaps extends CI_Controller {
         $this->load->model('manimaps/status_model');
         $this->load->model('manimaps/tipo_model');
         $this->load->model('manimaps/colaboracao_model');
+        $this->load->model('manimaps/colaboracao_model');
 
-        $this->load->library('pagination');
+        //$this->load->library('pagination');
     }
 
     public function index() {
@@ -29,8 +31,8 @@ class Manimaps extends CI_Controller {
             redirect(base_url());
         }
 
-  
-        
+
+
         $dados = array(
             'configuracao' => $this->colaboracao_model->obterConfiguracoa()->result(),
             'statusProblema' => $this->status_model->obterTodosStatusProblema()->result(),
@@ -41,15 +43,27 @@ class Manimaps extends CI_Controller {
         $this->load->view('user_cidadao/index_tela', $dados);
     }
 
-    public function nova() {
+//
+//    public function nova() {
+//
+//        $dados = array(
+//            'statusProblema' => $this->status_model->obterTodosStatusProblema()->result(),
+//            'tipoProblema' => $this->tipo_model->obterTodosTiposProblema()->result()
+//        );
+//
+//
+//        $this->load->view('user_cidadao/index_tela_old', $dados);
+//    }
+
+
+    public function informacao() {
+
 
         $dados = array(
-            'statusProblema' => $this->status_model->obterTodosStatusProblema()->result(),
-            'tipoProblema' => $this->tipo_model->obterTodosTiposProblema()->result()
+            'configuracao' => $this->colaboracao_model->obterConfiguracoa()->result()
         );
 
-
-        $this->load->view('user_cidadao/index_tela_old', $dados);
+         $this->load->view('user_cidadao/informacaoGeral_view', $dados);
     }
 
 }

@@ -17,11 +17,11 @@ class instalar extends CI_controller {
 
     public function __construct() {
         parent::__construct();
+        date_default_timezone_set('UTC');
         $this->load->helper('url');
         $this->load->database();
         $this->load->library('session');
         $this->load->model('instalar_model');
-        date_default_timezone_set('UTC');
     }
 
     function index() {
@@ -32,7 +32,7 @@ class instalar extends CI_controller {
         <title> Problema urbano  </title>
         <meta charset="utf-8"/>
         <link href="' . base_url("css/bt3/css/bootstrap.min.css") . '" rel="stylesheet">
-        <link rel="shortcut icon" href="' . base_url("icone/PU.ico") . '" type="image/x-icon" />
+        <link rel="shortcut icon" href="' . base_url("icone/pu.ico") . '" type="image/x-icon" />
         <style type="text/css">
             html {
                 height: 100%;

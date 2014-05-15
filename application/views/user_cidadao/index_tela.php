@@ -25,7 +25,7 @@ foreach ($configuracao as $cf) {
           <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
           <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
-        <link rel="shortcut icon" href="<?php echo base_url("icone/PU.ico"); ?>" type="image/x-icon" />
+        <link rel="shortcut icon" href="<?php echo base_url("icone/pu.ico"); ?>" type="image/x-icon" />
 
         <script type="text/javascript">
         
@@ -115,7 +115,7 @@ if ($configuraPagina->streetViewMaps == 1) {
                     </ul>
 
                     <ul class="nav navbar-nav col-md-4 navbar-right">
-                        <li> <a class="" href="#"><span style="font-size: 20"> <?php echo $cf->nomeMunicipio ?></span></a></li>
+                        <li> <a class="" href="javascript:void(0)" onclick="Problema.informacaoGeral()"><span style="font-size: 20"> <?php echo $cf->nomeMunicipio ?></span></a></li>
 
                     </ul>
 
