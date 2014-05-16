@@ -8,15 +8,15 @@ class colaboracao extends CI_Controller {
     public function __construct() {
         parent::__construct();
         date_default_timezone_set('UTC');
-        $this->load->helper('url');         
+        $this->load->helper('url');
         $this->load->database();
         $this->load->library('session');
         $this->load->library('email');
         $this->load->library('form_validation');
+        $this->load->library('upload');
         $this->load->model('manimaps/tipo_model');
         $this->load->model('manimaps/colaboracao_model');
         $this->load->model('cpainel/gestor_model');
-       
     }
 
     function index() {
@@ -97,13 +97,13 @@ class colaboracao extends CI_Controller {
                 $assunto = $tituloMensagem;
 
                 // $assunto = 'Novo Email Projeto TCC';
-                $this->email->from('hairtontcc@yahoo.com.br', 'Projeto TCC');
+                $this->email->from('hairtontcc@yahoo.com.br', 'Problema urbano');
                 $this->email->to($ge['emailGestor']);
                 $this->email->subject($assunto);
                 $this->email->message($textoMensagem);
 
                 if (!$this->email->send()) {
-                     $this->email->print_debugger();
+                    $this->email->print_debugger();
                 }
 
                 $idProblema = 0;
@@ -112,15 +112,121 @@ class colaboracao extends CI_Controller {
                 }
 
                 echo '<script> Problema.verColaboracoesAposSalvar() </script>';
-                echo '
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 
-                    <h4 class="modal-title"> Registro de problema</h4>
-                </div>            
-                <div class="modal-body"> O problema foi registrado com sucesso. <br/>
-                    <button type="button" onclick="Tela.fecharModal()" class="btn btn-default">ok</a>
-                </div>';
+                $this->formEnviarImagem($idProblema);
+//                
+//                echo '
+//                <div class="modal-header">
+//                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+//
+//                    <h4 class="modal-title"> Registro de problema</h4>
+//                </div>            
+//                <div class="modal-body"> O problema foi registrado com sucesso. <br/>
+//                    <button type="button" onclick="Tela.fecharModal()" class="btn btn-default">ok</a>
+//                </div>';
+            }
+        }
+    }
+
+    public function formEnviarImagem($idProblema = NULL) {
+        if (($this->session->userdata('idCidadao')) && ($this->session->userdata('nomeCidadao')) && ($this->session->userdata('emailCidadao')) && ($this->session->userdata('senhaCidadao'))) {
+
+            if ($idProblema == NULL) {
+                echo '<script> Tela.fecharModal(); </script> ';
+            } else {
+                $dados = array(
+                    'problema' => $idProblema,
+                );
+
+                $this->load->view("user_cidadao/colaboracao/formUploadImagem", $dados);
+            }
+        }
+    }
+
+    public function salvarImagem() {
+        if (($this->session->userdata('idCidadao')) && ($this->session->userdata('nomeCidadao')) && ($this->session->userdata('emailCidadao')) && ($this->session->userdata('senhaCidadao'))) {
+
+            $id_problema = $this->input->post('problema');
+
+            $diretorio_anexo_mural = 'imagem/';
+
+            $field_name = "arquivo";
+
+
+            $config['remove_spaces'] = TRUE;
+            $config['encrypt_name'] = TRUE;
+            $config['upload_path'] = $diretorio_anexo_mural; // server directory
+            $config['allowed_types'] = 'jpg|jpeg|png'; // by extension, will check for whether it is an image
+            $config['max_size'] = '100000000000000'; // in kb
+            $config['is_image'] = 1;
+
+
+            $this->upload->initialize($config);
+
+            $files = $this->upload->do_upload($field_name);
+
+            if (!$files) {
+
+                $error = $this->upload->display_errors('<div class="alert alert-danger">', '<div>');
+
+                echo $error;
+            } else {
+
+                $dadosImagem = $this->upload->data();
+
+              //  $this->load->library('image_lib');
+             //   $config = array();
+
+//                $config['source_image'] = $diretorio_anexo_mural . $dadosImagem['file_name'];
+//                $config['create_thumb'] = false;
+//                $config['maintain_ratio'] = TRUE;
+//                $config['largura'] = 300;
+//                $config['altura'] = 200;
+//                $config['master_dim'] = 'auto';
+//                $config['new_image'] = $diretorio_anexo_mural . $dadosImagem['file_name'];
+
+//
+//                $config['image_library'] = 'gd';
+//                $config['source_image'] = $diretorio_anexo_mural.$dadosImagem['file_name'];
+//                $config['create_thumb'] = TRUE;
+//                $config['maintain_ratio'] = TRUE;
+//                $config['width'] = 75;
+//                $config['height'] = 50;
+
+
+
+               // $this->image_lib->initialize($config);
+
+                // $this->image_lib->resize();
+
+//                if (!$this->image_lib->resize()) {
+//                    echo $this->image_lib->display_errors();
+//                } 
+//                else {
+//                    echo "deu certo";
+//                }
+
+
+
+                // print_r($dadosImagem);
+
+
+                $dados = array(
+                    'imagemProblema' => $dadosImagem['file_name']
+                );
+
+                $this->colaboracao_model->alterarDadosColaboracao($dados, $id_problema);
+
+                echo '<script> Problema.verColaboracoesAposSalvar() </script>';
+                echo "<div class=\"alert alert-success\"> Imagem enviado com sucesso!</div>";
+//                $dados = array(
+//                    'nome_arquivo_am' => $nome_arquivo,
+//                    'arquivo_am' => $nome_anexo,
+//                    'id_mural' => $id_mural,
+//                    'data_am' => date("Y-m-d"),
+//                    'status_am' => 0
+//                );
+                //$this->mural_model->salvarAnexoMural($dados);
             }
         }
     }
@@ -254,9 +360,8 @@ class colaboracao extends CI_Controller {
 
                 $this->colaboracao_model->persistirApoiarProblema($dados);
             }
-            
+
             echo $this->colaboracao_model->quatidadeApoioProblema($idProblema);
-            
         }
     }
 

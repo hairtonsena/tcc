@@ -28,25 +28,24 @@ foreach ($configuracao as $cf) {
         <link rel="shortcut icon" href="<?php echo base_url("icone/pu.ico"); ?>" type="image/x-icon" />
 
         <script type="text/javascript">
-        
+
             Config = {
                 base_url: "<?php echo base_url() ?>",
-                
-                nomeMunicipio:"<?php echo $configuraPagina->nomeMunicipio ?>" ,
-                latitudeCentralMaps : <?php echo $configuraPagina->latitudeCentralMunicipio ?>,
-                longitudeCentralMaps : <?php echo $configuraPagina->longitudeCentralMunicipio ?>,
-                zoomMapsInicial : <?php echo $configuraPagina->zoomMapsInicial ?>,
-                streetViewMaps : <?php
+                nomeMunicipio: "<?php echo $configuraPagina->nomeMunicipio ?>",
+                latitudeCentralMaps: <?php echo $configuraPagina->latitudeCentralMunicipio ?>,
+                longitudeCentralMaps: <?php echo $configuraPagina->longitudeCentralMunicipio ?>,
+                zoomMapsInicial: <?php echo $configuraPagina->zoomMapsInicial ?>,
+                streetViewMaps: <?php
 if ($configuraPagina->streetViewMaps == 1) {
     echo 'true';
 } else {
     echo 'false';
 }
 ?>
-                
 
-    };
-    
+
+            };
+
         </script>
 
     </head>
@@ -75,8 +74,8 @@ if ($configuraPagina->streetViewMaps == 1) {
                             <input type="checkbox" id="addColaboracao"><!-- <span class="glyphicon glyphicon-ok-circle"></span>--> Reportar problema
                         </label>
                     </div>
-                          <form class="navbar-form navbar-left" onsubmit="Problema.pesquisaLocal();
-                        return false;" role="search">
+                    <form class="navbar-form navbar-left" onsubmit="Problema.pesquisaLocal();
+                return false;" role="search">
 
                         <div class="form-group">
 
@@ -88,9 +87,10 @@ if ($configuraPagina->streetViewMaps == 1) {
 
                     <ul class="nav navbar-nav navbar-right">
 
-
+                        <!--<li><a href="javascript:void(0)" onclick="Problema.formImagem()" >teste de imagem </a> </li>-->
 
                         <?php if (($this->session->userdata('nomeCidadao')) && ($this->session->userdata('emailCidadao')) && ($this->session->userdata('senhaCidadao'))) { ?>
+
 
                             <li class="dropdown">
 
@@ -114,7 +114,7 @@ if ($configuraPagina->streetViewMaps == 1) {
 
                     </ul>
 
-                    <ul class="nav navbar-nav col-md-4 navbar-right">
+                    <ul class="nav navbar-nav col-md-3 navbar-right">
                         <li> <a class="" href="javascript:void(0)" onclick="Problema.informacaoGeral()"><span style="font-size: 20"> <?php echo $cf->nomeMunicipio ?></span></a></li>
 
                     </ul>
@@ -229,6 +229,7 @@ if ($configuraPagina->streetViewMaps == 1) {
         <script type="text/javascript" src="<?php echo base_url("jsn/configuracao.js"); ?>"></script>
         <script type="text/javascript" src="<?php echo base_url("jsn/jqxcore.js"); ?>"></script>
         <script type="text/javascript" src="<?php echo base_url("jsn/jqxmenu.js"); ?>"></script>
+        <script type="text/javascript" src="<?php echo base_url("jsn/jquery.form.js"); ?>"></script>
         <script src="<?php echo base_url("jsn/jquery-ui.custom.min.js") ?>"></script>
 
         <div id='jqxMenu' class="" >

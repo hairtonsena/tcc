@@ -9,7 +9,7 @@
                 <?php echo validation_errors() ;?>
             </span>
         <div class="form-group">
-            <label for="senhaAlrual" > Senha stual: </label>
+            <label for="senhaAlrual" > Senha atual: </label>
             <input type="password" id="senhaAtual" name="senhaAtual" maxlength="20" class="form-control" required />
         </div>
         <div class="form-group">

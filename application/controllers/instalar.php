@@ -76,7 +76,7 @@ class instalar extends CI_controller {
                                 <div class="panel-body">
 
                                     <div class="form-group">
-                                       <p> Para intalar o banco de dados no sistema click no botão abaixo "Instalar banco de dados", em seguida você será encaminhado para a tela de login do gestor.</p>
+                                       <p> Para instalar o banco de dados no sistema click no botão abaixo "Instalar banco de dados", em seguida você será encaminhado para a tela de login do gestor.</p>
                                         <p>
                                    <span class="text-danger"> 
                                         Atenção! : </span> é importante ler o X passo do manual de intalação para obter sucesso na instalação.
@@ -85,7 +85,7 @@ class instalar extends CI_controller {
                                     </div>
 
 
-                                    <a href="' . base_url("instalar/criarBanco") . '" name="acao" class="form-control btn pull-right btn-primary"> Intalar banco de dados </a>
+                                    <a href="' . base_url("instalar/criarBanco") . '" name="acao" class="form-control btn pull-right btn-primary"> Instalar banco de dados </a>
 
                                 </div>
                             </div>

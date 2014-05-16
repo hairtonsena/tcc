@@ -17,7 +17,7 @@ if (!defined('BASEPATH'))
   | path to your installation.
   |
  */
-$config['base_url'] = 'http://localhost/tcc_ci/';
+$config['base_url'] =    'http://hairton.besaba.com/'; //'http://192.168.1.104/tcc_ci/';
 
 /*
   |--------------------------------------------------------------------------

@@ -212,6 +212,11 @@ class colaboracao_model extends CI_Model {
         return $this->db->get_where('problema', array('idProblema' => $idColaboracao));
     }
 
+    function alterarDadosColaboracao($dados, $idPoblema) {
+        $this->db->where('idProblema', $idPoblema);
+        $this->db->update('problema', $dados);
+    }
+
     function alterarColaboracaoPendente($dados, $idPoblema) {
         $this->db->where('idProblema', $idPoblema);
         $this->db->update('problema', $dados);
@@ -222,10 +227,10 @@ class colaboracao_model extends CI_Model {
         $this->db->update('problema', $dados);
     }
 
-    
-    function obterConfiguracoa(){
+    function obterConfiguracoa() {
         return $this->db->get('configuracao');
     }
+
 }
 
 ?>

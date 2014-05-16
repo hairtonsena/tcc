@@ -350,7 +350,7 @@ class seguranca extends CI_Controller {
 
 
                 // $assunto = 'Novo Email Projeto TCC';
-                $this->email->from('hairtontcc@yahoo.com.br', 'Projeto TCC');
+                $this->email->from('hairtontcc@yahoo.com.br', 'Problema urbano');
                 $this->email->to($email);
                 $this->email->subject($assunto);
                 $this->email->message($textoMensagem);

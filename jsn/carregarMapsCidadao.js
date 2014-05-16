@@ -58,7 +58,7 @@ var Conteudo = {
             if (json.length == 0) {
 
                 div.innerHTML = '<h4> Nenhuma colaboração encontrada!</h4>';
-            //alert('Nenhum marcador Encontrado!');
+                //alert('Nenhum marcador Encontrado!');
             } else {
 
                 //var idColaboracao = 0;
@@ -67,13 +67,18 @@ var Conteudo = {
                     var objeto = json[n];
 
                     var randLatLng = new google.maps.LatLng(
-                        objeto.latitude
-                        ,
-                        objeto.longitude
-                        );
+                            objeto.latitude
+                            ,
+                            objeto.longitude
+                            );
 
                     var imagem = Config.base_url + 'icone/icone' + objeto.idTipo + '.png';
 
+                    var imagemProblema = "";
+                    if (objeto.imagemProblema != null) {
+                        imagemProblema = '<img src="' + Config.base_url + 'imagem/' + objeto.imagemProblema + '" class="img-responsive" alt="Responsive image"/>';
+                    }
+                    
                     var marker = new google.maps.Marker({
                         map: Conteudo.map,
                         title: objeto.tipo,
@@ -99,66 +104,66 @@ var Conteudo = {
                     if (objeto.userLogado == 'sim') {
                         if (objeto.jaApoiei == 'nao') {
                             botoesApoioDenucia = '<button type="button" id="botaoApoio' + objeto.idProblema + '" class="btn btn-primary btn-xs" onclick="Problema.apoiaProblema(\'' + objeto.idProblema + '\')" >' +
-                            '<i class="glyphicon glyphicon-thumbs-up"></i> ' +
-                            '<span class="text-info badge" id="numApoio' + objeto.idProblema + '">' + objeto.qtde_apoio + '</span>' +
-                            '</button>';
+                                    '<i class="glyphicon glyphicon-thumbs-up"></i> ' +
+                                    '<span class="text-info badge" id="numApoio' + objeto.idProblema + '">' + objeto.qtde_apoio + '</span>' +
+                                    '</button>';
                             botoesApoioDenuciaB = '<button type="button" id="botaoApoioB' + objeto.idProblema + '" class="btn btn-primary btn-xs" onclick="Problema.apoiaProblema(\'' + objeto.idProblema + '\')" >' +
-                            '<i class="glyphicon glyphicon-thumbs-up"></i> ' +
-                            '<span class="text-info badge" id="numApoioB' + objeto.idProblema + '">' + objeto.qtde_apoio + '</span>' +
-                            '</button>';
+                                    '<i class="glyphicon glyphicon-thumbs-up"></i> ' +
+                                    '<span class="text-info badge" id="numApoioB' + objeto.idProblema + '">' + objeto.qtde_apoio + '</span>' +
+                                    '</button>';
                         } else {
                             botoesApoioDenucia = '<button type="button" disabled="true" class="btn btn-primary btn-xs" onclick="alert(\'Você já Apoiou\')" >' +
-                            '<i class="glyphicon glyphicon-thumbs-up"></i> ' +
-                            '<span class="text-info badge">' + objeto.qtde_apoio + '</span>' +
-                            '</button>';
+                                    '<i class="glyphicon glyphicon-thumbs-up"></i> ' +
+                                    '<span class="text-info badge">' + objeto.qtde_apoio + '</span>' +
+                                    '</button>';
                             botoesApoioDenuciaB = '<button type="button" disabled="true" class="btn btn-primary btn-xs" onclick="alert(\'Você já Apoiou\')" >' +
-                            '<i class="glyphicon glyphicon-thumbs-up"></i> ' +
-                            '<span class="text-info badge">' + objeto.qtde_apoio + '</span>' +
-                            '</button>';
+                                    '<i class="glyphicon glyphicon-thumbs-up"></i> ' +
+                                    '<span class="text-info badge">' + objeto.qtde_apoio + '</span>' +
+                                    '</button>';
                         }
                         ;
 
                         if (objeto.jaReprovei == 'nao') {
                             botoesApoioDenucia = botoesApoioDenucia +
-                            ' <button type="button" id="botaoReprova' + objeto.idProblema + '" class="btn btn-default btn-xs" onclick="Problema.reprovadoProblema(\'' + objeto.idProblema + '\')">' +
-                            '<i class="glyphicon glyphicon-thumbs-down"></i> ' +
-                            '<span class="text-error badge" id="numReprova' + objeto.idProblema + '">' + objeto.qtde_denuncia + '</span>' +
-                            '</button>';
+                                    ' <button type="button" id="botaoReprova' + objeto.idProblema + '" class="btn btn-default btn-xs" onclick="Problema.reprovadoProblema(\'' + objeto.idProblema + '\')">' +
+                                    '<i class="glyphicon glyphicon-thumbs-down"></i> ' +
+                                    '<span class="text-error badge" id="numReprova' + objeto.idProblema + '">' + objeto.qtde_denuncia + '</span>' +
+                                    '</button>';
                             botoesApoioDenuciaB = botoesApoioDenuciaB +
-                            ' <button type="button" id="botaoReprovaB' + objeto.idProblema + '" class="btn btn-default btn-xs" onclick="Problema.reprovadoProblema(\'' + objeto.idProblema + '\')">' +
-                            '<i class="glyphicon glyphicon-thumbs-down"></i> ' +
-                            '<span class="text-error badge" id="numReprovaB' + objeto.idProblema + '">' + objeto.qtde_denuncia + '</span>' +
-                            '</button>';
+                                    ' <button type="button" id="botaoReprovaB' + objeto.idProblema + '" class="btn btn-default btn-xs" onclick="Problema.reprovadoProblema(\'' + objeto.idProblema + '\')">' +
+                                    '<i class="glyphicon glyphicon-thumbs-down"></i> ' +
+                                    '<span class="text-error badge" id="numReprovaB' + objeto.idProblema + '">' + objeto.qtde_denuncia + '</span>' +
+                                    '</button>';
                         } else {
                             botoesApoioDenucia = botoesApoioDenucia +
-                            ' <button type="button"  disabled="true" class="btn btn-default btn-xs" onclick="Problema.reprovadoProblema(\'' + objeto.idProblema + '\')">' +
-                            '<i class="glyphicon glyphicon-thumbs-down"></i> ' +
-                            '<span class="text-error badge" >' + objeto.qtde_denuncia + '</span>' +
-                            '</button>';
+                                    ' <button type="button"  disabled="true" class="btn btn-default btn-xs" onclick="Problema.reprovadoProblema(\'' + objeto.idProblema + '\')">' +
+                                    '<i class="glyphicon glyphicon-thumbs-down"></i> ' +
+                                    '<span class="text-error badge" >' + objeto.qtde_denuncia + '</span>' +
+                                    '</button>';
                             botoesApoioDenuciaB = botoesApoioDenuciaB +
-                            ' <button type="button"  disabled="true" class="btn btn-default btn-xs" onclick="Problema.reprovadoProblema(\'' + objeto.idProblema + '\')">' +
-                            '<i class="glyphicon glyphicon-thumbs-down"></i> ' +
-                            '<span class="text-error badge" >' + objeto.qtde_denuncia + '</span>' +
-                            '</button>';
+                                    ' <button type="button"  disabled="true" class="btn btn-default btn-xs" onclick="Problema.reprovadoProblema(\'' + objeto.idProblema + '\')">' +
+                                    '<i class="glyphicon glyphicon-thumbs-down"></i> ' +
+                                    '<span class="text-error badge" >' + objeto.qtde_denuncia + '</span>' +
+                                    '</button>';
                         }
 
                     } else {
                         botoesApoioDenucia = '<a class="btn btn-primary btn-xs" href="javascript:void(0)" onclick="alert(\'Desculpe, faça login para realizar esta operação\')" >' +
-                        '<i class="glyphicon glyphicon-thumbs-up"></i> ' +
-                        '<span class="text-info badge">' + objeto.qtde_apoio + '</span>' +
-                        '</a> ' +
-                        '<a class="btn btn-default btn-xs" href="javascript:void(0)" onclick="alert(\'Desculpe, faça login para realizar esta operação\')">' +
-                        '<i class="glyphicon glyphicon-thumbs-down"></i> ' +
-                        '<span class="text-error badge">' + objeto.qtde_denuncia + '</span>' +
-                        '</a>';
+                                '<i class="glyphicon glyphicon-thumbs-up"></i> ' +
+                                '<span class="text-info badge">' + objeto.qtde_apoio + '</span>' +
+                                '</a> ' +
+                                '<a class="btn btn-default btn-xs" href="javascript:void(0)" onclick="alert(\'Desculpe, faça login para realizar esta operação\')">' +
+                                '<i class="glyphicon glyphicon-thumbs-down"></i> ' +
+                                '<span class="text-error badge">' + objeto.qtde_denuncia + '</span>' +
+                                '</a>';
                         botoesApoioDenuciaB = ' <a class="btn btn-primary btn-xs" href="javascript:void(0)" onclick="alert(\'Desculpe, faça login para realizar esta operação\')" >' +
-                        '<i class="glyphicon glyphicon-thumbs-up"></i> ' +
-                        '<span class="text-info badge">' + objeto.qtde_apoio + '</span>' +
-                        '</a> ' +
-                        '<a class="btn btn-default btn-xs" href="javascript:void(0)" onclick="alert(\'Desculpe, faça login para realizar esta operação\')">' +
-                        '<i class="glyphicon glyphicon-thumbs-down"></i> ' +
-                        '<span class="text-error badge">' + objeto.qtde_denuncia + '</span>' +
-                        '</a>';
+                                '<i class="glyphicon glyphicon-thumbs-up"></i> ' +
+                                '<span class="text-info badge">' + objeto.qtde_apoio + '</span>' +
+                                '</a> ' +
+                                '<a class="btn btn-default btn-xs" href="javascript:void(0)" onclick="alert(\'Desculpe, faça login para realizar esta operação\')">' +
+                                '<i class="glyphicon glyphicon-thumbs-down"></i> ' +
+                                '<span class="text-error badge">' + objeto.qtde_denuncia + '</span>' +
+                                '</a>';
                     }
 
                     switch (objeto.idStatus) {
@@ -173,21 +178,22 @@ var Conteudo = {
 
 
                             conteudoBalaoMapa =
-                            '<div style="font-size: 12; width:300px;"><img src="' + imagem + '"/> ' + objeto.tipo + '</strong><span class="pull-right">' + objeto.dataProblema + '</span>' +
-                            '<br/>' + objeto.descricao +
-                            '<br/><strong class="tituloProblema">Situação:</strong>' +
-                            objeto.nomeStatus +
-                            '<div class="" style="text-align: right">'+ botaoEditar + verificarComentario + botoesApoioDenuciaB +
-                            '</div></div>';
+                                    '<div style="font-size: 12; width:300px;"><img src="' + imagem + '"/> ' + objeto.tipo + '</strong><span class="pull-right">' + objeto.dataProblema + '</span>' +
+                                    '<br/>' + objeto.descricao +
+                                    imagemProblema +
+                                    '<br/><strong class="tituloProblema">Situação:</strong>' +
+                                    objeto.nomeStatus +
+                                    '<div class="" style="text-align: right">' + botaoEditar + verificarComentario + botoesApoioDenuciaB +
+                                    '</div></div>';
 
 
                             conteudoDireito =
-                            '<div style="font-size: 12;"><strong class="tituloProblema"> <img src="' + imagem + '"/> ' + objeto.tipo + '</strong><span class="pull-right">' + objeto.dataProblema + '</span>' +
-                            '<br/>' + objeto.descricao +
-                            '<br/><strong class="tituloProblema">Situação:</strong>' +
-                            objeto.nomeStatus +
-                            '<div class="" style="text-align: right">'+ botaoEditar + verificarComentario + botoesApoioDenucia +
-                            '</div></div>';
+                                    '<div style="font-size: 12;"><strong class="tituloProblema"> <img src="' + imagem + '"/> ' + objeto.tipo + '</strong><span class="pull-right">' + objeto.dataProblema + '</span>' +
+                                    '<br/>' + objeto.descricao +
+                                    '<br/><strong class="tituloProblema">Situação:</strong>' +
+                                    objeto.nomeStatus +
+                                    '<div class="" style="text-align: right">' + botaoEditar + verificarComentario + botoesApoioDenucia +
+                                    '</div></div>';
                             break;
 
 
@@ -201,40 +207,41 @@ var Conteudo = {
 
 
                             conteudoBalaoMapa =
-                            '<div style="font-size: 12; width:300px;"><img src="' + imagem + '"/> ' + objeto.tipo + '</strong><span class="pull-right">' + objeto.dataProblema + '</span>' +
-                            '<br/>' + objeto.descricao +
-                            '<br/><strong class="tituloProblema">Situação:</strong>' +
-                            objeto.nomeStatus +
-                            '<div class="" style="text-align: right">' + botaoConfirma + verificarComentario + botoesApoioDenuciaB +
-                            '</div></div>';
+                                    '<div style="font-size: 12; width:300px;"><img src="' + imagem + '"/> ' + objeto.tipo + '</strong><span class="pull-right">' + objeto.dataProblema + '</span>' +
+                                    '<br/>' + objeto.descricao +
+                                    '<br/><strong class="tituloProblema">Situação:</strong>' +
+                                    objeto.nomeStatus +
+                                    '<div class="" style="text-align: right">' + botaoConfirma + verificarComentario + botoesApoioDenuciaB +
+                                    '</div></div>';
 
 
                             conteudoDireito =
-                            '<div style="font-size: 12;"><strong class="tituloProblema"> <img src="' + imagem + '"/> ' + objeto.tipo + '</strong><span class="pull-right">' + objeto.dataProblema + '</span>' +
-                            '<br/>' + objeto.descricao +
-                            '<br/><strong class="tituloProblema">Situação:</strong>' +
-                            objeto.nomeStatus +
-                            '<div class="" style="text-align: right">' + botaoConfirma + verificarComentario + botoesApoioDenucia +
-                            '</div></div>';
+                                    '<div style="font-size: 12;"><strong class="tituloProblema"> <img src="' + imagem + '"/> ' + objeto.tipo + '</strong><span class="pull-right">' + objeto.dataProblema + '</span>' +
+                                    '<br/>' + objeto.descricao +
+                                    '<br/><strong class="tituloProblema">Situação:</strong>' +
+                                    objeto.nomeStatus +
+                                    '<div class="" style="text-align: right">' + botaoConfirma + verificarComentario + botoesApoioDenucia +
+                                    '</div></div>';
                             break;
 
                         case '1' :
 
                             conteudoBalaoMapa =
-                            '<div style="font-size: 12; width:300px;"><img src="' + imagem + '"/> ' + objeto.tipo + '</strong><span class="pull-right">' + objeto.dataProblema + '</span>' +
-                            '<br/>' + objeto.descricao +
-                            '<br/><strong class="tituloProblema">Situação:</strong>' +
-                            objeto.nomeStatus +
-                            '<div class="" style="text-align: right">' + verificarComentario + botoesApoioDenuciaB +
-                            '</div></div>';
+                                    '<div style="font-size: 12; width:300px;"><img src="' + imagem + '"/> ' + objeto.tipo + '</strong><span class="pull-right">' + objeto.dataProblema + '</span>' +
+                                    '<br/>' + objeto.descricao +
+                                    imagemProblema +
+                                    '<br/><strong class="tituloProblema">Situação:</strong>' +
+                                    objeto.nomeStatus +
+                                    '<div class="" style="text-align: right">' + verificarComentario + botoesApoioDenuciaB +
+                                    '</div></div>';
 
                             conteudoDireito =
-                            '<div style="font-size: 12;"><strong class="tituloProblema"> <img src="' + imagem + '"/> ' + objeto.tipo + '</strong><span class="pull-right">' + objeto.dataProblema + '</span>' +
-                            '<br/>' + objeto.descricao +
-                            '<br/><strong class="tituloProblema">Situação:</strong>' +
-                            objeto.nomeStatus +
-                            '<div class="" style="text-align: right">' + verificarComentario + botoesApoioDenucia +
-                            '</div></div>';
+                                    '<div style="font-size: 12;"><strong class="tituloProblema"> <img src="' + imagem + '"/> ' + objeto.tipo + '</strong><span class="pull-right">' + objeto.dataProblema + '</span>' +
+                                    '<br/>' + objeto.descricao +
+                                    '<br/><strong class="tituloProblema">Situação:</strong>' +
+                                    objeto.nomeStatus +
+                                    '<div class="" style="text-align: right">' + verificarComentario + botoesApoioDenucia +
+                                    '</div></div>';
                             ;
                             break;
 
@@ -243,26 +250,27 @@ var Conteudo = {
                         default :
 
                             conteudoBalaoMapa =
-                            '<div style="font-size: 12; width:300px;"><img src="' + imagem + '"/> ' + objeto.tipo + '</strong><span class="pull-right">' + objeto.dataProblema + '</span>' +
-                            '<br/>' + objeto.descricao +
-                            '<br/><strong class="tituloProblema">Situação:</strong>' +
-                            objeto.nomeStatus +
-                            '<div class="" style="text-align: right">' + verificarComentario + botoesApoioDenuciaB +
-                            '</div></div>';
+                                    '<div style="font-size: 12; width:300px;"><img src="' + imagem + '"/> ' + objeto.tipo + '</strong><span class="pull-right">' + objeto.dataProblema + '</span>' +
+                                    '<br/>' + objeto.descricao +
+                                    imagemProblema +
+                                    '<br/><strong class="tituloProblema">Situação:</strong>' +
+                                    objeto.nomeStatus +
+                                    '<div class="" style="text-align: right">' + verificarComentario + botoesApoioDenuciaB +
+                                    '</div></div>';
 
                             conteudoDireito =
-                            '<div style="font-size: 12;"><strong class="tituloProblema"> <img src="' + imagem + '"/> ' + objeto.tipo + '</strong><span class="pull-right">' + objeto.dataProblema + '</span>' +
-                            '<br/>' + objeto.descricao +
-                            '<br/><strong class="tituloProblema">Situação:</strong>' +
-                            objeto.nomeStatus +
-                            '<div class="" style="text-align: right">' + verificarComentario + botoesApoioDenucia +
-                            '</div></div>';
+                                    '<div style="font-size: 12;"><strong class="tituloProblema"> <img src="' + imagem + '"/> ' + objeto.tipo + '</strong><span class="pull-right">' + objeto.dataProblema + '</span>' +
+                                    '<br/>' + objeto.descricao +
+                                    '<br/><strong class="tituloProblema">Situação:</strong>' +
+                                    objeto.nomeStatus +
+                                    '<div class="" style="text-align: right">' + verificarComentario + botoesApoioDenucia +
+                                    '</div></div>';
                             break;
                     }
 
                     var infoWindow = new google.maps.InfoWindow({
                         content: [
-                        conteudoBalaoMapa
+                            conteudoBalaoMapa
                         ].join(''),
                         size: new google.maps.Size(200, 80)
                     });
@@ -301,10 +309,10 @@ var Conteudo = {
     //    }
     //    ,
     init: function() {
-        
-        
+
+
         var firstLatLng = new google.maps.LatLng(Config.latitudeCentralMaps, Config.longitudeCentralMaps);
-        
+
         Conteudo.map = new google.maps.Map(Conteudo.mapContainer, {
             zoom: Config.zoomMapsInicial,
             center: firstLatLng,
@@ -327,7 +335,7 @@ var Conteudo = {
 
         google.maps.event.addDomListener(Conteudo.generateLink, 'click', function() {
 
-            });
+        });
 
 
         // Clicando em um ponto no mapa para realizar uma nova manifestação 
@@ -357,15 +365,15 @@ var Conteudo = {
 
         // Trabalhando com GeoLocalizaçao  
         Conteudo.geocoder = new google.maps.Geocoder();
-        
-        
+
+
         $("#textoPesquisa").autocomplete({
-            source: function (request, response) {
+            source: function(request, response) {
                 Conteudo.geocoder.geocode({
-                    'address': request.term +','+Config.nomeMunicipio+', Brasil', 
+                    'address': request.term + ',' + Config.nomeMunicipio + ', Brasil',
                     'region': 'BR'
-                }, function (results, status) {
-                    response($.map(results, function (item) {
+                }, function(results, status) {
+                    response($.map(results, function(item) {
                         return {
                             label: item.formatted_address,
                             value: item.formatted_address,
@@ -375,7 +383,7 @@ var Conteudo = {
                     }));
                 })
             },
-            select: function (event, ui) {
+            select: function(event, ui) {
 
                 var location = new google.maps.LatLng(ui.item.latitude, ui.item.longitude);
 
@@ -383,7 +391,7 @@ var Conteudo = {
                 Conteudo.map.setZoom(21);
             }
         });
-        
+
 
     },
     // Adicionando um novo problema no mapa atravez do botão Direito

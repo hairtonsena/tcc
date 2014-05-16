@@ -44,8 +44,6 @@ class instalar_model extends CI_Model {
         $this->db->query($query_criar_db);
     }
 
-
-
     function cria_tabela_apoioproblema() {
 
         $query_criar_db = "CREATE TABLE IF NOT EXISTS `apoioproblema` (
@@ -56,7 +54,6 @@ class instalar_model extends CI_Model {
 
         $this->db->query($query_criar_db);
     }
-
 
     function cria_tabela_cidadao() {
         $query_criar_db = "CREATE TABLE IF NOT EXISTS `cidadao` (
@@ -109,7 +106,6 @@ class instalar_model extends CI_Model {
         $this->db->query($query_criar_db);
     }
 
-
     function cria_tabela_denunciaproblema() {
         $query_criar_db = "CREATE TABLE IF NOT EXISTS `denunciaproblema` (
   `idProblema` int(11) NOT NULL,
@@ -119,7 +115,6 @@ class instalar_model extends CI_Model {
 
         $this->db->query($query_criar_db);
     }
-
 
     function cria_tabela_gestor() {
         $query_criar_db = "CREATE TABLE IF NOT EXISTS `gestor` (
@@ -134,7 +129,6 @@ class instalar_model extends CI_Model {
         $this->db->query($query_criar_db);
     }
 
-
     function cria_tabela_problema() {
         $query_criar_db = "CREATE TABLE IF NOT EXISTS `problema` (
   `idProblema` int(11) NOT NULL AUTO_INCREMENT,
@@ -145,6 +139,7 @@ class instalar_model extends CI_Model {
   `dataPrevistaConclusao` date NOT NULL,
   `latitude` varchar(50) NOT NULL,
   `longitude` varchar(50) NOT NULL,
+  `imagemProblema` varchar(40),
   `idTipo` int(2) NOT NULL,
   `idStatus` int(1) NOT NULL,
   `idCidadao` int(11) NOT NULL,
@@ -174,8 +169,6 @@ class instalar_model extends CI_Model {
 );";
         $this->db->query($query_criar_db);
     }
-
-
 
     function cria_tabela_configuracao() {
         $query_criar_db = "CREATE TABLE IF NOT EXISTS `configuracao` (
@@ -225,7 +218,7 @@ class instalar_model extends CI_Model {
     }
 
     function cria_view_vw_problema_com_apo_den() {
-        $query_criar_db = "CREATE VIEW `vw_problema_com_apo_den` AS select `P`.`idProblema` AS `idProblema`,`P`.`descricao` AS `descricao`,`P`.`data` AS `data`,`P`.`dataInicioManutencao` AS `dataInicioManutencao`,`P`.`dataConclusaoManutencao` AS `dataConclusaoManutencao`,`P`.`dataPrevistaConclusao` AS `dataPrevistaConclusao`,`P`.`latitude` AS `latitude`,`P`.`longitude` AS `longitude`,`P`.`idTipo` AS `idTipo`,`P`.`idStatus` AS `idStatus`,`P`.`idCidadao` AS `idCidadao`,`VC`.`qtde_comentario` AS `qtde_comentario`,`VA`.`qtde_apoio` AS `qtde_apoio`,`VD`.`qtde_denuncia` AS `qtde_denuncia` from (((`problema` `P` join `vw_qtde_comentario` `VC` on((`VC`.`idProblema` = `P`.`idProblema`))) join `vw_qtde_apoio` `VA` on((`VA`.`idProblema` = `P`.`idProblema`))) join `vw_qtde_denuncia` `VD` on((`VD`.`idProblema` = `P`.`idProblema`)));";
+        $query_criar_db = "CREATE VIEW `vw_problema_com_apo_den` AS select `P`.`idProblema` AS `idProblema`,`P`.`descricao` AS `descricao`,`P`.`data` AS `data`,`P`.`dataInicioManutencao` AS `dataInicioManutencao`,`P`.`dataConclusaoManutencao` AS `dataConclusaoManutencao`,`P`.`dataPrevistaConclusao` AS `dataPrevistaConclusao`,`P`.`latitude` AS `latitude`,`P`.`longitude` AS `longitude`,`P`.`imagemProblema` AS `imagemProblema`,`P`.`idTipo` AS `idTipo`,`P`.`idStatus` AS `idStatus`,`P`.`idCidadao` AS `idCidadao`,`VC`.`qtde_comentario` AS `qtde_comentario`,`VA`.`qtde_apoio` AS `qtde_apoio`,`VD`.`qtde_denuncia` AS `qtde_denuncia` from (((`problema` `P` join `vw_qtde_comentario` `VC` on((`VC`.`idProblema` = `P`.`idProblema`))) join `vw_qtde_apoio` `VA` on((`VA`.`idProblema` = `P`.`idProblema`))) join `vw_qtde_denuncia` `VD` on((`VD`.`idProblema` = `P`.`idProblema`)));";
         $this->db->query($query_criar_db);
     }
 
@@ -239,7 +232,7 @@ select `CP`.`idComentario` AS `idComentario`,`CP`.`textoComentario` AS `textoCom
 
     function cria_view_vw_consulta_principal() {
 
-        $query_criar_db = "CREATE VIEW `vw_consulta_principal` AS select `VPCAD`.`idProblema` AS `idProblema`,`VPCAD`.`descricao` AS `descricao`,`VPCAD`.`data` AS `data`,`VPCAD`.`dataInicioManutencao` AS `dataInicioManutencao`,`VPCAD`.`dataConclusaoManutencao` AS `dataConclusaoManutencao`,`VPCAD`.`dataPrevistaConclusao` AS `dataPrevistaConclusao`,`VPCAD`.`latitude` AS `latitude`,`VPCAD`.`longitude` AS `longitude`,`VPCAD`.`idTipo` AS `idTipo`,`T`.`tipo` AS `tipo`,`VPCAD`.`idStatus` AS `idStatus`,`S`.`nomeStatus` AS `nomeStatus`,`VPCAD`.`idCidadao` AS `idCidadao`,`VPCAD`.`qtde_comentario` AS `qtde_comentario`,`VPCAD`.`qtde_apoio` AS `qtde_apoio`,`VPCAD`.`qtde_denuncia` AS `qtde_denuncia` from ((`vw_problema_com_apo_den` `VPCAD` join `tipo` `T` on((`T`.`idTipo` = `VPCAD`.`idTipo`))) join `status` `S` on((`S`.`idStatus` = `VPCAD`.`idStatus`)));";
+        $query_criar_db = "CREATE VIEW `vw_consulta_principal` AS select `VPCAD`.`idProblema` AS `idProblema`,`VPCAD`.`descricao` AS `descricao`,`VPCAD`.`data` AS `data`,`VPCAD`.`dataInicioManutencao` AS `dataInicioManutencao`,`VPCAD`.`dataConclusaoManutencao` AS `dataConclusaoManutencao`,`VPCAD`.`dataPrevistaConclusao` AS `dataPrevistaConclusao`,`VPCAD`.`latitude` AS `latitude`,`VPCAD`.`longitude` AS `longitude`,`VPCAD`.`imagemProblema` AS `imagemProblema`,`VPCAD`.`idTipo` AS `idTipo`,`T`.`tipo` AS `tipo`,`VPCAD`.`idStatus` AS `idStatus`,`S`.`nomeStatus` AS `nomeStatus`,`VPCAD`.`idCidadao` AS `idCidadao`,`VPCAD`.`qtde_comentario` AS `qtde_comentario`,`VPCAD`.`qtde_apoio` AS `qtde_apoio`,`VPCAD`.`qtde_denuncia` AS `qtde_denuncia` from ((`vw_problema_com_apo_den` `VPCAD` join `tipo` `T` on((`T`.`idTipo` = `VPCAD`.`idTipo`))) join `status` `S` on((`S`.`idStatus` = `VPCAD`.`idStatus`)));";
 
         $this->db->query($query_criar_db);
     }
@@ -285,12 +278,10 @@ select `CP`.`idComentario` AS `idComentario`,`CP`.`textoComentario` AS `textoCom
         $this->db->query($query_criar_db);
     }
 
-    
-    
-    function virificarTabelaExiste($talela){
+    function virificarTabelaExiste($talela) {
         return $this->db->get($talela);
     }
-    
+
 }
 
 ?>

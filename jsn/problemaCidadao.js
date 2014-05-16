@@ -134,7 +134,7 @@ var Problema = {
         var parametro = "idProblema=" + idProblema;
         var url = Config.base_url + "colaboracao/apoiarProblema";
 
-        CarregarPagina.enviarDadosApoioReprova(url, parametro,nomeid,nomeidB);
+        CarregarPagina.enviarDadosApoioReprova(url, parametro, nomeid, nomeidB);
     },
     reprovadoProblema: function(idProblema) {
 
@@ -156,7 +156,7 @@ var Problema = {
         var parametro = "idProblema=" + idProblema;
         var url = Config.base_url + "colaboracao/reprovaProblema";
 
-        CarregarPagina.enviarDadosApoioReprova(url, parametro,nomeid,nomeidB);
+        CarregarPagina.enviarDadosApoioReprova(url, parametro, nomeid, nomeidB);
     },
     formeComentaProblema: function(idProblema) {
 
@@ -227,9 +227,17 @@ var Problema = {
     },
     informacaoGeral: function() {
         Tela.abrirModal();
-        var url = Config.base_url+"manimaps/informacao";
+        var url = Config.base_url + "manimaps/informacao";
+        var parametro = "";
+        CarregarPagina.carregarConteudo(url, parametro);
+    },
+    formImagem: function() {
+        
+        Tela.abrirModal();
+        var url = Config.base_url + "colaboracao/formEnviarImagem";
         var parametro = "";
         CarregarPagina.carregarConteudo(url,parametro);
+  
     }
 };
 
