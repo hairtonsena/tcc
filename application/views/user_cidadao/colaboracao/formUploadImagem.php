@@ -1,14 +1,49 @@
 <style type="text/css">
     /*#container {width: 800px;margin: 0 auto;}*/
-    #porcentagem {width: 100%;border: solid 1px #000;margin-top: 10px;}
+    #porcentagem {width: 100%;margin-top: 10px; display: none}
     /*#mensagem {margin-top: 10px;}*/
     /*#barra{color: #000; background-color: #900; width: 0px;color: #000;}*/
+
+
+    .inputFile {
+        /*width: 185px;*/
+        height:40px;
+        position: relative;
+        overflow: hidden;
+        background: #5bc0de;
+        line-height: 40px;
+        /*cursor: pointer;*/
+    }
+    
+  
+    
+    .inputFile span {
+        display: block;
+        position: absolute;
+        color: #ffffff;
+        font-size: 20px;
+        /*cursor: pointer;*/
+    }
+    .inputFile input {
+        position: absolute;
+        right: 0;
+        z-index: 2;
+        font-size: 100px; /* Aumenta tamanho do campo */
+        opacity: 0;
+        filter: alpha(opacity=0);
+        cursor: pointer;
+    }
+    
+
 </style>
 <script>
 
     var mensagem = $("#mensagem");
+    var div_porcentagem = $("#porcentagem");
     var barra = $("#barra");
     var campoImgame = $("#arquivo");
+    var textoCampoUp = $("#textoCampoUp");
+    
 
 
     $("#btn_enviar").on('click', function(event) {
@@ -19,21 +54,35 @@
         event.preventDefault();
 
         if (campoImgame.val() == "") {
-            mensagem.html("Por favor, selecione um arquivo!");
+            mensagem.html("<div class='alert alert-danger'>Por favor, selecione uma imagem!<div>");
         } else {
             $("#form_upload").ajaxForm({
                 url: 'colaboracao/salvarImagem',
                 uploadProgress: function(event, position, total, percentComplete) {
-                    // barra.css('color', '#fff');
-                    barra.width(percentComplete);
+                    div_porcentagem.css('display', 'block');
+                    barra.width(percentComplete + '%');
                     barra.html(percentComplete + '%');
                 },
                 success: function(data) {
-                    barra.width('100%');
-                    console.log(data);
-                    mensagem.html(data);
-                    campoImgame.val("");
 
+                    if (data == "sucesso") {
+                        barra.width('100%');
+                        console.log(data);
+                        mensagem.html("<div class='alert alert-success'>Imagem enviada com sucesso!");
+                        campoImgame.val("");
+                        Problema.verColaboracoesAposSalvar();
+
+                        alert("Imagem enviada com sucesso!");
+                        Tela.fecharModal();
+
+                    } else {
+
+                        barra.width('100%');
+                        console.log(data);
+                        mensagem.html(data);
+                        campoImgame.val("");
+                        textoCampoUp.html('<i class="glyphicon glyphicon-camera"></i> Selecione uma imagem </span>');
+                    }
                 },
                 error: function() {
                     mensagem.html('Erro ao tentar acessar o arquivo!');
@@ -46,6 +95,10 @@
     });
 
 
+    $("#arquivo").change(function() {
+        $(this).prev().html($(this).val());
+    });
+
 </script>
 
 <div class="modal-header">
@@ -56,12 +109,18 @@
 
     <div id="container">
         <form action="" method="post" id="form_upload" enctype="multipart/form-data">
-            <p class="text-info">
-                Caso não queira anexar imagem click em "Concluir".
-            </p>
-            <input type="hidden" name="problema" value="<?php echo $problema ?>"/>
-            <input type="file" required="true" class="form-control" id="arquivo" name="arquivo">
-            <div id="mensagem" class="text-danger"></div>
+            <input type="hidden" name="problema" value="<?php echo $problema ?>"/> 
+            <div id="mensagem"></div>
+            
+            <div class="inputFile col-lg-12">
+               
+                <span class="" id="textoCampoUp"><i class="glyphicon glyphicon-camera"></i> Selecione uma imagem </span>
+                <input type="file" id="arquivo" name="arquivo">
+
+            </div>
+
+            <br/>
+            <br/>
 
             <div class="progress" id="porcentagem">
                 <div class="progress-bar" id="barra" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width:0%;">
@@ -69,24 +128,15 @@
                 </div>
             </div>
 
-
-            <input type="submit" class="btn btn-primary form-control" name="enviar" id="btn_enviar">
-
             <br/>
-            <br/>
-
-            <input type="button" class="btn btn-default pull-right" onclick="Tela.fecharModal()" value="Concluir" /> 
-
+            <div class="text-center">
+                <input type="submit" class="btn btn-primary pull-left" name="enviar" id="btn_enviar">  ou        
+                <input type="button" class="btn btn-default pull-right" onclick="Tela.fecharModal()" value="Finalizar" /> 
+            </div>
 
 
         </form>
 
-
-
-        <!--        <div class="progress" id="porcentagem">
-                    <div class="progress-bar" id="barra" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width:0%;">
-                        0%
-                    </div>-->
     </div>
 
 </div>

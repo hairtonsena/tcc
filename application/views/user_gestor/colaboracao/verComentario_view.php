@@ -13,11 +13,13 @@
                 <?php echo $pc->descricao ?>
                 <br/>
 
-
-
             </div>
         <?php } ?>
         <?php
+        
+        if(count($comentarios_problema)==0){ ?>
+        <div class="list-group-item"> Nenhum comentário </div>
+       <?php }
         foreach ($comentarios_problema as $cm) {
             if (($cm->nomeCidadao != null) || ($cm->nomeCidadao != '')) {
                 ?>

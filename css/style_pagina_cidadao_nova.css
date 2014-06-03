@@ -136,7 +136,7 @@ footer {
 }
 @media (min-width: 768px) {
     
-    body {margin: 51px 0px 0px 0px;} 
+    body {margin: 0px 0px 0px 0px;} 
     
     .sidebar {
         position: fixed;
@@ -154,7 +154,7 @@ footer {
     }
 }
 
-@media (min-width: 1161px) {
+@media (min-width: 1200px) {
     
     body {margin: 0px 0px 0px 0px;} 
     
@@ -219,3 +219,29 @@ footer {
         color: #666 !important;
         display: block;
     }
+    
+     /* =============== Estilos do context menu =============== */
+     
+     
+                 /*	start styles for the ContextMenu	*/
+            .context_menu{
+                background-color:white;
+                border:1px solid gray;
+            }
+            .context_menu_item{
+                padding:3px 6px;
+            }
+            .context_menu_item:hover{
+                background-color:#CCCCCC;
+            }
+            .context_menu_separator{
+                background-color:gray;
+                height:1px;
+                margin:0;
+                padding:0;
+            }
+            #clearDirectionsItem, #getDirectionsItem{
+                display:none;
+            }
+
+     

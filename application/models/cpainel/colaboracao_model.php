@@ -136,8 +136,8 @@ class colaboracao_model extends CI_Model {
     }
 
     function excluirComentarioRejeitado($idComentario) {
-        $this->db->delete('apoioComentario', array('idComentario' => $idComentario));
-        $this->db->delete('reprovaComentario', array('idComentario' => $idComentario));
+//        $this->db->delete('apoioComentario', array('idComentario' => $idComentario));
+//        $this->db->delete('reprovaComentario', array('idComentario' => $idComentario));
         $this->db->delete('comentarioproblema', array('idComentario' => $idComentario));
     }
 

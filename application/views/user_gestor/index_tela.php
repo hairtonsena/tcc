@@ -9,7 +9,7 @@ foreach ($configuracao as $cf) {
     <head>
         <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
         <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
-        <title> Problema urbano </title>
+        <title> Problemas urbanos </title>
         <meta charset="utf-8">
         <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 
@@ -29,22 +29,21 @@ foreach ($configuracao as $cf) {
         <script type="text/javascript">
             Config = {
                 base_url: "<?php echo base_url() ?>",
-                
-                nomeMunicipio:"<?php echo $configuraPagina->nomeMunicipio ?>" ,
-                latitudeCentralMaps : <?php echo $configuraPagina->latitudeCentralMunicipio ?>,
-                longitudeCentralMaps : <?php echo $configuraPagina->longitudeCentralMunicipio ?>,
-                zoomMapsInicial : <?php echo $configuraPagina->zoomMapsInicial ?>,
-                streetViewMaps : <?php
+                nomeMunicipio: "<?php echo $configuraPagina->nomeMunicipio ?>",
+                latitudeCentralMaps: <?php echo $configuraPagina->latitudeCentralMunicipio ?>,
+                longitudeCentralMaps: <?php echo $configuraPagina->longitudeCentralMunicipio ?>,
+                zoomMapsInicial: <?php echo $configuraPagina->zoomMapsInicial ?>,
+                streetViewMaps: <?php
 if ($configuraPagina->streetViewMaps == 1) {
     echo 'true';
 } else {
     echo 'false';
 }
 ?>
-                
 
-    };
-    
+
+            };
+
         </script>
 
     </head>
@@ -59,11 +58,10 @@ if ($configuraPagina->streetViewMaps == 1) {
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <!--<a class="navbar-brand" href="#"> <?php // echo $cf->nomeMunicipio  ?> </a>-->
-
+                    
                     <a class="navbar-brand" style="margin: 0px 0px 0px 0px; padding:0px 0px 0px 0px;"  href="">
                         <img src="<?php echo base_url("icone/PU321.png") ?>" height="50px" />
-                        Problema urbano
+                        Problemas urbanos
                     </a>
                 </div>
 
@@ -71,7 +69,7 @@ if ($configuraPagina->streetViewMaps == 1) {
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
                     <ul class="nav navbar-nav">
-                        <!--<li class=""><a href="<?php // echo base_url("cpainel/home")  ?>" >Início</a></li>-->
+                        <!--<li class=""><a href="<?php // echo base_url("cpainel/home")   ?>" >Início</a></li>-->
 
 
                     </ul>
@@ -84,7 +82,7 @@ if ($configuraPagina->streetViewMaps == 1) {
                         <?php if (($this->session->userdata('nomeGestor')) && ($this->session->userdata('emailGestor')) && ($this->session->userdata('senhaGestor'))) { ?>
 
                             <li>
-                                <a href="<?php echo base_url("cpainel/configuracao") ?>" >Configuração</a>
+                                <a href="<?php echo base_url("cpainel/configuracao") ?>" ><span class="glyphicon glyphicon-cog"></span> Configuração</a>
                             </li>
                             <li class="dropdown">
 
@@ -132,8 +130,8 @@ if ($configuraPagina->streetViewMaps == 1) {
                         <div class="form-group col-md-6 semMarge" >
                             <?php if (($this->session->userdata('nomeGestor')) && ($this->session->userdata('emailGestor')) && ($this->session->userdata('senhaGestor'))) { ?>        
                                 <label onclick="Problema.verCometarioModerar()"  class="text-pequino form-control btn btn-default">
-                                    Comentário  <span class="badge pull-right" id="qtdeComentarioMederar"><?php echo $qtdeComentarioAvaliar ?></span>
-                                    <!--<input onclick="" class="text-pequino form-control btn btn-default" type="button" id="avaliarComentario" value="Avaliar Comentário">--> 
+                                    <span class="badge pull-right" id="qtdeComentarioMederar"><?php echo $qtdeComentarioAvaliar ?></span>
+                                    Comentários       
                                 </label>
                             <?php } else { ?>
                                 <label onclick="" class="text-pequino form-control btn btn-default">

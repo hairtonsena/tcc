@@ -108,7 +108,7 @@ Gestor = {
         var latitudeMunicipio = $("#latitudeMunicipio").val();
         var longitudeMunicipio = $("#longitudeMunicipio").val();
         var zoomMapsInicial = $("#zoomMaps").val();
-        var streetViewMaps = $("#streetView").val();
+        var streetViewMaps =  '0'; // $("#streetView").val();
         
         
         

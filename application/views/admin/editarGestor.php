@@ -5,7 +5,7 @@
         <tr>
             <th> Nome </th>
             <!--<th> CPF </th>-->
-            <th> Email</th>
+            <th> E-mail</th>
             <th> Alterar Senha</th>                
             <th> Alterar Dados</th>
             <!--<th> Excluir </th>-->

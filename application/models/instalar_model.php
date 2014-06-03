@@ -175,8 +175,8 @@ class instalar_model extends CI_Model {
   `idConfiguracao` int(1) NOT NULL AUTO_INCREMENT,
   `nomeMunicipio` varchar(40) NOT NULL,
   `cnpjMunicipio` varchar(20) NOT NULL,
-  `cepMunicipio` varchar(10) NOT NULL,
-  `telefoneMunicipio` varchar(10) NOT NULL,
+  `cepMunicipio` varchar(100) NOT NULL,
+  `telefoneMunicipio` varchar(14) NOT NULL,
   `emailMunicipio` varchar(70) DEFAULT NULL,
   `siteMunicipio` varchar(70) DEFAULT NULL,
   `latitudeCentralMunicipio` double NOT NULL,
@@ -273,7 +273,7 @@ select `CP`.`idComentario` AS `idComentario`,`CP`.`textoComentario` AS `textoCom
     function inserir_dados_configuracao() {
         // dados de configuração 
         $query_criar_db = "INSERT INTO `configuracao` (`idConfiguracao`, `nomeMunicipio`, `cnpjMunicipio`, `cepMunicipio`, `telefoneMunicipio`, `emailMunicipio`, `siteMunicipio`, `latitudeCentralMunicipio`, `longitudeCentralMunicipio`, `zoomMapsInicial`, `streetViewMaps`) VALUES
-                (1, 'Montes Claros - MG', '99.999.999/9999-99', '39400-000', '3234-1512', 'email@prefeitura.com.br', '', -16.728605052902846, -43.86268436908722, 10, 1);";
+                (1, 'Montes Claros - MG', '99.999.999/9999-99', 'Av. Cula Mangabeira, 211 - Centro', '(99)9999-9999', 'email@prefeitura.com.br', 'http://montesclaros.mg.gov.br/', -16.728605052902846, -43.86268436908722, 12, 1);";
 
         $this->db->query($query_criar_db);
     }

@@ -43,6 +43,11 @@ class Manimaps extends CI_Controller {
         $this->load->view('user_cidadao/index_tela', $dados);
     }
 
+    
+    public function inicio(){
+        redirect(base_url());
+    }
+
 //
 //    public function nova() {
 //

@@ -41,17 +41,17 @@ foreach ($configuracao as $cf) {
 <script>
     var map;
     var geocoder;
-    var lat= <?php echo $configuraPagina->latitudeCentralMunicipio ?>;
+    var lat = <?php echo $configuraPagina->latitudeCentralMunicipio ?>;
     var log = <?php echo $configuraPagina->longitudeCentralMunicipio ?>;
     var nivelZoom = <?php echo $configuraPagina->zoomMapsInicial ?>;
     var sVMaps = <?php
 if ($configuraPagina->streetViewMaps == 1) {
-    echo 'true';
+    echo 'false';
 } else {
     echo 'false';
 }
 ?>;
-    
+
     function initialize() {
         var mapOptions = {
             zoom: nivelZoom,
@@ -59,36 +59,36 @@ if ($configuraPagina->streetViewMaps == 1) {
             streetViewControl: sVMaps
         };
         map = new google.maps.Map(document.getElementById('map-canvas'),
-        mapOptions);
-        
+                mapOptions);
+
         geocoder = new google.maps.Geocoder();
-        
-        google.maps.event.addListener(map, 'click', function(event) {    
- 
-            var latlong = ""+event.latLng      
+
+        google.maps.event.addListener(map, 'click', function(event) {
+
+            var latlong = "" + event.latLng
             latlong = latlong.replace("(", "");
             latlong = latlong.replace(")", "");
-        
+
             var arrLatLong = latlong.split(",");
-            
+
             $("#latitudeMunicipio").val();
             $("#longitudeMunicipio").val();
-            
-            preencherLatLng(arrLatLong[0],arrLatLong[1])
-            
+
+            preencherLatLng(arrLatLong[0], arrLatLong[1])
+
         });
     }
-    
-    function preencherLatLng(lat,lng){
+
+    function preencherLatLng(lat, lng) {
         $("#latitudeMunicipio").val(lat);
         $("#longitudeMunicipio").val(lng);
-            
+
     }
-    
+
     $("#presquisa").autocomplete({
-        source: function (request, response) {
-            geocoder.geocode({ 'address': request.term + ', Brasil', 'region': 'BR' }, function (results, status) {
-                response($.map(results, function (item) {
+        source: function(request, response) {
+            geocoder.geocode({'address': request.term + ', Brasil', 'region': 'BR'}, function(results, status) {
+                response($.map(results, function(item) {
                     return {
                         label: item.formatted_address,
                         value: item.formatted_address,
@@ -98,7 +98,7 @@ if ($configuraPagina->streetViewMaps == 1) {
                 }));
             })
         },
-        select: function (event, ui) {
+        select: function(event, ui) {
 
             var location = new google.maps.LatLng(ui.item.latitude, ui.item.longitude);
 
@@ -109,10 +109,10 @@ if ($configuraPagina->streetViewMaps == 1) {
             map.setZoom(nivelZoom);
         }
     });
-    
-    
-    $("#btnPesquisar").click(function(){
-                
+
+
+    $("#btnPesquisar").click(function() {
+
         var local = $("#presquisa").val();
 
 
@@ -133,9 +133,9 @@ if ($configuraPagina->streetViewMaps == 1) {
 
 
     });
-            
-            
-    
+
+
+
     //    function mostraEndereco(local) {
     //
     //  
@@ -146,14 +146,17 @@ if ($configuraPagina->streetViewMaps == 1) {
 </script> 
 
 <script>initialize()</script>
-<h2>Configuração Geral</h2>
+<h2>Configuração geral</h2>
 
 <div class="row">
     <div class="col-md-8">
-        <form onsubmit="Gestor.salvarConfiguracao(); return false">
+        <form onsubmit="Gestor.salvarConfiguracao();
+                return false;">
             <div class="col-md-6">
-                <h4>Município</h4>
+                <h4>Dados da prefeitura</h4>
                 <input id="idMunicipio" type="hidden" value="<?php echo $configuraPagina->idConfiguracao ?>"/>
+
+
                 <span class="col-md-4"><strong> Nome :</strong></span>
                 <div class="col-md-8"><input class="form-control" name="nome" id="nomeMunicipio" value="<?php echo $configuraPagina->nomeMunicipio ?>"/></div>
 
@@ -162,7 +165,7 @@ if ($configuraPagina->streetViewMaps == 1) {
                 <div class="col-md-8"><input class="form-control" name="cnpj" id="cnpjMunicipio" value="<?php echo $configuraPagina->cnpjMunicipio ?>"/></div>
 
 
-                <span class="col-md-4"><strong>CEP :</strong></span>
+                <span class="col-md-4"><strong>Endereço :</strong></span>
                 <div class="col-md-8"><input class="form-control" name="cep" id="cepMunicipio" value="<?php echo $configuraPagina->cepMunicipio ?>"/></div> 
 
 
@@ -174,10 +177,12 @@ if ($configuraPagina->streetViewMaps == 1) {
 
                 <span class="col-md-4"><strong>Web Site :</strong></span>
                 <div class="col-md-8"><input class="form-control" name="site" id="siteMunicipio" value="<?php echo $configuraPagina->siteMunicipio ?>"/></div> 
-
+                <div class="col-md-10 col-md-offset-2"><span class="text-danger"><h5><?php echo validation_errors(); ?> </h5></span></div>
             </div>
             <div class="col-md-6">
-                <h4>Maps</h4>
+                <h4>Dados do mapa</h4>
+                
+                <div class="col-md-8 col-md-offset-4"><apan class="read"> Para alterar latitude e longitude clique no mapa </apan></div>
                 <span class="col-md-4"><strong> Latitude :</strong></span>
                 <div class="col-md-8"><input class="form-control" title="Click no mapa ao lado para alterar este valor" readonly="true" name="latitude" id="latitudeMunicipio" value="<?php echo $configuraPagina->latitudeCentralMunicipio ?>"/></div>
 
@@ -186,7 +191,7 @@ if ($configuraPagina->streetViewMaps == 1) {
                 <div class="col-md-8"><input class="form-control" title="Click no mapa ao lado para alterar este valor" readonly="true" name="longitude" id="longitudeMunicipio" value="<?php echo $configuraPagina->longitudeCentralMunicipio ?>"/></div>
 
 
-                <span class="col-md-4"><strong>Zoom Maps :</strong></span>
+                <span class="col-md-4"><strong>Zoom inicial :</strong></span>
                 <div class="col-md-8">
                     <select class="form-control" name="zoom" id="zoomMaps" >
                         <?php for ($i = 0; $i < 22; $i++) { ?>
@@ -202,21 +207,6 @@ if ($configuraPagina->streetViewMaps == 1) {
                     </select>
                 </div> 
 
-
-
-
-                <span class="col-md-4"><strong>Stree View :</strong></span>
-                <div class="col-md-8">
-                    <select class="form-control" name="streetView" id="streetView">
-
-                        <?php if ($configuraPagina->streetViewMaps == 1) { ?>
-                            <option value="1" selected="true">Sim</option>
-                            <option value="0" >Não</option>
-                        <?php } else { ?>
-                            <option value="1">Sim</option>
-                            <option value="0" selected="true">Não</option>
-                        <?php } ?>
-                    </select></div> 
             </div>
 
             <div class="col-lg-12">
@@ -224,7 +214,7 @@ if ($configuraPagina->streetViewMaps == 1) {
                     <br/>
                     <button type="submit" class="btn btn-primary" >Salvar</button>
                     <button type="button" class="btn btn-default" onclick="Gestor.configuracaoGeral()">Cancelar</button>
-                    
+
                 </div>
             </div>
         </form>
@@ -233,7 +223,7 @@ if ($configuraPagina->streetViewMaps == 1) {
 
     <div class="col-md-4"  >
         <div class="col-md-8">
-            <input class="form-control"  name="presquisa" id="presquisa" value=""/>
+            <input class="form-control"  name="presquisa" id="presquisa" placeholder="Pesquisar local..." value=""/>
         </div>
         <span class="col-md-4"><button type="button" id="btnPesquisar" class="btn btn-primary">Pesquisar</button></span>
 

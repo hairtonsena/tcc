@@ -6,8 +6,6 @@ foreach ($configuracao as $cf) {
 }
 ?>
 
-<!--<script src="http://maps.google.com/maps/api/js?sensor=false"></script>-->
-
 <script>
     var map;
     var lat= <?php echo $configuraPagina->latitudeCentralMunicipio ?>;
@@ -15,7 +13,7 @@ foreach ($configuracao as $cf) {
     var nivelZoom = <?php echo $configuraPagina->zoomMapsInicial ?>;
     var sVMaps = <?php
 if ($configuraPagina->streetViewMaps == 1) {
-    echo 'true';
+    echo 'false';
 } else {
     echo 'false';
 }
@@ -46,7 +44,7 @@ if ($configuraPagina->streetViewMaps == 1) {
         <button class="btn btn-primary" onclick="Gestor.editarConfiguracao()" type="button">Editar configuracão</button>
     </div>
     <div class="col-md-4">
-        <h4>Município</h4>
+        <h4>Dados da prefeitura</h4>
 
         <span class="col-md-4"><strong> Nome :</strong></span>
         <div class="col-md-8"><?php echo $configuraPagina->nomeMunicipio ?></div>
@@ -56,7 +54,7 @@ if ($configuraPagina->streetViewMaps == 1) {
         <div class="col-md-8"><?php echo $configuraPagina->cnpjMunicipio ?></div>
 
 
-        <span class="col-md-4"><strong>CEP :</strong></span>
+        <span class="col-md-4"><strong>Endereço :</strong></span>
         <div class="col-md-8"><?php echo $configuraPagina->cepMunicipio ?></div> 
 
 
@@ -71,7 +69,7 @@ if ($configuraPagina->streetViewMaps == 1) {
 
     </div>
     <div class="col-md-4">
-        <h4>Maps</h4>
+        <h4>Dados do mapa</h4>
         <span class="col-md-4"><strong> Latitude :</strong></span>
         <div class="col-md-8"><?php echo $configuraPagina->latitudeCentralMunicipio ?></div>
 
@@ -80,18 +78,14 @@ if ($configuraPagina->streetViewMaps == 1) {
         <div class="col-md-8"><?php echo $configuraPagina->longitudeCentralMunicipio ?></div>
 
 
-        <span class="col-md-4"><strong>Zoom Maps :</strong></span>
+        <span class="col-md-4"><strong>Zoom inicial :</strong></span>
         <div class="col-md-8"><?php echo $configuraPagina->zoomMapsInicial ?></div> 
 
 
-        <span class="col-md-4"><strong>Stree View :</strong></span>
-        <div class="col-md-8"><?php
-if ($configuraPagina->streetViewMaps == 1) {
-    echo 'Sim';
-} else {
-    echo 'Não';
-}
-?></div> 
+<!--        <span class="col-md-4"><strong>Stree View :</strong></span>
+        <div class="col-md-8">
+            <?php// if ($configuraPagina->streetViewMaps == 1) {echo 'Sim';} else {echo 'Não';}?>
+        </div> -->
     </div>
     <div class="col-md-4" id="map-canvas" style="height: 300px; background-color: #269abc">
 

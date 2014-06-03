@@ -79,9 +79,7 @@ var Problema = {
         CarregarPagina.carregarConteudo(url, parametro);
     },
     aceitarComentario: function(comentario) {
-        // Tela inicial
-        var qtdeComentarioMederar = $('#qtdeComentarioMederar').html();
-        $('#qtdeComentarioMederar').html(qtdeComentarioMederar - 1);
+
         // Moderar comentário
         var bloco = '#blocoComentario' + comentario;
         $(bloco).hide();
@@ -89,22 +87,11 @@ var Problema = {
         var parametro = "idComentario=" + comentario;
         var pg = Config.base_url + 'cpainel/colaboracao/aceitarComentario';
 
-        CarregarPagina.enviarDadosComentairo(pg, parametro);
-
-        // recarregar os problema da tela inicial.
-        var status = $("#status").val();
-        var categoria = $("#categoria").val();
-        var ordem = $("#ordem").val();
-
-        var milisegundos = 5000;
-
-        window.setTimeout(Conteudo.generateRandomMarkers(status, categoria, ordem), milisegundos)
+        CarregarPagina.moderarComentairo(pg, parametro);
 
     },
     aceitarComentario2: function(comentario) {
-        // Tela inicial
-        var qtdeComentarioMederar = $('#qtdeComentarioMederar').html();
-        $('#qtdeComentarioMederar').html(qtdeComentarioMederar - 1);
+
         // Moderar comentário
         var bloco = '#linkModeracaoComentario' + comentario;
         $(bloco).hide();
@@ -112,21 +99,11 @@ var Problema = {
         var parametro = "idComentario=" + comentario;
         var pg = Config.base_url + 'cpainel/colaboracao/aceitarComentario';
 
-        CarregarPagina.enviarDadosComentairo(pg, parametro);
+        CarregarPagina.moderarComentairo(pg, parametro);
 
-        // recarregar os problema da tela inicial.
-        var status = $("#status").val();
-        var categoria = $("#categoria").val();
-        var ordem = $("#ordem").val();
-
-        var milisegundos = 5000;
-
-        window.setTimeout(Conteudo.generateRandomMarkers(status, categoria, ordem), milisegundos)
     },
     rejeitarComentario: function(comentario) {
-        // tele inicial
-        var qtdeComentarioMederar = $('#qtdeComentarioMederar').html();
-        $('#qtdeComentarioMederar').html(qtdeComentarioMederar - 1);
+   
 
         // Moderar comentarios
         var bloco = '#blocoComentario' + comentario;
@@ -135,21 +112,7 @@ var Problema = {
         var parametro = "idComentario=" + comentario;
         var pg = Config.base_url + 'cpainel/colaboracao/rejeitarComentario';
 
-        CarregarPagina.enviarDadosComentairo(pg, parametro);
-
-        // recarregar os problema da tela inicial.
-        var status = $("#status").val();
-        var categoria = $("#categoria").val();
-        var ordem = $("#ordem").val();
-
-        var milisegundos = 5000;
-
-        window.setTimeout(Conteudo.generateRandomMarkers(status, categoria, ordem), milisegundos)
-                ;
-
-
-
-
+        CarregarPagina.moderarComentairo(pg, parametro);
 
     },
     verTodosComentario: function(idProblema) {

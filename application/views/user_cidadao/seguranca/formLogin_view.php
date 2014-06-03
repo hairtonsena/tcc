@@ -17,7 +17,7 @@
         <div class="form-group">
             <label for="senha"> Senha: </label>
             <input type="password" name="senha" id="senha" class="form-control" required />
-            <span ><a href="javascript:void(0)" onclick="Cadastro.gerarNovaSenha()"> Esquece minha senha. </a></span>
+            <span ><a href="javascript:void(0)" onclick="Cadastro.gerarNovaSenha()"> Recuperar minha senha </a></span>
         </div>
         <div class="form-group">
             <label for="testoImagem" >Código antispam:</label>

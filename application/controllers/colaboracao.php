@@ -65,7 +65,7 @@ class colaboracao extends CI_Controller {
                 $descricao = strip_tags($this->input->post('descricao'));
 
                 if (strlen($descricao) < 7) {
-                    echo "<script> alert('A colaboração não foi realizada, descrição deve ter mais de seis letras.'); Tela.fecharModal(); </script>";
+                    echo "<script> alert('A colaboração não foi realizada, descrição deve ter mais de 6 letras.'); Tela.fecharModal(); </script>";
                     exit();
                 };
 
@@ -86,10 +86,10 @@ class colaboracao extends CI_Controller {
                 $query = $this->colaboracao_model->obterColaboracaoInserida($dadosColaboracao)->result();
 
                 $textoMensagem = "Uma nova reclamação e/ou sugestação foi recebido.<br/>  
-                                Click <a href='" . base_url("administrativo") . "'>aqui</a> para acessar o sistema e avaliar a colaboração.    
+                                Clique <a href='" . base_url("administrativo") . "'>aqui</a> para acessar o sistema e avaliar a colaboração.    
                                ";
 
-                $tituloMensagem = 'Problema urbano, nova Colaboração';
+                $tituloMensagem = 'Problemas urbanos, nova colaboração';
 
                 $gestorEmail = $this->gestor_model->obterTodosGestor()->result();
                 $ge = get_object_vars($gestorEmail[0]);
@@ -97,7 +97,7 @@ class colaboracao extends CI_Controller {
                 $assunto = $tituloMensagem;
 
                 // $assunto = 'Novo Email Projeto TCC';
-                $this->email->from('hairtontcc@yahoo.com.br', 'Problema urbano');
+                $this->email->from('hairtontcc@yahoo.com.br', 'Problemas urbanos');
                 $this->email->to($ge['emailGestor']);
                 $this->email->subject($assunto);
                 $this->email->message($textoMensagem);
@@ -157,7 +157,7 @@ class colaboracao extends CI_Controller {
             $config['encrypt_name'] = TRUE;
             $config['upload_path'] = $diretorio_anexo_mural; // server directory
             $config['allowed_types'] = 'jpg|jpeg|png'; // by extension, will check for whether it is an image
-            $config['max_size'] = '100000000000000'; // in kb
+            $config['max_size'] = '2048'; // in kb
             $config['is_image'] = 1;
 
 
@@ -174,42 +174,6 @@ class colaboracao extends CI_Controller {
 
                 $dadosImagem = $this->upload->data();
 
-              //  $this->load->library('image_lib');
-             //   $config = array();
-
-//                $config['source_image'] = $diretorio_anexo_mural . $dadosImagem['file_name'];
-//                $config['create_thumb'] = false;
-//                $config['maintain_ratio'] = TRUE;
-//                $config['largura'] = 300;
-//                $config['altura'] = 200;
-//                $config['master_dim'] = 'auto';
-//                $config['new_image'] = $diretorio_anexo_mural . $dadosImagem['file_name'];
-
-//
-//                $config['image_library'] = 'gd';
-//                $config['source_image'] = $diretorio_anexo_mural.$dadosImagem['file_name'];
-//                $config['create_thumb'] = TRUE;
-//                $config['maintain_ratio'] = TRUE;
-//                $config['width'] = 75;
-//                $config['height'] = 50;
-
-
-
-               // $this->image_lib->initialize($config);
-
-                // $this->image_lib->resize();
-
-//                if (!$this->image_lib->resize()) {
-//                    echo $this->image_lib->display_errors();
-//                } 
-//                else {
-//                    echo "deu certo";
-//                }
-
-
-
-                // print_r($dadosImagem);
-
 
                 $dados = array(
                     'imagemProblema' => $dadosImagem['file_name']
@@ -217,16 +181,9 @@ class colaboracao extends CI_Controller {
 
                 $this->colaboracao_model->alterarDadosColaboracao($dados, $id_problema);
 
-                echo '<script> Problema.verColaboracoesAposSalvar() </script>';
-                echo "<div class=\"alert alert-success\"> Imagem enviado com sucesso!</div>";
-//                $dados = array(
-//                    'nome_arquivo_am' => $nome_arquivo,
-//                    'arquivo_am' => $nome_anexo,
-//                    'id_mural' => $id_mural,
-//                    'data_am' => date("Y-m-d"),
-//                    'status_am' => 0
-//                );
-                //$this->mural_model->salvarAnexoMural($dados);
+              //  echo '<script> Problema.verColaboracoesAposSalvar() </script>';
+                echo "sucesso";
+
             }
         }
     }

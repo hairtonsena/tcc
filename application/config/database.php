@@ -49,9 +49,9 @@ $active_group = 'default';
 $active_record = TRUE;
 
 $db['default']['hostname'] = 'localhost';
-$db['default']['username'] = 'u350583020_hpu';
-$db['default']['password'] = '12345679';
-$db['default']['database'] = 'u350583020_pu1';     //'problema_urbano';
+$db['default']['username'] = 'root'; // 'maesbala_maps';
+$db['default']['password'] = '12345'; //  'maps1234';
+$db['default']['database'] = 't_2'; // 'maesbala_GoogleMaps';     //'problema_urbano';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = TRUE;

@@ -29,7 +29,7 @@ class instalar extends CI_controller {
 
         echo '<html>
     <head>
-        <title> Problema urbano  </title>
+        <title> Problemas urbanos  </title>
         <meta charset="utf-8"/>
         <link href="' . base_url("css/bt3/css/bootstrap.min.css") . '" rel="stylesheet">
         <link rel="shortcut icon" href="' . base_url("icone/pu.ico") . '" type="image/x-icon" />
@@ -59,7 +59,7 @@ class instalar extends CI_controller {
 
                     <a class="navbar-brand" style="margin: 0px 0px 0px 0px; padding:0px 10px 0px 0px;"  href="">
                         <img src="' . base_url("icone/PU321.png") . '" height="50px" />
-                        Problema urbano
+                        Problemas urbanos
                     </a>
                 </div>
             </div>
@@ -79,7 +79,7 @@ class instalar extends CI_controller {
                                        <p> Para instalar o banco de dados no sistema click no botão abaixo "Instalar banco de dados", em seguida você será encaminhado para a tela de login do gestor.</p>
                                         <p>
                                    <span class="text-danger"> 
-                                        Atenção! : </span> é importante ler o X passo do manual de intalação para obter sucesso na instalação.
+                                        Atenção! : </span> é importante assistir os tutoriais para obter sucesso na intalação.
                                     
                                     </p>
                                     </div>

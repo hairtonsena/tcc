@@ -80,7 +80,7 @@
                 <input type="text" required="true" pattern="[0-9]{11}" maxlength="11" placeholder="Informe seu CPF" title="Informe seu CPF" class="form-control" id="cpfCidadaoCadastro" name="cpfCidadaoCadastro" value="<?php echo set_value('cpfCidadaoCadastro'); ?>" />
                 <span class="input-group-addon" title="Campo obrigatorio">*</span>
             </div>
-            <p class="help-block">Somente números.</p>   
+            <p class="help-block">Somente números</p>   
             <span class="text-danger" id="MensagemErro">
                 <?php echo form_error('cpfCidadaoCadastro'); ?>
             </span>   

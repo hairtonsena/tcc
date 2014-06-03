@@ -6,7 +6,7 @@ foreach ($configuracao as $cf) {
 ?>
 <html>
     <head>
-        <title> cPainel - Gestor  </title>
+        <title> Problemas urbanos - Gestor  </title>
         <meta charset="utf-8"/>
         <link href="<?php echo base_url("css/bt3/css/bootstrap.min.css"); ?>" rel="stylesheet">
         <link rel="shortcut icon" href="<?php echo base_url("icone/pu.ico"); ?>" type="image/x-icon" />
@@ -36,7 +36,7 @@ foreach ($configuracao as $cf) {
 
                     <a class="navbar-brand" style="margin: 0px 0px 0px 0px; padding:0px 0px 0px 0px;"  href="<?php echo base_url() ?>">
                         <img src="<?php echo base_url("icone/PU321.png") ?>" height="50px" />
-                        Problema urbano
+                        Problemas urbanos
                     </a>
                 </div> 
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -64,7 +64,7 @@ foreach ($configuracao as $cf) {
                                         <?php echo validation_errors(); ?>
                                     </span>
                                     <div class="form-group">
-                                        <label for="email"> Email: </label>
+                                        <label for="email"> E-mail: </label>
                                         <input type="email" class="form-control" id="email" name="email" required />
                                     </div>
                                     <div class="form-group">
@@ -72,7 +72,7 @@ foreach ($configuracao as $cf) {
                                         <input type="password" id="senha" class="form-control" name="senha" required />                        
                                     </div>
                                     <div class="form-group">
-                                        <label for="textoImagem" class="col-sm-12">Codigo de Validação:</label>
+                                        <label for="textoImagem" class="col-sm-12">Código de Validação:</label>
                                         <div class="col-sm-6 thumbnail">
                                             <?php echo $imagemCaptcha ?>      
                                         </div>

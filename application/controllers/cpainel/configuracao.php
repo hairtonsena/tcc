@@ -102,40 +102,56 @@ class configuracao extends CI_Controller {
     public function salvarConfiguracao() {
         if (($this->session->userdata('idGestor')) && ($this->session->userdata('nomeGestor')) && ($this->session->userdata('emailGestor')) && ($this->session->userdata('senhaGestor'))) {
 
-            $idMunicipio = $_POST["idMunicipio"];
-            $nomeMunicipio = $_POST["nomeMunicipio"];
-            $cnpjMunicipio = $_POST["cnpjMunicipio"];
-            $cepMunicipio = $_POST["cepMunicipio"];
-            $telefoneMunicipio = $_POST["telefoneMunicipio"];
-            $emailMunicipio = $_POST["emailMunicipio"];
-            $siteMunicipio = $_POST["siteMunicipio"];
-            $latitudeMunicipio = $_POST["latitudeMunicipio"];
-            $longitudeMunicipio = $_POST["longitudeMunicipio"];
-            $zoomMapsInicial = $_POST["zoomMapsInicial"];
-            $streetViewMaps = $_POST["streetViewMaps"];
+            $this->form_validation->set_rules('nomeMunicipio', 'Nome', 'required|trim|min_length[4]|max_length[40]');
+            $this->form_validation->set_rules('cnpjMunicipio', 'CNPJ', 'required|trim|min_length[11]|max_length[19]');
+            $this->form_validation->set_rules('cepMunicipio', 'Endereço', 'required|trim|min_length[4]|max_length[100]');
+            $this->form_validation->set_rules('telefoneMunicipio', 'Telefone', 'required|min_length[8]|max_length[14]');
+            $this->form_validation->set_rules('emailMunicipio', 'e-mail', 'required|min_length[8]|max_length[70]');
+            if ($this->form_validation->run() == FALSE) {
+                $this->editarConfiguracao();
+            } else {
 
-            $dados = array(
-                "nomeMunicipio" => $nomeMunicipio,
-                "cnpjMunicipio" => $cnpjMunicipio,
-                "cepMunicipio" => $cepMunicipio,
-                "telefoneMunicipio" => $telefoneMunicipio,
-                "emailMunicipio" => $emailMunicipio,
-                "siteMunicipio" => $siteMunicipio,
-                "latitudeCentralMunicipio" => $latitudeMunicipio,
-                "longitudeCentralMunicipio" => $longitudeMunicipio,
-                "zoomMapsInicial" => $zoomMapsInicial,
-                "streetViewMaps" => $streetViewMaps,
-            );
+                $idMunicipio = $_POST["idMunicipio"];
+                $nomeMunicipio = $_POST["nomeMunicipio"];
+                $cnpjMunicipio = $_POST["cnpjMunicipio"];
+                $cepMunicipio = $_POST["cepMunicipio"];
+                $telefoneMunicipio = $_POST["telefoneMunicipio"];
+                $emailMunicipio = strtolower($_POST["emailMunicipio"]);
+                
+                $siteMunicipio =  strtolower($_POST["siteMunicipio"]);
+                
+                if(!strstr($siteMunicipio,"http://")){
+                    $siteMunicipio= 'http://'.$siteMunicipio;
+                }
+                
+                $latitudeMunicipio = $_POST["latitudeMunicipio"];
+                $longitudeMunicipio = $_POST["longitudeMunicipio"];
+                $zoomMapsInicial = $_POST["zoomMapsInicial"];
+                $streetViewMaps = $_POST["streetViewMaps"];
+
+                $dados = array(
+                    "nomeMunicipio" => $nomeMunicipio,
+                    "cnpjMunicipio" => $cnpjMunicipio,
+                    "cepMunicipio" => $cepMunicipio,
+                    "telefoneMunicipio" => $telefoneMunicipio,
+                    "emailMunicipio" => $emailMunicipio,
+                    "siteMunicipio" => $siteMunicipio,
+                    "latitudeCentralMunicipio" => $latitudeMunicipio,
+                    "longitudeCentralMunicipio" => $longitudeMunicipio,
+                    "zoomMapsInicial" => $zoomMapsInicial,
+                    "streetViewMaps" => '0', //$streetViewMaps,
+                );
 
 
-            $this->admin_model->alterarConfiguracao($idMunicipio, $dados);
+                $this->admin_model->alterarConfiguracao($idMunicipio, $dados);
 
 
-            echo '<script language="javascript" type="text/javascript">';
-          //  echo 'window.alert("Nome alterado com sucesso!");';
-            echo 'window.location.href="' . base_url("cpainel/configuracao") . '";';
-            echo '</script>';
-            // $this->configuracaoGeral();
+                echo '<script language="javascript" type="text/javascript">';
+//  echo 'window.alert("Nome alterado com sucesso!");';
+                echo 'window.location.href="' . base_url("cpainel/configuracao") . '";';
+                echo '</script>';
+// $this->configuracaoGeral();
+            }
         } else {
             redirect(base_url("administrador/seguranca"));
         }
@@ -309,7 +325,7 @@ class configuracao extends CI_Controller {
         if (($this->session->userdata('idGestor')) && ($this->session->userdata('nomeGestor')) && ($this->session->userdata('emailGestor')) && ($this->session->userdata('senhaGestor'))) {
 
             $this->form_validation->set_rules('nomeGestor', 'Nome', 'required|trim|min_length[4]|max_length[50]');
-            //  $this->form_validation->set_rules('cpfGestor', 'CPF', 'callback_cpf_check|required|trim|min_length[11]|max_length[11]');
+//  $this->form_validation->set_rules('cpfGestor', 'CPF', 'callback_cpf_check|required|trim|min_length[11]|max_length[11]');
             $this->form_validation->set_rules('emailGestor', 'Email', 'required|trim|min_length[5]|max_length[70]|valid_email');
             $this->form_validation->set_rules('senhaAtual', 'Senha atual', 'required|min_length[6]|max_length[20]');
 

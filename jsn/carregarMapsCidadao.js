@@ -7,7 +7,6 @@ var Conteudo = {
     markers: [],
     visibleInfoWindow: null,
     geocoder: null,
-    latlog: null,
     generateTriggerCallback: function(object, eventType) {
         return function() {
             google.maps.event.trigger(object, eventType);
@@ -35,15 +34,14 @@ var Conteudo = {
         var div = Conteudo.sideContainer;
 
 
-        div.innerHTML = '';
+
 
         if (Conteudo.visibleInfoWindow) {
             Conteudo.visibleInfoWindow.close();
         }
 
-
-
         Conteudo.clearMarkers();
+        div.innerHTML = '<h4 class="text-center"> <img src="'+Config.base_url +'icone/carregando.gif" /> Carregando...</h4>';
 
         // fazendo um requisição com json e retornando os dados do mapa
         $.getJSON(Config.base_url + "listarColaboracaoJson?ttt=s", {
@@ -53,11 +51,11 @@ var Conteudo = {
             'minhaColaboracoes': minhaColaboracoes,
             'ordem': ordem
         }, function(json) {
-
+            div.innerHTML = '';
 
             if (json.length == 0) {
 
-                div.innerHTML = '<h4> Nenhuma colaboração encontrada!</h4>';
+                div.innerHTML = '<h4 class="text-center"> Nenhuma colaboração encontrada!</h4>';
                 //alert('Nenhum marcador Encontrado!');
             } else {
 
@@ -78,7 +76,7 @@ var Conteudo = {
                     if (objeto.imagemProblema != null) {
                         imagemProblema = '<img src="' + Config.base_url + 'imagem/' + objeto.imagemProblema + '" class="img-responsive" alt="Responsive image"/>';
                     }
-                    
+
                     var marker = new google.maps.Marker({
                         map: Conteudo.map,
                         title: objeto.tipo,
@@ -105,7 +103,7 @@ var Conteudo = {
                         if (objeto.jaApoiei == 'nao') {
                             botoesApoioDenucia = '<button type="button" id="botaoApoio' + objeto.idProblema + '" class="btn btn-primary btn-xs" onclick="Problema.apoiaProblema(\'' + objeto.idProblema + '\')" >' +
                                     '<i class="glyphicon glyphicon-thumbs-up"></i> ' +
-                                    '<span class="text-info badge" id="numApoio' + objeto.idProblema + '">' + objeto.qtde_apoio + '</span>' +
+                                    '<span class="text-info bhttp://sistemasenem2.inep.gov.br/inscricaoEnem/adge" id="numApoio' + objeto.idProblema + '">' + objeto.qtde_apoio + '</span>' +
                                     '</button>';
                             botoesApoioDenuciaB = '<button type="button" id="botaoApoioB' + objeto.idProblema + '" class="btn btn-primary btn-xs" onclick="Problema.apoiaProblema(\'' + objeto.idProblema + '\')" >' +
                                     '<i class="glyphicon glyphicon-thumbs-up"></i> ' +
@@ -209,6 +207,7 @@ var Conteudo = {
                             conteudoBalaoMapa =
                                     '<div style="font-size: 12; width:300px;"><img src="' + imagem + '"/> ' + objeto.tipo + '</strong><span class="pull-right">' + objeto.dataProblema + '</span>' +
                                     '<br/>' + objeto.descricao +
+                                    imagemProblema +
                                     '<br/><strong class="tituloProblema">Situação:</strong>' +
                                     objeto.nomeStatus +
                                     '<div class="" style="text-align: right">' + botaoConfirma + verificarComentario + botoesApoioDenuciaB +
@@ -316,7 +315,7 @@ var Conteudo = {
         Conteudo.map = new google.maps.Map(Conteudo.mapContainer, {
             zoom: Config.zoomMapsInicial,
             center: firstLatLng,
-            streetViewControl: Config.streetViewMaps,
+            streetViewControl: false, //Config.streetViewMaps,
             mapTypeId: google.maps.MapTypeId.HYBRID
         });
 
@@ -344,28 +343,60 @@ var Conteudo = {
                 $('#addColaboracao').attr('checked', false);
                 Conteudo.map.panTo(event.latLng);
                 Tela.abrirModal();
-                Conteudo.adicionarPontoMapa(event.latLng);
+                Problema.adicionarPontoMapa(event.latLng);
 
             }
 
         });
 
+        // Codigo no novo contexto Menu adicionado 
+        var contextMenuOptions = {};
+        contextMenuOptions.classNames = {menu: 'context_menu', menuSeparator: 'context_menu_separator'};
+
+        var menuItems = [];
+        menuItems.push({className: 'context_menu_item', eventName: 'center_map_click', label: 'Reportar problema'});
+        menuItems.push({});
+        menuItems.push({className: 'context_menu_item', eventName: 'zoom_in_click', label: 'Aproximar zoom'});
+        menuItems.push({className: 'context_menu_item', eventName: 'zoom_out_click', label: 'Afastar zoom'});
+
+        contextMenuOptions.menuItems = menuItems;
+
+        var contextMenu = new ContextMenu(Conteudo.map, contextMenuOptions);
+
         // adicionando problema do mapa com o botao direito
         google.maps.event.addListener(Conteudo.map, 'rightclick', function(event) {
 
-            Conteudo.latlog = event.latLng;
-            Tela.abriMenuDireito();
-
-            Conteudo.map.panTo(event.latLng);
-
-
+            // novo context        
+            contextMenu.show(event.latLng);
 
         });
+
+        // aqui também novo contexto menu
+        //	listen for the ContextMenu 'menu_item_selected' event
+        google.maps.event.addListener(contextMenu, 'menu_item_selected', function(latLng, eventName) {
+            switch (eventName) {
+
+                case 'zoom_in_click':
+                    Conteudo.map.panTo(latLng);
+                    Conteudo.map.setZoom(Conteudo.map.getZoom() + 1);
+                    break;
+                case 'zoom_out_click':
+                    Conteudo.map.panTo(latLng);
+                    Conteudo.map.setZoom(Conteudo.map.getZoom() - 1);
+                    break;
+                case 'center_map_click':
+                    // Conteudo.map.panTo(latLng);
+                    Tela.abrirModal();
+                    Problema.adicionarPontoMapa(latLng);
+                    break;
+            }
+
+        });
+
         google.maps.event.trigger(Conteudo.generateLink, 'click');
 
         // Trabalhando com GeoLocalizaçao  
         Conteudo.geocoder = new google.maps.Geocoder();
-
 
         $("#textoPesquisa").autocomplete({
             source: function(request, response) {
@@ -394,26 +425,7 @@ var Conteudo = {
 
 
     },
-    // Adicionando um novo problema no mapa atravez do botão Direito
-    adicionarPontoBotaoDireito: function() {
-
-        Tela.abrirModal();
-
-        $("#jqxMenu").css({
-            display: 'none'
-        });
-
-
-        Problema.adicionarPontoMapa(Conteudo.latlog);
-    }
-    ,
-    adicionarPontoMapa: function(verTeste) {
-        Problema.adicionarPontoMapa(verTeste);
-
-    },
     mostraEndereco: function(local) {
-
-
 
         var address = local;
         Conteudo.geocoder.geocode({
@@ -423,8 +435,6 @@ var Conteudo = {
             if (status == google.maps.GeocoderStatus.OK) {
                 Conteudo.map.setCenter(results[0].geometry.location);
                 Conteudo.map.setZoom(21);
-
-
             } else {
                 alert("Não foi possível localizar o local, erro: " + status);
             }
@@ -435,5 +445,3 @@ var Conteudo = {
 };
 
 google.maps.event.addDomListener(window, 'load', Conteudo.init, Conteudo);
-
-

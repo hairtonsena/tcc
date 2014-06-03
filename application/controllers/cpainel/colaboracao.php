@@ -63,15 +63,15 @@ class colaboracao extends CI_Controller {
 
         $latLog = base64_encode('(' . $cp['latitude'] . ',' . $cp['longitude'] . ')');
 
-        $problemaUrbanoEmail = '<br/><br/><strong>Dados do problema</strong><br/>Tipo: ' . $cp['tipo'] . '<br/>Descrição: ' . $cp['descricao'] . '<br/>data de abretura: ' . implode("/", array_reverse(explode("-", $cp['data']))) . ' <br/>Situação: ' . $cp['nomeStatus'];
+        $problemaUrbanoEmail = '<br/><br/><strong>Dados do problema</strong><br/>Tipo: ' . $cp['tipo'] . '<br/>Descrição: ' . $cp['descricao'] . '<br/>Data de abertura: ' . implode("/", array_reverse(explode("-", $cp['data']))) . ' <br/>Situação: ' . $cp['nomeStatus'];
 
         $textoUsuario = $textoUsuario . $problemaUrbanoEmail;
 
         $textoUsuario = $textoUsuario . '<br/>
-            <br/>Para visualizar o problema click <a href="' . base_url("?problema=" . $latLog) . '">aqui</a></br> ';
+            <br/>Para visualizar o problema clique <a href="' . base_url("?problema=" . $latLog) . '">aqui</a></br> ';
 
         $assunto = 'Colaboração aceita';
-        $this->email->from('hairtontcc@yahoo.com.br', 'Problema urbano');
+        $this->email->from('hairtontcc@yahoo.com.br', 'Problemas urbanos');
         $this->email->to($cp['emailCidadao']);
         $this->email->subject($assunto);
         $this->email->message($textoUsuario);
@@ -102,14 +102,14 @@ class colaboracao extends CI_Controller {
 
 
         $latLog = base64_encode('(' . $cp['latitude'] . ',' . $cp['longitude'] . ')');
-        $problemaUrbanoEmail = '<br/><br/><strong>Dados do problema</strong><br/>Tipo: ' . $cp['tipo'] . '<br/>Descrição: ' . $cp['descricao'] . '<br/>data de abretura: ' . implode("/", array_reverse(explode("-", $cp['data']))) . ' <br/>Situação: ' . $cp['nomeStatus'];
+        $problemaUrbanoEmail = '<br/><br/><strong>Dados do problema</strong><br/>Tipo: ' . $cp['tipo'] . '<br/>Descrição: ' . $cp['descricao'] . '<br/>Data de abertura: ' . implode("/", array_reverse(explode("-", $cp['data']))) . ' <br/>Situação: ' . $cp['nomeStatus'];
         $textoUsuario = $textoUsuario . $problemaUrbanoEmail;
         $textoUsuario = $textoUsuario . '<br/>
-            <br/>Para visualizar o problema click <a href="' . base_url("?problema=" . $latLog) . '">aqui</a></br> ';
+            <br/>Para visualizar o problema clique <a href="' . base_url("?problema=" . $latLog) . '">aqui</a></br> ';
 
 
-        $assunto = 'Colaboração Rejeitada';
-        $this->email->from('hairtontcc@yahoo.com.br', 'Problema urbanos');
+        $assunto = 'Colaboração rejeitada';
+        $this->email->from('hairtontcc@yahoo.com.br', 'Problemas urbanos');
         $this->email->to($cp['emailCidadao']);
         $this->email->subject($assunto);
         $this->email->message($textoUsuario);
@@ -142,14 +142,14 @@ class colaboracao extends CI_Controller {
 
 
         $latLog = base64_encode('(' . $cp['latitude'] . ',' . $cp['longitude'] . ')');
-        $problemaUrbanoEmail = '<br/><br/><strong>Dados do problema</strong><br/>Tipo: ' . $cp['tipo'] . '<br/>Descrição: ' . $cp['descricao'] . '<br/>data de abretura: ' . implode("/", array_reverse(explode("-", $cp['data']))) . ' <br/>Situação: ' . $cp['nomeStatus'];
+        $problemaUrbanoEmail = '<br/><br/><strong>Dados do problema</strong><br/>Tipo: ' . $cp['tipo'] . '<br/>Descrição: ' . $cp['descricao'] . '<br/>Data de abertura: ' . implode("/", array_reverse(explode("-", $cp['data']))) . ' <br/>Situação: ' . $cp['nomeStatus'];
         $textoUsuario = $textoUsuario . $problemaUrbanoEmail;
         $textoUsuario = $textoUsuario . '<br/>
-            <br/>Para visualizar o problema click <a href="' . base_url("?problema=" . $latLog) . '">aqui</a></br> ';
+            <br/>Para visualizar o problema clique <a href="' . base_url("?problema=" . $latLog) . '">aqui</a></br> ';
 
 
-        $assunto = 'Colaboração Pendente';
-        $this->email->from('hairtontcc@yahoo.com.br', 'Projeto TCC');
+        $assunto = 'Colaboração pendente';
+        $this->email->from('hairtontcc@yahoo.com.br', 'Problemas urbanos');
         $this->email->to($cp['emailCidadao']);
         $this->email->subject($assunto);
         $this->email->message($textoUsuario);
@@ -173,19 +173,19 @@ class colaboracao extends CI_Controller {
 
         $cp = get_object_vars($cidadaoProblema[0]);
 
-        $textoMensagem = $cp['nomeCidadao'] . ', o problema urbano que você nos apresentou, já está em execução, confira no link abaixo. <a href="' . base_url() . '">Click aqui</a> e acesso os sistema e confira as outras reportagens.';
+        $textoMensagem = $cp['nomeCidadao'] . ', o problema que você nos apresentou, já está em execução, confira no link abaixo. <a href="' . base_url() . '">Click aqui</a> e acesso os sistema e confira as outras reportagens.';
 
 
         //$latLog = base64_encode('(' . $cp['latitude'] . ',' . $cp['longitude'] . ')');
-        $problemaUrbanoEmail = '<br/><br/><strong>Dados do problema</strong><br/>Tipo: ' . $cp['tipo'] . '<br/>Descrição: ' . $cp['descricao'] . '<br/>data de abretura: ' . implode("/", array_reverse(explode("-", $cp['data']))) . ' <br/>Situação: ' . $cp['nomeStatus'];
+        $problemaUrbanoEmail = '<br/><br/><strong>Dados do problema</strong><br/>Tipo: ' . $cp['tipo'] . '<br/>Descrição: ' . $cp['descricao'] . '<br/>Data de abertura: ' . implode("/", array_reverse(explode("-", $cp['data']))) . ' <br/>Situação: ' . $cp['nomeStatus'];
         $textoMensagem = $textoMensagem . $problemaUrbanoEmail;
         $textoUsuario = $textoUsuario . '<br/>
-            <br/>Para visualizar o problema click <a href="' . base_url("?problema=" . $latLog) . '">aqui</a></br> ';
+            <br/>Para visualizar o problema clique <a href="' . base_url("?problema=" . $latLog) . '">aqui</a></br> ';
 
 
 
         $assunto = 'Colaboração em manutenção';
-        $this->email->from('hairtontcc@yahoo.com.br', 'Problema urbano');
+        $this->email->from('hairtontcc@yahoo.com.br', 'Problemas urbanos');
         $this->email->to($cp['emailCidadao']);
         $this->email->subject($assunto);
         $this->email->message($textoMensagem);
@@ -212,18 +212,18 @@ class colaboracao extends CI_Controller {
 
         $latLog = base64_encode('(' . $cp['latitude'] . ',' . $cp['longitude'] . ')');
 
-        $textoMensagem = $cp['nomeCidadao'] . ', o problema urbano que você aprensentou já foi concluído. Para visualizar <a href="' . base_url("?problema=" . $latLog) . '">Click aqui</a>.';
+        $textoMensagem = $cp['nomeCidadao'] . ', o problema que você aprensentou já foi concluído. Para visualizar <a href="' . base_url("?problema=" . $latLog) . '">Clique aqui</a>.';
 
         //     $textoMensagem =  ', o problema urbano que você reportou esta em manutenção.  e acesso os sistema e confira as outras reportagens.';
 
-        $problemaUrbanoEmail = '<br/><br/><strong>Dados do problema</strong><br/>Tipo: ' . $cp['tipo'] . '<br/>Descrição: ' . $cp['descricao'] . '<br/>data de abretura: ' . implode("/", array_reverse(explode("-", $cp['data']))) . ' <br/>Situação: ' . $cp['nomeStatus'];
+        $problemaUrbanoEmail = '<br/><br/><strong>Dados do problema</strong><br/>Tipo: ' . $cp['tipo'] . '<br/>Descrição: ' . $cp['descricao'] . '<br/>Data de abertura: ' . implode("/", array_reverse(explode("-", $cp['data']))) . ' <br/>Situação: ' . $cp['nomeStatus'];
         $textoMensagem = $textoMensagem . $problemaUrbanoEmail;
 //        $textoUsuario = $textoUsuario . '<br/>
 //            <br/>Para visualizar o problema click <a href="' . base_url("?problema=" . $latLog) . '">aqui</a></br> ';
 
 
-        $assunto = 'Colaboração Concluida';
-        $this->email->from('hairtontcc@yahoo.com.br', 'Projeto TCC');
+        $assunto = 'Colaboração concluída';
+        $this->email->from('hairtontcc@yahoo.com.br', 'Problemas urbanos');
         $this->email->to($cp['emailCidadao']);
         $this->email->subject($assunto);
         $this->email->message($textoMensagem);
@@ -252,15 +252,17 @@ class colaboracao extends CI_Controller {
             );
 
             $this->colaboracao_model->alterarComentario($idComentario, $dados);
+            $comentariaNaoAvaliados = $this->colaboracao_model->obterComentarioNaoModerados()->result();
+            echo count($comentariaNaoAvaliados);
         }
     }
 
     function rejeitarComentario() {
         if (isset($_POST['idComentario'])) {
             $idComentario = $_POST['idComentario'];
-
-
             $this->colaboracao_model->excluirComentarioRejeitado($idComentario);
+            $comentariaNaoAvaliados = $this->colaboracao_model->obterComentarioNaoModerados()->result();
+            echo count($comentariaNaoAvaliados);
         }
     }
 

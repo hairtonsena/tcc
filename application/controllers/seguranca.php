@@ -94,7 +94,10 @@ class seguranca extends CI_Controller {
             $this->load->view('user_cidadao/seguranca/formLogin_view', $dados);
         } else {
 
-            echo '<script language = "JavaScript">location.href = "' . base_url() . '";</script>';
+            echo '<script language = "JavaScript"> window.location.href = "' . base_url("manimaps/inicio") . '";</script>';
+            
+            echo '<h4 class="text-center">Carregando...</h4>';
+//            echo "<meta HTTP-EQUIV='refresh' CONTENT='5'; URL='".base_url()."'>";
         }
     }
 
@@ -340,23 +343,23 @@ class seguranca extends CI_Controller {
 
                 $textoMensagem = "Foi gerada uma nova senha para que você continue acompanhando a situação que nos apresentou.<br/>
                                 Aconselhamos, que assim que logar altere sua senha, para sua segurança. </br>  
-                                Click <a href='" . base_url() . "'>aqui</a> para acessar o sistema.    
+                                Clique <a href='" . base_url() . "'>aqui</a> para acessar o sistema.    
                                 <br/><br/> Senha: " . $novaSenha . "";
 
-                $tituloMensagem = 'Problema urbano, nova senha';
+                $tituloMensagem = 'Problemas urbanos, nova senha';
 
                 // $paraEmail = $email;
                 $assunto = $tituloMensagem;
 
 
                 // $assunto = 'Novo Email Projeto TCC';
-                $this->email->from('hairtontcc@yahoo.com.br', 'Problema urbano');
+                $this->email->from('hairtontcc@yahoo.com.br', 'Problemas urbanos');
                 $this->email->to($email);
                 $this->email->subject($assunto);
                 $this->email->message($textoMensagem);
 
                 if (!$this->email->send()) {
-                    $this->email->print_debugger();
+                   $this->email->print_debugger();
                 }
 
                 echo '

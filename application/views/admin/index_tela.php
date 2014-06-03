@@ -7,12 +7,14 @@ foreach ($configuracao as $cf) {
 
 <html>
     <head>
-        <title> Problema urbano </title>
+        <title> Problemas urbanos </title>
         <meta charset="utf-8"/>
         <link rel="shortcut icon" href="<?php echo base_url("icone/pu.ico"); ?>" type="image/x-icon" />
         <link href="<?php echo base_url("css/bt3/css/bootstrap.min.css"); ?>" rel="stylesheet">  
         <style type="text/css">
 
+            body {margin-top: 51px;}
+            
             .btn-cancelar {
                 background-color: #f6f6f6;
             }
@@ -66,21 +68,21 @@ if ($configuraPagina->streetViewMaps == 1) {
 
                     <a class="navbar-brand" style="margin: 0px 0px 0px 0px; padding:0px 0px 0px 0px;"  href="">
                         <img src="<?php echo base_url("icone/PU321.png") ?>" height="50px" />
-                        Problema urbano
+                        Problemas urbanos
                     </a>
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li class=""><a  href="<?php echo base_url("cpainel/home") ?>" >Inicio</a></li>
-                        <li class=""><a href="javascript:void(0)" onclick="Gestor.editarGestor()">Gestor</a></li>                                                
+                        <li class=""><a  href="<?php echo base_url("cpainel/home") ?>" ><span class="glyphicon glyphicon-home"></span> Início</a></li>
+                        <li class=""><a href="javascript:void(0)" onclick="Gestor.editarGestor()"><span class="glyphicon glyphicon-list-alt"></span> Gestor</a></li>                                                
                     </ul>
 
 
                     <ul class="nav navbar-nav navbar-right">
 
-                        <li class="active"><a href="<?php echo base_url("cpainel/configuracao") ?>" >Configuração</a></li>
+                        <li class="active"><a href="<?php echo base_url("cpainel/configuracao") ?>" ><span class="glyphicon glyphicon-cog"></span> Configuração</a></li>
                         <li class="dropdown">
                             <a href="javascript:void(0)" class="btn dropdown-toggle" data-toggle="dropdown" href="#"> 
                                 <span class="glyphicon glyphicon-user"></span>

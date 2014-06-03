@@ -11,6 +11,8 @@ var Problema = {
         var longitude = $('#longitude').val();
         var tipo = $("#tipo").val();
         var descricao = $("#descricao").val();
+        
+        $("#windowModal").html('<h4 class="text-center"> Carregando... </h4>');
 
         var parametro = "latitude=" + latitude + "&longitude=" + longitude + "&tipo=" + tipo + "&descricao=" + descricao;
         var url = Config.base_url + "colaboracao/salvarNovaColaboracao";

@@ -10,7 +10,7 @@ foreach ($configuracao as $cf) {
     <head>
         <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
         <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
-        <title>Problema urbano </title>
+        <title>Problemas urbanos </title>
         <meta charset="utf-8">
         <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 
@@ -26,6 +26,7 @@ foreach ($configuracao as $cf) {
           <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
         <link rel="shortcut icon" href="<?php echo base_url("icone/pu.ico"); ?>" type="image/x-icon" />
+
 
         <script type="text/javascript">
 
@@ -63,14 +64,14 @@ if ($configuraPagina->streetViewMaps == 1) {
 
                     <a class="navbar-brand" style="margin: 0px 0px 0px 0px; padding:0px 10px 0px 0px;"  href="">
                         <img src="<?php echo base_url("icone/PU321.png") ?>" height="50px" />
-                        Problema urbano
+                        Problemas urbanos
                     </a>
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <div class="" >
-                        <label onclick="Tela.alternarButao()" class="btn btn-primary navbar-btn navbar-left pull-left">
+                        <label class="btn btn-primary navbar-btn navbar-left pull-left">
                             <input type="checkbox" id="addColaboracao"><!-- <span class="glyphicon glyphicon-ok-circle"></span>--> Reportar problema
                         </label>
                     </div>
@@ -132,6 +133,7 @@ if ($configuraPagina->streetViewMaps == 1) {
                     <div id="map_canvas">
 
                     </div>
+
                 </div>
                 <div class="col-sm-3 col-md-3 sidebar" id="calunaDireita">
                     <div id="filtros" >
@@ -227,16 +229,14 @@ if ($configuraPagina->streetViewMaps == 1) {
         <script type="text/javascript" src="<?php echo base_url("jsn/carregarMapsCidadao.js"); ?>"></script>        
         <script type="text/javascript" src="<?php echo base_url("jsn/problemaCidadao.js"); ?>"></script>
         <script type="text/javascript" src="<?php echo base_url("jsn/configuracao.js"); ?>"></script>
-        <script type="text/javascript" src="<?php echo base_url("jsn/jqxcore.js"); ?>"></script>
-        <script type="text/javascript" src="<?php echo base_url("jsn/jqxmenu.js"); ?>"></script>
+
+        <!--Codigo novo de contexto menu (Botão direito);-->
+        <script type="text/javascript" src="<?php echo base_url("jsn/contextMenu.js"); ?>"></script>
+
         <script type="text/javascript" src="<?php echo base_url("jsn/jquery.form.js"); ?>"></script>
         <script src="<?php echo base_url("jsn/jquery-ui.custom.min.js") ?>"></script>
 
-        <div id='jqxMenu' class="" >
 
-            <a class="btn btn-default" href="#" onclick="Conteudo.adicionarPontoBotaoDireito()">Reportar problema</a>
-
-        </div>
         <?php
         if ($this->session->userdata('local')) {
             ?>

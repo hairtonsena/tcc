@@ -21,7 +21,7 @@ foreach ($configuracao as $cf) {
         <div class="col-md-12"><?php echo $configuraPagina->cnpjMunicipio ?></div>
         <br/>
         <br/>
-        <span class="col-md-12"><strong>CEP :</strong></span>
+        <span class="col-md-12"><strong>Endereço :</strong></span>
         <div class="col-md-12"><?php echo $configuraPagina->cepMunicipio ?></div> 
         <br/>
         <br/>
@@ -33,11 +33,10 @@ foreach ($configuracao as $cf) {
         <div class="col-md-12"><?php echo $configuraPagina->emailMunicipio ?></div> 
         <br/>
         <br/>
-        
-        <span class="col-md-12"><strong>Web Site :</strong></span>
-        <div class="col-md-12"><?php if (trim($configuraPagina->siteMunicipio) != ""){
-            echo "<a href='".$configuraPagina->siteMunicipio."' target='_blank'>". $configuraPagina->siteMunicipio ."</a>"; 
-            
-        }?></div> 
+        <?php if (trim($configuraPagina->siteMunicipio) != "") { ?>
+            <span class="col-md-12"><strong>Web Site :</strong></span>
+            <div class="col-md-12">
+                <a href="<?php echo $configuraPagina->siteMunicipio ?>" target='_blank'><?php echo $configuraPagina->siteMunicipio ?></a>
+            </div> <?php } ?>
     </div>
 </div>

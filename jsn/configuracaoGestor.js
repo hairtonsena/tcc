@@ -17,7 +17,24 @@ CarregarPagina = {
             url: pg,
             data: parametro,
             success: function(retorno) {
-            // $("#windowModal").html(retorno);
+                // $("#windowModal").html(retorno);
+            }
+        });
+    },
+    moderarComentairo: function(pg, parametro) {
+        $.ajax({
+            type: "post",
+            url: pg,
+            data: parametro,
+            success: function(retorno) {
+                // $("#windowModal").html(retorno);
+                $('#qtdeComentarioMederar').html(retorno);
+                // recarregar os problema da tela inicial.
+                var status = $("#status").val();
+                var categoria = $("#categoria").val();
+                var ordem = $("#ordem").val();
+
+                Conteudo.generateRandomMarkers(status, categoria, ordem)
             }
         });
     }
@@ -36,7 +53,7 @@ Tela = {
     },
     abrirModal: function() {
         $("#myModal").modal("show");
-        $("#windowModal").html('<h2> Carregando... </h2>');
+        $("#windowModal").html('<h4 class="text-center"> Carregando... </h4>');
     },
     fecharModal: function() {
         $("#myModal").modal("hide");

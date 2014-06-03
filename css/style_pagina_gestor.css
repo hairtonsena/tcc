@@ -1,16 +1,7 @@
-/* 
-    Document   : styleAdmin
-    Created on : 09/04/2013, 23:14:09
-    Author     : Teste
-    Description:
-        Purpose of the stylesheet follows.
-*/
-
-
-
 html {
     height: 100%;
 }
+
 body {
     /*height: 100%;*/
     margin: 52px 0px 0px 0px;
@@ -118,9 +109,10 @@ body {
     display: block;
 }
 @media (min-width: 768px) {
+    body {margin: 51px 0px 0px 0px;} 
     .sidebar {
         position: fixed;
-        top: 51px;
+        top: 52px;
         bottom: 0;
         /*left: 0;*/
         right: 0;
@@ -137,7 +129,7 @@ body {
 
 @media (min-width: 1161px) {
 
-    body {margin: 0px 0px 0px 0px;} 
+    body {margin: 52px 0px 0px 0px;} 
 
     .sidebar {
         position: fixed;
